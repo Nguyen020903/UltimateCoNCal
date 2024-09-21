@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EJK7X0M3KH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-EJK7X0M3KH');
+    </script>
+	<!-- Html Head -->
+    <head>
+        <title>🧮 Conflict's of Nations' Calculator</title>
+		<meta name="description" content="Resources and Production calculation/generation for Conflict of Nations game">
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <style>
+            body,h1,h2,h3,h4,h5 {font-family: "Calibri", sans-serif}
+        </style>
+        <link rel="stylesheet" href="main.css">
+        <!-- Link to JS script -->
+        <script type="text/javascript" src="rescity.js"></script>
+    </head>    
+    
+    <!-- src=point to script file -->
+    <script src="script.js"></script>
+
+    <!-- Header -->
+    <header class="universal-header"> 
+        <h1 align="center"><b>CoNCal</b></h1>
+    </header>
+
+    <!-- Section-1 -->
+    <div class="w3-card-4 w3-margin w3-white" style="border-radius:20px;">
+      <div class="w3-container">
+        <h3><b>Resource's Calculator (City) v0.4</b></h3>
+        <p><strong>Currently being rework into website.</strong> expect some minor error but if it is major you could notice me (playbabeTheBookShelf) at CON official discord</p>
+
+    </div>  
+      <div class="w3-container">   
+        <div class="line">
+            <p>City State: </p>
+            <select id="c">
+                <option selected value="1">Homeland</option>
+                <option value="0.5">Annexed</option>
+                <option value="0.25">Occupied</option>
+              </select>
+        </div>
+        
+        <div class="line">
+            <p>Morale (0-100): </p>
+            <input type="Number" id="a" value="70" min="0" max="100">
+        </div>
+        
+        <div class="line">
+            <p>Population (1.0-10.0): </p>
+            <input type="Number" id="b" value="5" min="1" max="10" step="0.1">
+        </div>
+
+        <div class="line">
+            <p>Arms industry lv. (0.0-5.0): </p>
+            <img style="display: inline;" width="45" height="40" src="/assets/arms_industries.png" alt="Arms Industries">
+            <input type="Number" id="d" value="0" min="0" max="5" step="0.1">
+        </div>
+
+        <div class="line">
+            <p>Air base lv. (0.0-5.0): </p>
+            <img style="display: inline;" width="45" height="40" src="/assets/air_base.png" alt="Air Base">
+            <input type="Number" id="e" value="0" min="0" max="5" step="0.1">
+        </div>
+
+        <div class="line">
+            <p>Naval base lv. (1.0-5.0) Set to 1 if doesn't has: </p>
+            <img style="display: inline;" width="45" height="40" src="/assets/naval_base.png" alt="Naval Base">
+            <input type="Number" id="f" value="1" min="1" max="10" step="0.1">
+        </div>
+
+        <div class="line">
+            <p>Custom Multiplier (two input for combimation): </p>
+            <input type="Number" id="g" value="1" min="0" max="10">
+            <input type="Number" id="n" value="1" min="0" max="10">
+            <div class="tooltip">[info]
+                <span class="tooltiptext">
+                <p>Known example:
+                <br>0.75 (x3/4) for 4x speed game.
+                <br>0.75 (x3/4) for 4x speed game.
+                <br>0.6 (x3/5) for 10x speed game.
+                <br>0.75 (x3/4) for some city.
+                <br>1.33 (x4/3) for some city.
+                <br>0.67 (x2/3) for some city.</p>                    
+                </span>
+            </div>
+        </div>
+
+        <div>
+
+            </p>
+        </div>
+        
+        <!-- Section-1 output table -->
+        <h5 style="line-height: 10px;">Resource's Production (unit/day)</h5>
+        <div class="rsoutput" style="font-weight: bold;">
+            <div><img style="display: inline;" width="45" height="40" src="/assets/supply.png" alt="Supply"><p id="rsoutput-supply">1701</p></div>
+            <div><img style="display: inline;" width="45" height="40" src="/assets/component.png" alt="Component"><p id="rsoutput-component">1458</p></div>
+            <div><img style="display: inline;" width="45" height="40" src="/assets/fuel.png" alt="Fuel"><p id="rsoutput-fuel">1701</p></div>  
+            <div><img style="display: inline;" width="45" height="40" src="/assets/electronic.png" alt="Electronic"><p id="rsoutput-electronic">1215</p></div>  
+            <div><img style="display: inline;" width="45" height="40" src="/assets/rare_material.png" alt="Rare Material"><p id="rsoutput-rare_material">972</p></div> 
+            <div><img style="display: inline;" width="45" height="40" src="/assets/money.png" alt="Money"><p id="rsoutput-money">1215</p></div> 
+        </div>
+      </div>
+    </div>
+
+    <!-- Section-2 -->
+    <div class="w3-card-4 w3-margin w3-white" style="border-radius:20px;">
+        <div class="w3-container">
+          <h3><b>Resource's Calculator (Province)</b></h3>
+        </div>  
+        <div class="w3-container">               
+          <div class="line">
+              <p>Morale (0-100): </p>
+              <input type="Number" id="o" value="70" min="0" max="100">
+          </div>
+   
+          <div class="line">
+            <p>Custom Multiplier (two input for combimation): </p>
+            <input type="Number" id="p" value="1" min="0" max="10">
+            <input type="Number" id="q" value="1" min="0" max="10">
+            <div class="tooltip">[info]
+                <span class="tooltiptext">
+                <p>Known example:
+                <br>0.75 (x3/4) for 4x speed game.
+                <br>0.75 (x3/4) for 4x speed game.
+                <br>0.6 (x3/5) for 10x speed game.
+                <br>0.75 (x3/4) for some province.
+                <br>1.33 (x4/3) for some province.
+                <br>0.67 (x2/3) for some province.
+                <br>0.5 (x1/2) for some province.</p>                    
+                </span>
+            </div>
+          </div>
+
+        </div>
+          
+        <!-- Section-2 output table -->
+          <h5 style="line-height: 10px;">Resource's Production (unit/day)</h5>
+          <!-- table head -->
+          <div class="rsoutput_table" style="font-weight: bold; width: fit-content; height: fit-content;">
+            <div class="rsoutput_table_row">
+                <div class="rsoutput_table_cell">Industry</div>
+                <div class="rsoutput_table_cell"><img style="display: inline;" width="45" height="40" src="/assets/supply.png" alt="Supply"></div>
+                <div class="rsoutput_table_cell"><img style="display: inline;" width="45" height="40" src="/assets/component.png" alt="Component"></div>
+                <div class="rsoutput_table_cell"><img style="display: inline;" width="45" height="40" src="/assets/fuel.png" alt="Fuel"></div>
+                <div class="rsoutput_table_cell"><img style="display: inline;" width="45" height="40" src="/assets/electronic.png" alt="Electronic"></div>
+                <div class="rsoutput_table_cell"><img style="display: inline;" width="45" height="40" src="/assets/rare_material.png" alt="Rare Material"></div>
+                <div class="rsoutput_table_cell"><img style="display: inline;" width="45" height="40" src="/assets/money.png" alt="Money"></div>
+            <!-- Section-2 output table -->
+            </div>
+            <div class="rsoutput_table_row">
+                <div class="rsoutput_table_cell">-</div>
+                <div class="rsoutput_table_cell"><p id="rsoutput-supply-p-0">170</p></div>
+                <div class="rsoutput_table_cell"><p id="rsoutput-component-p-0">146</p></div>
+                <div class="rsoutput_table_cell"><p id="rsoutput-fuel-p-0">170</p></div>  
+                <div class="rsoutput_table_cell"><p id="rsoutput-electronic-p-0">122</p></div>
+                <div class="rsoutput_table_cell"><p id="rsoutput-rare_material-p-0">97</p></div> 
+                <div class="rsoutput_table_cell"><p id="rsoutput-money-p">91</p></div> 
+            </div>
+
+            <div class="rsoutput_table_row">
+                <div class="rsoutput_table_cell">Lv.1</div>
+                <div class="rsoutput_table_cell"><p id="rsoutput-supply-p-1">340</p></div>
+                <div class="rsoutput_table_cell"><p id="rsoutput-component-p-1">292</p></div>
+                <div class="rsoutput_table_cell"><p id="rsoutput-fuel-p-1">340</p></div>  
+                <div class="rsoutput_table_cell"><p id="rsoutput-electronic-p-1">243</p></div>
+                <div class="rsoutput_table_cell"><p id="rsoutput-rare_material-p-1">194</p></div> 
+                <div class="rsoutput_table_cell">---</p></div> 
+            </div>
+
+            <div class="rsoutput_table_row">
+                <div class="rsoutput_table_cell">Lv.2</div>
+                <div class="rsoutput_table_cell"><p id="rsoutput-supply-p-2">425</p></div>
+                <div class="rsoutput_table_cell"><p id="rsoutput-component-p-2">365</p></div>
+                <div class="rsoutput_table_cell"><p id="rsoutput-fuel-p-2">425</p></div>  
+                <div class="rsoutput_table_cell"><p id="rsoutput-electronic-p-2">304</p></div>
+                <div class="rsoutput_table_cell"><p id="rsoutput-rare_material-p-2">243</p></div> 
+                <div class="rsoutput_table_cell">---</p></div> 
+            </div>
+
+            <div class="rsoutput_table_row">
+                <div class="rsoutput_table_cell">Lv.3</div>
+                <div class="rsoutput_table_cell"><p id="rsoutput-supply-p-3">510</p></div>
+                <div class="rsoutput_table_cell"><p id="rsoutput-component-p-3">437</p></div>
+                <div class="rsoutput_table_cell"><p id="rsoutput-fuel-p-3">510</p></div>  
+                <div class="rsoutput_table_cell"><p id="rsoutput-electronic-p-3">365</p></div>
+                <div class="rsoutput_table_cell"><p id="rsoutput-rare_material-p-3">292</p></div> 
+                <div class="rsoutput_table_cell">---</p></div> 
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </body>
+</html>
