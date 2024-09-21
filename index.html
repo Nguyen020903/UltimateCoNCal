@@ -35,8 +35,6 @@
     <div class="w3-card-4 w3-margin w3-white" style="border-radius:20px;">
       <div class="w3-container">
         <h3><b>Resource's Calculator (City) v0.4</b></h3>
-        <p><strong>Currently being rework into website.</strong> expect some minor error but if it is major you could notice me (playbabeTheBookShelf) at CON official discord</p>
-
     </div>  
       <div class="w3-container">   
         <div class="line">
@@ -77,24 +75,40 @@
         </div>
 
         <div class="line">
-            <p>Custom Multiplier (two input for combimation): </p>
-            <input type="Number" id="g" value="1" min="0" max="10">
-            <input type="Number" id="n" value="1" min="0" max="10">
+            <p>Game mode: </p>
+            <p>Game mode: </p>
+            <select id="g">
+                <option value="1">1x</option>
+                <option value="4">4x</option>
+                <option value="10">10x</option>
+            </select>
+            <input type="hidden" id="n" value="1" min="0" max="1000">
             <div class="tooltip">[info]
                 <span class="tooltiptext">
-                <p>Known example:
-                <br>0.75 (x3/4) for 4x speed game.
-                <br>0.6 (x3/5) for 10x speed game.
-                <br>0.75 (x3/4) for some city.
-                <br>1.33 (x4/3) for some city.
-                <br>0.67 (x2/3) for some city.</p>                    
+                <br>4 for 4x speed game.
+                <br>10 for 10x speed game.                    
                 </span>
             </div>
         </div>
-
-        <div>
-
-            </p>
+        <div class="line">
+            <p>Number of supply city: </p>
+            <input type="Number" id="sc" value="1" min="1" max="1000" step="1">
+        </div>
+        <div class="line">
+            <p>Number of component city: </p>
+            <input type="Number" id="cc" value="1" min="1" max="1000" step="1">
+        </div>
+        <div class="line">
+            <p>Number of fuel city: </p>
+            <input type="Number" id="fc" value="1" min="1" max="1000" step="1">
+        </div>
+        <div class="line">
+            <p>Number of electronic city: </p>
+            <input type="Number" id="ec" value="1" min="1" max="1000" step="1">
+        </div>
+        <div class="line">
+            <p>Number of rare material city: </p>
+            <input type="Number" id="rc" value="1" min="1" max="1000" step="1">
         </div>
         
         <!-- Section-1 output table -->

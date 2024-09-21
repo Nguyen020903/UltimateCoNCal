@@ -1,5 +1,5 @@
 // Attach event listeners to inputs For calculating city resources
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("a").addEventListener("input", ResCalCity);
     document.getElementById("b").addEventListener("input", ResCalCity);
     document.getElementById("c").addEventListener("input", ResCalCity);
@@ -8,6 +8,12 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("f").addEventListener("input", ResCalCity);
     document.getElementById("g").addEventListener("input", ResCalCity);
     document.getElementById("n").addEventListener("input", ResCalCity);
+    document.getElementById("sc").addEventListener("input", ResCalCity); // Supply city
+    document.getElementById("cc").addEventListener("input", ResCalCity); // Component city
+    document.getElementById("fc").addEventListener("input", ResCalCity); // Fuel city
+    document.getElementById("ec").addEventListener("input", ResCalCity); // Electronic city
+    document.getElementById("rc").addEventListener("input", ResCalCity); // Rare material city
+
     //for province cal
     document.getElementById("o").addEventListener("input", ResCalProvince);
     document.getElementById("p").addEventListener("input", ResCalProvince);
@@ -15,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // Function For calculating city resources
-function ResCalCity(){
+function ResCalCity() {
     //morale
     var a = parseFloat(document.getElementById("a").value);
     //pop                
@@ -31,24 +37,30 @@ function ResCalCity(){
     //custom multiplier
     var g = parseFloat(document.getElementById("g").value);
     var n = parseFloat(document.getElementById("n").value);
+    // city number
+    var sc = parseFloat(document.getElementById("sc").value);
+    var cc = parseFloat(document.getElementById("cc").value);
+    var fc = parseFloat(document.getElementById("fc").value);
+    var ec = parseFloat(document.getElementById("ec").value);
+    var rc = parseFloat(document.getElementById("rc").value);
     //turn Morale to Mulitplier
-    var h = ((a/100)*0.8)+0.25
+    var h = ((a / 100) * 0.8) + 0.25
     //turn Arm & Air base & Naval base to Mulitplier
-    var i = 1+(((d*10)+(e*5)+((f-1)*5))*0.01)
+    var i = 1 + (((d * 10) + (e * 5) + ((f - 1) * 5)) * 0.01)
     //turn Population to Multiplier
-    if (b >= 5){
-        var j = 1+((b-5)*0.05) 
+    if (b >= 5) {
+        var j = 1 + ((b - 5) * 0.05)
     } else {
-        var j = 1-((5-b)*0.2)
+        var j = 1 - ((5 - b) * 0.2)
     }
     //sum of all multiplier
-    var k = j*h*i*g*c*n
+    var k = j * h * i * g * c
     //output display for resources
-    document.getElementById("rsoutput-supply").innerText = Math.round(k * 2100);
-    document.getElementById("rsoutput-component").innerText = Math.round(k * 1800);
-    document.getElementById("rsoutput-fuel").innerText = Math.round(k * 2100);
-    document.getElementById("rsoutput-electronic").innerText = Math.round(k * 1500);
-    document.getElementById("rsoutput-rare_material").innerText = Math.round(k * 1200);
+    document.getElementById("rsoutput-supply").innerText = Math.round(sc * k * 2100);
+    document.getElementById("rsoutput-component").innerText = Math.round(cc * k * 1800);
+    document.getElementById("rsoutput-fuel").innerText = Math.round(fc * k * 2100);
+    document.getElementById("rsoutput-electronic").innerText = Math.round(ec * k * 1500);
+    document.getElementById("rsoutput-rare_material").innerText = Math.round(rc * k * 1200);
     //This section is for money production calculation
     //turn arm to flat money rate
     var l = Math.floor(d);
@@ -62,20 +74,20 @@ function ResCalCity(){
     };
     var m = valueMap[l];
     //output display for money & do math for money
-    document.getElementById("rsoutput-money").innerText = Math.round(k*1500)+m;
+    document.getElementById("rsoutput-money").innerText = Math.round(k * 1500) + m;
 }
 
 // Function For calculating province resources
-function ResCalProvince(){
+function ResCalProvince() {
     //morale
     var o = parseFloat(document.getElementById("o").value);
     //custom multiplier
     var p = parseFloat(document.getElementById("p").value);
     var q = parseFloat(document.getElementById("q").value);
     //turn Morale to Mulitplier
-    var r = ((o/100)*0.8)+0.25
+    var r = ((o / 100) * 0.8) + 0.25
     //sum of all multiplier
-    var s = p*q*r
+    var s = p * q * r
     //output display for resources
     ////No local industry
     document.getElementById("rsoutput-supply-p-0").innerText = Math.round(s * 210);
