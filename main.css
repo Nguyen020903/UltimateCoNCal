@@ -105,6 +105,9 @@ select {
 
 /* Style for tabs */
 .tab {
+  display: flex;
+  justify-content: center;
+  /* This centers the buttons horizontally */
   overflow: hidden;
   border: 1px solid #ccc;
   background-color: #f1f1f1;
@@ -114,13 +117,14 @@ select {
 /* Style the buttons inside the tab */
 .tab button {
   background-color: inherit;
-  float: left;
   border: none;
   outline: none;
   cursor: pointer;
   padding: 14px 16px;
   transition: 0.3s;
   font-size: 17px;
+  margin: 0 5px;
+  /* Add some spacing between buttons */
 }
 
 /* Change background color of buttons on hover */
@@ -132,6 +136,7 @@ select {
 .tab button.active {
   background-color: #ccc;
 }
+
 
 /* Style the tab content */
 .tabcontent {

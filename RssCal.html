@@ -43,13 +43,30 @@
 <div class="w3-card-4 w3-margin w3-white" style="border-radius:20px;">
     <div class="w3-container">
         <h3><b>Resource's Calculator (City) v0.6</b></h3>
+        <div class="line">
+            <p>Game mode: </p>
+            <select id="g">
+                <option value="1">1x</option>
+                <option value="4">4x</option>
+                <option value="10">10x</option>
+            </select>
+            <input type="hidden" id="n" value="1" min="0" max="1000">
+            <div class="tooltip">[info]
+                <span class="tooltiptext">
+                    <br>4 for 4x speed game.
+                    <br>10 for 10x speed game.
+                </span>
+            </div>
+        </div>
     </div>
     <div class="w3-container">
         <!-- Tab buttons -->
         <div class="tab">
-            <button class="tablinks" onclick="openTab(event, 'Tab1')" id="defaultOpen">City State</button>
-            <button class="tablinks" onclick="openTab(event, 'Tab2')">Infrastructure</button>
-            <button class="tablinks" onclick="openTab(event, 'Tab3')">Production</button>
+            <button class="tablinks" onclick="openTab(event, 'Tab1')" id="defaultOpen">Supply</button>
+            <button class="tablinks" onclick="openTab(event, 'Tab2')">Component</button>
+            <button class="tablinks" onclick="openTab(event, 'Tab3')">Fuel</button>
+            <button class="tablinks" onclick="openTab(event, 'Tab4')">Electronic</button>
+            <button class="tablinks" onclick="openTab(event, 'Tab5')">Rare Material</button>
         </div>
         <!-- Tab content 1: Supply -->
         <div id="Tab1" class="tabcontent">
@@ -89,44 +106,43 @@
                 <img style="display: inline;" width="45" height="40" src="./assets/naval_base.png" alt="Naval Base">
                 <input type="Number" id="f" value="1" min="1" max="10" step="0.1">
             </div>
-
-            <div class="line">
-                <p>Game mode: </p>
-                <p>Game mode: </p>
-                <select id="g">
-                    <option value="1">1x</option>
-                    <option value="4">4x</option>
-                    <option value="10">10x</option>
-                </select>
-                <input type="hidden" id="n" value="1" min="0" max="1000">
-                <div class="tooltip">[info]
-                    <span class="tooltiptext">
-                        <br>4 for 4x speed game.
-                        <br>10 for 10x speed game.
-                    </span>
-                </div>
-            </div>
             <div class="line">
                 <p>Number of supply city: </p>
                 <input type="Number" id="sc" value="1" min="1" max="1000" step="1">
             </div>
+        </div>
+
+        <!-- Tab content 2: Component -->
+        <div id="Tab2" class="tabcontent">
             <div class="line">
                 <p>Number of component city: </p>
                 <input type="Number" id="cc" value="1" min="1" max="1000" step="1">
             </div>
+
+        </div>
+
+        <!-- Tab content 3: Fuel -->
+        <div id="Tab3" class="tabcontent">
             <div class="line">
                 <p>Number of fuel city: </p>
                 <input type="Number" id="fc" value="1" min="1" max="1000" step="1">
             </div>
+        </div>
+        <!-- Tab content 4: Electronic -->
+        <div id="Tab4" class="tabcontent">
             <div class="line">
                 <p>Number of electronic city: </p>
                 <input type="Number" id="ec" value="1" min="1" max="1000" step="1">
             </div>
+        </div>
+        <!-- Tab content 5: Raremat -->
+        <div id="Tab5" class="tabcontent">
             <div class="line">
                 <p>Number of rare material city: </p>
                 <input type="Number" id="rc" value="1" min="1" max="1000" step="1">
             </div>
         </div>
+
 
         <!-- Section-1 output table -->
         <h5 style="line-height: 10px;">Resource's Production (unit/day)</h5>
@@ -293,6 +309,12 @@
 
     </div>
 </div>
+<div style="margin: 20px; text-align: center;">
+    <button onclick="location.href='index.html'" style="padding: 10px 20px; font-size: 16px; border-radius: 10px; background-color: #ddd; color: black; border: none; cursor: pointer;">
+        Return to Home
+    </button>
+</div>
+
 </div>
 
 </body>
