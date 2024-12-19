@@ -39,7 +39,7 @@ h2 {
   border-radius: 5px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   border: none;
-  background:white;
+  background: white;
 }
 
 .unit-type-btn.active {
@@ -86,6 +86,13 @@ h2 {
   align-items: center;
 }
 
+.image-container img {
+  width: 212px;
+  height: 140px;
+  margin-right: 20px;
+  border-radius: 10px;
+}
+
 /* unit tab*/
 .unit-list {
   display: flex;
@@ -94,4 +101,3 @@ h2 {
   justify-content: center;
   margin-top: 20px;
 }
-

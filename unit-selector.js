@@ -12,6 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const unitTypeButtons = document.querySelectorAll('.unit-type-btn');
     unitTypeButtons.forEach(button => {
         button.addEventListener('click', (e) => updateUnitType(e.target));
+        
+        // Set initial active state for Infantry button
+        if (button.textContent.toLowerCase() === 'infantry') {
+            button.classList.add('active');
+        }
     });
 
     // Set initial state
