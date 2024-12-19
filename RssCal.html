@@ -90,20 +90,19 @@
 
             <div class="line">
                 <p>Arms industry lv. (0.0-5.0): </p>
-                <img style="display: inline;" width="45" height="40" src="./assets/arms_industries.png"
+                <img style="display: inline;" width="45" height="40" src="./assets/resources/arms_industries.png"
                     alt="Arms Industries">
                 <input type="Number" id="d" value="0" min="0" max="5" step="0.1">
             </div>
-
             <div class="line">
                 <p>Air base lv. (0.0-5.0): </p>
-                <img style="display: inline;" width="45" height="40" src="./assets/air_base.png" alt="Air Base">
+                <img style="display: inline;" width="45" height="40" src="./assets/resources/air_base.png" alt="Air Base">
                 <input type="Number" id="e" value="0" min="0" max="5" step="0.1">
             </div>
 
             <div class="line">
                 <p>Naval base lv. (1.0-5.0) Set to 1 if doesn't has: </p>
-                <img style="display: inline;" width="45" height="40" src="./assets/naval_base.png" alt="Naval Base">
+                <img style="display: inline;" width="45" height="40" src="./assets/resources/naval_base.png" alt="Naval Base">
                 <input type="Number" id="f" value="1" min="1" max="10" step="0.1">
             </div>
             <div class="line">
@@ -147,23 +146,154 @@
         <!-- Section-1 output table -->
         <h5 style="line-height: 10px;">Resource's Production (unit/day)</h5>
         <div class="rsoutput" style="font-weight: bold;">
-            <div><img style="display: inline;" width="45" height="40" src="./assets/supply.png" alt="Supply">
+            <div><img style="display: inline;" width="45" height="40" src="./assets/resources/supply.png" alt="Supply">
                 <p id="rsoutput-supply">1701</p>
             </div>
-            <div><img style="display: inline;" width="45" height="40" src="./assets/component.png" alt="Component">
+            <div><img style="display: inline;" width="45" height="40" src="./assets/resources/component.png" alt="Component">
                 <p id="rsoutput-component">1458</p>
             </div>
-            <div><img style="display: inline;" width="45" height="40" src="./assets/fuel.png" alt="Fuel">
+            <div><img style="display: inline;" width="45" height="40" src="./assets/resources/fuel.png" alt="Fuel">
                 <p id="rsoutput-fuel">1701</p>
             </div>
-            <div><img style="display: inline;" width="45" height="40" src="./assets/electronic.png" alt="Electronic">
+            <div><img style="display: inline;" width="45" height="40" src="./assets/resources/electronic.png" alt="Electronic">
                 <p id="rsoutput-electronic">1215</p>
             </div>
-            <div><img style="display: inline;" width="45" height="40" src="./assets/rare_material.png"
+            <div><img style="display: inline;" width="45" height="40" src="./assets/resources/rare_material.png"
                     alt="Rare Material">
                 <p id="rsoutput-rare_material">972</p>
             </div>
-            <div><img style="display: inline;" width="45" height="40" src="./assets/money.png" alt="Money">
+            <div><img style="display: inline;" width="45" height="40" src="./assets/resources/money.png" alt="Money">
+                <p id="rsoutput-money">1215</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Section-1 -->
+<div class="w3-card-4 w3-margin w3-white" style="border-radius:20px;">
+    <div class="w3-container">
+        <h3><b>Resource's Calculator (City) v0.6</b></h3>
+        <div class="line">
+            <p>Game mode: </p>
+            <select id="g">
+                <option value="1">1x</option>
+                <option value="4">4x</option>
+                <option value="10">10x</option>
+            </select>
+            <input type="hidden" id="n" value="1" min="0" max="1000">
+            <div class="tooltip">[info]
+                <span class="tooltiptext">
+                    <br>4 for 4x speed game.
+                    <br>10 for 10x speed game.
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="w3-container">
+        <!-- Tab buttons -->
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'Tab1')" id="defaultOpen">Supply</button>
+            <button class="tablinks" onclick="openTab(event, 'Tab2')">Component</button>
+            <button class="tablinks" onclick="openTab(event, 'Tab3')">Fuel</button>
+            <button class="tablinks" onclick="openTab(event, 'Tab4')">Electronic</button>
+            <button class="tablinks" onclick="openTab(event, 'Tab5')">Rare Material</button>
+        </div>
+        <!-- Tab content 1: Supply -->
+        <div id="Tab1" class="tabcontent">
+            <div class="line">
+                <p>City State: </p>
+                <select id="c">
+                    <option selected value="1">Homeland</option>
+                    <option value="0.5">Annexed</option>
+                    <option value="0.25">Occupied</option>
+                </select>
+            </div>
+            <div class="line">
+                <p>Morale (0-100): </p>
+                <input type="Number" id="a" value="70" min="0" max="100">
+            </div>
+
+            <div class="line">
+                <p>Population (1.0-10.0): </p>
+                <input type="Number" id="b" value="5" min="1" max="10" step="0.1">
+            </div>
+
+            <div class="line">
+                <p>Arms industry lv. (0.0-5.0): </p>
+                <img style="display: inline;" width="45" height="40" src="./assets/resources/arms_industries.png"
+                    alt="Arms Industries">
+                <input type="Number" id="d" value="0" min="0" max="5" step="0.1">
+            </div>
+
+            <div class="line">
+                <p>Air base lv. (0.0-5.0): </p>
+                <img style="display: inline;" width="45" height="40" src="./assets/resources/air_base.png" alt="Air Base">
+                <input type="Number" id="e" value="0" min="0" max="5" step="0.1">
+            </div>
+
+            <div class="line">
+                <p>Naval base lv. (1.0-5.0) Set to 1 if doesn't has: </p>
+                <img style="display: inline;" width="45" height="40" src="./assets/resources/naval_base.png" alt="Naval Base">
+                <input type="Number" id="f" value="1" min="1" max="10" step="0.1">
+            </div>
+            <div class="line">
+                <p>Number of supply city: </p>
+                <input type="Number" id="sc" value="1" min="1" max="1000" step="1">
+            </div>
+        </div>
+
+        <!-- Tab content 2: Component -->
+        <div id="Tab2" class="tabcontent">
+            <div class="line">
+                <p>Number of component city: </p>
+                <input type="Number" id="cc" value="1" min="1" max="1000" step="1">
+            </div>
+
+        </div>
+
+        <!-- Tab content 3: Fuel -->
+        <div id="Tab3" class="tabcontent">
+            <div class="line">
+                <p>Number of fuel city: </p>
+                <input type="Number" id="fc" value="1" min="1" max="1000" step="1">
+            </div>
+        </div>
+        <!-- Tab content 4: Electronic -->
+        <div id="Tab4" class="tabcontent">
+            <div class="line">
+                <p>Number of electronic city: </p>
+                <input type="Number" id="ec" value="1" min="1" max="1000" step="1">
+            </div>
+        </div>
+        <!-- Tab content 5: Raremat -->
+        <div id="Tab5" class="tabcontent">
+            <div class="line">
+                <p>Number of rare material city: </p>
+                <input type="Number" id="rc" value="1" min="1" max="1000" step="1">
+            </div>
+        </div>
+
+
+        <!-- Section-1 output table -->
+        <h5 style="line-height: 10px;">Resource's Production (unit/day)</h5>
+        <div class="rsoutput" style="font-weight: bold;">
+            <div><img style="display: inline;" width="45" height="40" src="./assets/resources/supply.png" alt="Supply">
+                <p id="rsoutput-supply">1701</p>
+            </div>
+            <div><img style="display: inline;" width="45" height="40" src="./assets/resources/component.png" alt="Component">
+                <p id="rsoutput-component">1458</p>
+            </div>
+            <div><img style="display: inline;" width="45" height="40" src="./assets/resources/fuel.png" alt="Fuel">
+                <p id="rsoutput-fuel">1701</p>
+            </div>
+            <div><img style="display: inline;" width="45" height="40" src="./assets/resources/electronic.png" alt="Electronic">
+                <p id="rsoutput-electronic">1215</p>
+            </div>
+            <div><img style="display: inline;" width="45" height="40" src="./assets/resources/rare_material.png"
+                    alt="Rare Material">
+                <p id="rsoutput-rare_material">972</p>
+            </div>
+            <div><img style="display: inline;" width="45" height="40" src="./assets/resources/money.png" alt="Money">
                 <p id="rsoutput-money">1215</p>
             </div>
         </div>
@@ -209,17 +339,17 @@
         <div class="rsoutput_table_row">
             <div class="rsoutput_table_cell">Industry</div>
             <div class="rsoutput_table_cell"><img style="display: inline;" width="45" height="40"
-                    src="./assets/supply.png" alt="Supply"></div>
+                    src="./assets/resources/supply.png" alt="Supply"></div>
             <div class="rsoutput_table_cell"><img style="display: inline;" width="45" height="40"
-                    src="./assets/component.png" alt="Component"></div>
+                    src="./assets/resources/component.png" alt="Component"></div>
             <div class="rsoutput_table_cell"><img style="display: inline;" width="45" height="40"
-                    src="./assets/fuel.png" alt="Fuel"></div>
+                    src="./assets/resources/fuel.png" alt="Fuel"></div>
             <div class="rsoutput_table_cell"><img style="display: inline;" width="45" height="40"
-                    src="./assets/electronic.png" alt="Electronic"></div>
+                    src="./assets/resources/electronic.png" alt="Electronic"></div>
             <div class="rsoutput_table_cell"><img style="display: inline;" width="45" height="40"
-                    src="./assets/rare_material.png" alt="Rare Material"></div>
+                    src="./assets/resources/rare_material.png" alt="Rare Material"></div>
             <div class="rsoutput_table_cell"><img style="display: inline;" width="45" height="40"
-                    src="./assets/money.png" alt="Money"></div>
+                    src="./assets/resources/money.png" alt="Money"></div>
             <!-- Section-2 output table -->
         </div>
         <div class="rsoutput_table_row">
