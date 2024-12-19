@@ -1,19 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Damage Calculator</title>
     <link rel="stylesheet" href="DmgCal.css">
-    <script src="DmgCal.js" defer></script>
+    <script src="unit-selector.js"></script>
+    <title>Unit Composition</title>
 </head>
+
 <body>
-    <header>
-        <h1>Unit Composition Calculator</h1>
-    </header>
+    <div class="container">
+        <h1>Combat Predictor</h1>
+        <h2>Doctrine</h2>
+        <div class="doctrine-dropdown">
+            <select id="doctrine" onchange="updateDoctrine()">
+                <option value="western">Western</option>
+                <option value="eastern">Eastern</option>
+                <option value="european">European</option>
+            </select>
+        </div>
+        <div class="unit-selection">
+            <h2>Unit Selection</h2>
+            <div class="horizontal-selector">
+                <button class="unit-type-btn">Infantry</button>
+                <button class="unit-type-btn">Armored</button>
+                <button class="unit-type-btn">Support</button>
+                <button class="unit-type-btn">Helicopters</button>
+                <button class="unit-type-btn">Fighters</button>
+                <button class="unit-type-btn">Heavies</button>
+                <button class="unit-type-btn">Naval</button>
+                <button class="unit-type-btn">Submarine</button>
+                <button class="unit-type-btn">Officers</button>
+                <button class="unit-type-btn">Seasons</button>
+            </div>
+            <!-- Infantry Units -->
+            <div id="infantry-western" class="unit-list unit-tab">
+                <div class="row">
+                    <div class="unit">
+                        <div class="image-container">
+                            <img src="assets/unit/infantry/light_infantry_western.png">
+                        </div>
+                        <p>Motorized Infantry</p>
+                    </div>
+                    <div class="quantity-selector">
+                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="unit">
+                        <div class="image-container">
+                            <img src="assets/unit/infantry/mechanized_infantry_western.png">
+                        </div>
+                        <p>Mechanized Infantry</p>
+                    </div>
+                    <div class="quantity-selector">
+                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
+                    </div>
+                </div>
+            </div>
 
-    <main>
-    </main>
+            <div id="infantry-eastern" class="unit-list unit-tab">
+                <div class="row">
+                    <div class="unit">
+                        <div class="image-container">
+                            <img src="assets/unit/infantry/light_infantry_eastern.png">
+                        </div>
+                        <p>Motorized Infantry</p>
+                    </div>
+                    <div class="quantity-selector">
+                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
+                    </div>
+                </div>
+            </div>
 
+            <div id="infantry-european" class="unit-list unit-tab">
+                <div class="row">
+                    <div class="unit">
+                        <div class="image-container">
+                            <img src="assets/unit/infantry/light_infantry_eu.png">
+                        </div>
+                        <p>Motorized Infantry</p>
+                    </div>
+                    <div class="quantity-selector">
+                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Armored Units -->
+            <div id="armored-western" class="unit-list unit-tab">
+                <div class="row">
+                    <div class="unit">
+                        <div class="image-container">
+                            <img src="assets/unit/armored/combat_recon_vehicle_western.png">
+                        </div>
+                        <p>Combat Recon Vehicle</p>
+                    </div>
+                    <div class="quantity-selector">
+                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
+                    </div>
+                </div>
+            </div>
+
+            <div id="armored-eastern" class="unit-list unit-tab">
+                <div class="row">
+                    <div class="unit">
+                        <div class="image-container">
+                            <img src="assets/unit/armored/combat_recon_vehicle_eastern.png">
+                        </div>
+                        <p>Combat Recon Vehicle</p>
+                    </div>
+                    <div class="quantity-selector">
+                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
+                    </div>
+                </div>
+            </div>
+            
+
+            <div id="armored-european" class="unit-list unit-tab">
+                <div class="row">
+                    <div class="unit">
+                        <div class="image-container">
+                            <img src="assets/unit/armored/combat_recon_vehicle_eu.png">
+                        </div>
+                        <p>Combat Recon Vehicle</p>
+                    </div>
+                    <div class="quantity-selector">
+                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support Units -->
+            <div id="support-western" class="unit-list unit-tab">
+                <div class="row">
+                    <div class="unit">
+                        <div class="image-container">
+                            <img src="assets/unit/support/artillery_western.png">
+                        </div>
+                        <p>Artillery</p>
+                    </div>
+                    <div class="quantity-selector">
+                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Helicopter Units-->
+            <div id="helicopters-western" class="unit-list unit-tab">
+                <div class="row">
+                    <div class="unit">
+                        <div class="image-container">
+                            <img src="assets/unit/helicopters/attack_helicopter_western.png">
+                        </div>
+                        <p>Attack Helicopter</p>
+                    </div>
+                    <div class="quantity-selector">
+                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fighter Units-->
+            <div id="fighters-western" class="unit-list unit-tab">
+                <div class="row">
+                    <div class="unit">
+                        <div class="image-container">
+                            <img src="assets/unit/fighters/fighter_jet_western.png">
+                        </div>
+                        <p>Fighter Jet</p>
+                    </div>
+                    <div class="quantity-selector">
+                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Continue this pattern for all other unit types -->
+            <div id="heavies-western" class="unit-list unit-tab">
+                <!-- Heavy units content -->
+            </div>
+
+            <div id="naval-western" class="unit-list unit-tab">
+                <!-- Naval units content -->
+            </div>
+
+            <div id="submarine-western" class="unit-list unit-tab">
+                <!-- Submarine units content -->
+            </div>
+
+            <div id="officers-western" class="unit-list unit-tab">
+                <!-- Officers content -->
+            </div>
+
+            <div id="seasons-western" class="unit-list unit-tab">
+                <!-- Seasons content -->
+            </div>
+
+            <!-- Repeat the above structure for eastern and european doctrines -->
+        </div>
 </body>
+
 </html>
