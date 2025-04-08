@@ -39,6 +39,50 @@
     font-size: 14px;
 }
 
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.action-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+    flex: 1;
+}
+
+.save-button {
+    background-color: #4caf50;
+    color: white;
+}
+
+.save-button:hover {
+    background-color: #388e3c;
+}
+
+.load-button {
+    background-color: #2196f3;
+    color: white;
+}
+
+.load-button:hover {
+    background-color: #1976d2;
+}
+
+.clear-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.clear-button:hover {
+    background-color: #d32f2f;
+}
+
 .unit-bank {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -75,6 +119,14 @@
 .unit-details {
     font-size: 14px;
     color: #666;
+    max-height: 500px;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+}
+
+.unit-details.collapsed {
+    max-height: 0;
+    overflow: hidden;
 }
 
 .unit-resources {
@@ -137,6 +189,42 @@
     margin: 0 0 10px 0;
     padding-bottom: 5px;
     border-bottom: 1px solid #eee;
+}
+
+.resource-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.resource-section {
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.resource-section h4 {
+    margin: 0 0 10px 0;
+    color: #333;
+    text-align: center;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.resource-item .resource-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.resource-label {
+    color: #666;
+}
+
+.resource-value {
+    font-weight: bold;
+    color: #333;
 }
 
 .quantity-dialog {
@@ -245,6 +333,15 @@
     background-color: #388e3c;
 }
 
+.unit-actions button:nth-child(2) {
+    background-color: #2196f3;
+    color: white;
+}
+
+.unit-actions button:nth-child(2):hover {
+    background-color: #1976d2;
+}
+
 .unit-actions button:last-child {
     background-color: #f44336;
     color: white;
@@ -278,5 +375,13 @@
     
     .unit-bank {
         grid-template-columns: 1fr;
+    }
+    
+    .resource-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
     }
 } 

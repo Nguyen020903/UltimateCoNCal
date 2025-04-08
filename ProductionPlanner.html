@@ -28,6 +28,11 @@
                     <option value="european">European</option>
                 </select>
             </div>
+            <div class="action-buttons">
+                <button onclick="saveProductionPlan()" class="action-button save-button">Save Plan</button>
+                <button onclick="loadProductionPlan()" class="action-button load-button">Load Plan</button>
+                <button onclick="clearAllUnits()" class="action-button clear-button">Clear All</button>
+            </div>
         </div>
 
         <div class="unit-bank">
@@ -67,6 +72,7 @@
                 // Add drag and drop event listeners
                 dayElement.addEventListener('dragover', handleDragOver);
                 dayElement.addEventListener('drop', handleDrop);
+                dayElement.addEventListener('dragleave', handleDragLeave);
                 
                 calendar.appendChild(dayElement);
             }
@@ -77,6 +83,10 @@
         function handleDragOver(e) {
             e.preventDefault();
             e.currentTarget.classList.add('dragover');
+        }
+
+        function handleDragLeave(e) {
+            e.currentTarget.classList.remove('dragover');
         }
 
         function handleDrop(e) {
@@ -134,7 +144,7 @@
             unitCard.setAttribute('data-quantity', quantity);
             unitCard.innerHTML = `
                 <div class="unit-name">${unitData.name} (${quantity}x)</div>
-                <div class="unit-details">
+                <div class="unit-details collapsed">
                     <div>Production Time: ${unitData.productionTime} days</div>
                     <div class="unit-resources">
                         <div class="resource-header">Production Resources:</div>
@@ -152,6 +162,7 @@
                     </div>
                 </div>
                 <div class="unit-actions">
+                    <button onclick="toggleUnitDetails(this.parentElement.parentElement)">Details</button>
                     <button onclick="editUnitQuantity(this.parentElement.parentElement)">Edit</button>
                     <button onclick="this.parentElement.parentElement.remove(); updateResourceSummary()">Remove</button>
                 </div>
@@ -160,6 +171,14 @@
             dayElement.appendChild(unitCard);
             dialog.remove();
             updateResourceSummary();
+        }
+
+        function toggleUnitDetails(unitCard) {
+            const detailsElement = unitCard.querySelector('.unit-details');
+            detailsElement.classList.toggle('collapsed');
+            
+            const button = unitCard.querySelector('.unit-actions button:first-child');
+            button.textContent = detailsElement.classList.contains('collapsed') ? 'Details' : 'Hide';
         }
 
         function editUnitQuantity(unitCard) {
@@ -285,6 +304,106 @@
             `).join('');
         }
 
+        // Save and load functionality
+        function saveProductionPlan() {
+            const plan = getProductionPlan();
+            const doctrine = document.getElementById('doctrine').value;
+            const gameDays = document.getElementById('gameDays').value;
+            
+            const saveData = {
+                plan,
+                doctrine,
+                gameDays
+            };
+            
+            const saveDataString = JSON.stringify(saveData);
+            localStorage.setItem('productionPlan', saveDataString);
+            
+            alert('Production plan saved successfully!');
+        }
+
+        function loadProductionPlan() {
+            const saveDataString = localStorage.getItem('productionPlan');
+            
+            if (!saveDataString) {
+                alert('No saved production plan found.');
+                return;
+            }
+            
+            const saveData = JSON.parse(saveDataString);
+            
+            // Set the doctrine and game days
+            document.getElementById('doctrine').value = saveData.doctrine;
+            document.getElementById('gameDays').value = saveData.gameDays;
+            
+            // Initialize the calendar with the saved number of days
+            initializeCalendar(saveData.gameDays);
+            
+            // Populate the unit bank with the saved doctrine
+            populateUnitBank(saveData.doctrine);
+            
+            // Clear any existing units
+            clearAllUnits(false);
+            
+            // Add the saved units to the calendar
+            saveData.plan.forEach(day => {
+                const dayElement = document.querySelector(`.calendar-day[data-day="${day.day}"]`);
+                
+                if (dayElement) {
+                    day.units.forEach(unit => {
+                        const unitCard = document.createElement('div');
+                        unitCard.className = 'unit-card';
+                        unitCard.setAttribute('data-unit', JSON.stringify(unit.unitData));
+                        unitCard.setAttribute('data-quantity', unit.quantity);
+                        unitCard.innerHTML = `
+                            <div class="unit-name">${unit.unitData.name} (${unit.quantity}x)</div>
+                            <div class="unit-details collapsed">
+                                <div>Production Time: ${unit.unitData.productionTime} days</div>
+                                <div class="unit-resources">
+                                    <div class="resource-header">Production Resources:</div>
+                                    <div>Manpower: ${unit.unitData.resources.manpower * unit.quantity}</div>
+                                    <div>Supplies: ${unit.unitData.resources.supplies * unit.quantity}</div>
+                                    <div>Fuel: ${unit.unitData.resources.fuel * unit.quantity}</div>
+                                    <div>Components: ${unit.unitData.resources.components * unit.quantity}</div>
+                                    <div>Rare Materials: ${unit.unitData.resources.rareMaterials * unit.quantity}</div>
+                                    <div class="resource-header">Daily Upkeep:</div>
+                                    <div>Manpower: ${unit.unitData.upkeep.manpower * unit.quantity}</div>
+                                    <div>Supplies: ${unit.unitData.upkeep.supplies * unit.quantity}</div>
+                                    <div>Fuel: ${unit.unitData.upkeep.fuel * unit.quantity}</div>
+                                    <div>Components: ${unit.unitData.upkeep.components * unit.quantity}</div>
+                                    <div>Rare Materials: ${unit.unitData.upkeep.rareMaterials * unit.quantity}</div>
+                                </div>
+                            </div>
+                            <div class="unit-actions">
+                                <button onclick="toggleUnitDetails(this.parentElement.parentElement)">Details</button>
+                                <button onclick="editUnitQuantity(this.parentElement.parentElement)">Edit</button>
+                                <button onclick="this.parentElement.parentElement.remove(); updateResourceSummary()">Remove</button>
+                            </div>
+                        `;
+                        
+                        dayElement.appendChild(unitCard);
+                    });
+                }
+            });
+            
+            updateResourceSummary();
+            alert('Production plan loaded successfully!');
+        }
+
+        function clearAllUnits(showAlert = true) {
+            const unitCards = document.querySelectorAll('.unit-card');
+            
+            unitCards.forEach(card => {
+                card.remove();
+            });
+            
+            updateResourceSummary();
+            
+            if (showAlert) {
+                alert('All units have been cleared from the calendar.');
+            }
+        }
+
         // Initialize the page
         document.addEventListener('DOMContentLoaded', () => {
             initializeCalendar(7);
@@ -292,5 +411,4 @@
         });
     </script>
 </body>
-</html> 
 </html> 
