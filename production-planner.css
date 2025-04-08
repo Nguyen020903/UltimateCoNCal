@@ -1,0 +1,282 @@
+.production-planner {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+}
+
+.controls h2 {
+    margin: 0;
+    width: 100%;
+}
+
+.controls > div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.controls label {
+    font-weight: bold;
+}
+
+.controls input,
+.controls select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.unit-bank {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+}
+
+.unit-bank h2 {
+    grid-column: 1 / -1;
+    margin: 0;
+}
+
+.unit-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    cursor: move;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.unit-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.unit-name {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.unit-details {
+    font-size: 14px;
+    color: #666;
+}
+
+.unit-resources {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+
+.resource-header {
+    font-weight: bold;
+    margin-top: 5px;
+    color: #333;
+}
+
+.calendar-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+}
+
+.calendar-day {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    min-height: 100px;
+}
+
+.calendar-day h3 {
+    margin: 0 0 10px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.calendar-day.dragover {
+    background-color: #e3f2fd;
+    border: 2px dashed #2196f3;
+}
+
+.resource-summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+}
+
+.resource-item {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.resource-item h3 {
+    margin: 0 0 10px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.quantity-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.dialog-content {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dialog-content h3 {
+    margin: 0 0 15px 0;
+}
+
+.unit-info {
+    margin-bottom: 15px;
+}
+
+.quantity-selector {
+    margin-bottom: 20px;
+}
+
+.quantity-selector label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.quantity-selector input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.dialog-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.dialog-buttons button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.dialog-buttons button:first-child {
+    background-color: #2196f3;
+    color: white;
+}
+
+.dialog-buttons button:first-child:hover {
+    background-color: #1976d2;
+}
+
+.dialog-buttons button:last-child {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.dialog-buttons button:last-child:hover {
+    background-color: #e0e0e0;
+}
+
+.unit-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.unit-actions button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.unit-actions button:first-child {
+    background-color: #4caf50;
+    color: white;
+}
+
+.unit-actions button:first-child:hover {
+    background-color: #388e3c;
+}
+
+.unit-actions button:last-child {
+    background-color: #f44336;
+    color: white;
+}
+
+.unit-actions button:last-child:hover {
+    background-color: #d32f2f;
+}
+
+.timeline-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.timeline-item:last-child {
+    border-bottom: none;
+}
+
+.timeline-item p {
+    margin: 5px 0;
+}
+
+@media (max-width: 768px) {
+    .resource-summary {
+        grid-template-columns: 1fr;
+    }
+    
+    .calendar-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .unit-bank {
+        grid-template-columns: 1fr;
+    }
+} 

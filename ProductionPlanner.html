@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoNCal - Production Planner</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="production-planner.css">
+</head>
+<body>
+    <header class="universal-header">
+        <h1 align="center"><b>CoNCal - Production Planner</b></h1>
+    </header>
+
+    <div class="production-planner">
+        <div class="controls">
+            <h2>Production Settings</h2>
+            <div>
+                <label for="gameDays">Number of Game Days:</label>
+                <input type="number" id="gameDays" value="7" min="1" max="30" onchange="initializeCalendar(this.value)">
+            </div>
+            <div>
+                <label for="doctrine">Doctrine:</label>
+                <select id="doctrine" onchange="updateDoctrine(this.value)">
+                    <option value="western">Western</option>
+                    <option value="eastern">Eastern</option>
+                    <option value="european">European</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="unit-bank">
+            <h2>Available Units</h2>
+            <!-- Units will be populated by JavaScript -->
+        </div>
+
+        <div class="calendar-container" id="calendar">
+            <!-- Calendar days will be populated by JavaScript -->
+        </div>
+
+        <div class="resource-summary">
+            <div class="resource-item">
+                <h3>Total Resources Required</h3>
+                <div id="totalResources"></div>
+            </div>
+            <div class="resource-item">
+                <h3>Production Timeline</h3>
+                <div id="productionTimeline"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="production-planner.js"></script>
+    <script>
+        // Initialize the calendar
+        function initializeCalendar(days) {
+            const calendar = document.getElementById('calendar');
+            calendar.innerHTML = '';
+            
+            for (let i = 1; i <= days; i++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+                dayElement.setAttribute('data-day', i);
+                dayElement.innerHTML = `<h3>Day ${i}</h3>`;
+                
+                // Add drag and drop event listeners
+                dayElement.addEventListener('dragover', handleDragOver);
+                dayElement.addEventListener('drop', handleDrop);
+                
+                calendar.appendChild(dayElement);
+            }
+            updateResourceSummary();
+        }
+
+        // Handle drag and drop functionality
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('dragover');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            const dayElement = e.currentTarget;
+            dayElement.classList.remove('dragover');
+            
+            const unitData = JSON.parse(e.dataTransfer.getData('text/plain'));
+            showQuantityDialog(dayElement, unitData);
+        }
+
+        function showQuantityDialog(dayElement, unitData) {
+            // Create dialog container
+            const dialog = document.createElement('div');
+            dialog.className = 'quantity-dialog';
+            
+            // Create dialog content
+            dialog.innerHTML = `
+                <div class="dialog-content">
+                    <h3>Select Quantity</h3>
+                    <div class="unit-info">
+                        <div class="unit-name">${unitData.name}</div>
+                        <div class="unit-details">
+                            <div>Production Time: ${unitData.productionTime} days</div>
+                        </div>
+                    </div>
+                    <div class="quantity-selector">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" value="1" min="1" max="100">
+                    </div>
+                    <div class="dialog-buttons">
+                        <button onclick="addUnitToDay(this.parentElement.parentElement.parentElement, ${JSON.stringify(unitData)})">Add</button>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()">Cancel</button>
+                    </div>
+                </div>
+            `;
+            
+            // Add dialog to the page
+            document.body.appendChild(dialog);
+            
+            // Focus on the quantity input
+            setTimeout(() => {
+                document.getElementById('quantity').focus();
+            }, 100);
+        }
+
+        function addUnitToDay(dialog, unitData) {
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const dayElement = document.querySelector('.calendar-day.dragover') || 
+                              document.querySelector('.calendar-day:last-child');
+            
+            const unitCard = document.createElement('div');
+            unitCard.className = 'unit-card';
+            unitCard.setAttribute('data-unit', JSON.stringify(unitData));
+            unitCard.setAttribute('data-quantity', quantity);
+            unitCard.innerHTML = `
+                <div class="unit-name">${unitData.name} (${quantity}x)</div>
+                <div class="unit-details">
+                    <div>Production Time: ${unitData.productionTime} days</div>
+                    <div class="unit-resources">
+                        <div class="resource-header">Production Resources:</div>
+                        <div>Manpower: ${unitData.resources.manpower * quantity}</div>
+                        <div>Supplies: ${unitData.resources.supplies * quantity}</div>
+                        <div>Fuel: ${unitData.resources.fuel * quantity}</div>
+                        <div>Components: ${unitData.resources.components * quantity}</div>
+                        <div>Rare Materials: ${unitData.resources.rareMaterials * quantity}</div>
+                        <div class="resource-header">Daily Upkeep:</div>
+                        <div>Manpower: ${unitData.upkeep.manpower * quantity}</div>
+                        <div>Supplies: ${unitData.upkeep.supplies * quantity}</div>
+                        <div>Fuel: ${unitData.upkeep.fuel * quantity}</div>
+                        <div>Components: ${unitData.upkeep.components * quantity}</div>
+                        <div>Rare Materials: ${unitData.upkeep.rareMaterials * quantity}</div>
+                    </div>
+                </div>
+                <div class="unit-actions">
+                    <button onclick="editUnitQuantity(this.parentElement.parentElement)">Edit</button>
+                    <button onclick="this.parentElement.parentElement.remove(); updateResourceSummary()">Remove</button>
+                </div>
+            `;
+            
+            dayElement.appendChild(unitCard);
+            dialog.remove();
+            updateResourceSummary();
+        }
+
+        function editUnitQuantity(unitCard) {
+            const unitData = JSON.parse(unitCard.getAttribute('data-unit'));
+            const currentQuantity = parseInt(unitCard.getAttribute('data-quantity'));
+            
+            // Create dialog container
+            const dialog = document.createElement('div');
+            dialog.className = 'quantity-dialog';
+            
+            // Create dialog content
+            dialog.innerHTML = `
+                <div class="dialog-content">
+                    <h3>Edit Quantity</h3>
+                    <div class="unit-info">
+                        <div class="unit-name">${unitData.name}</div>
+                        <div class="unit-details">
+                            <div>Production Time: ${unitData.productionTime} days</div>
+                        </div>
+                    </div>
+                    <div class="quantity-selector">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" value="${currentQuantity}" min="1" max="100">
+                    </div>
+                    <div class="dialog-buttons">
+                        <button onclick="updateUnitQuantity(this.parentElement.parentElement.parentElement, ${JSON.stringify(unitData)}, '${unitCard.id}')">Update</button>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()">Cancel</button>
+                    </div>
+                </div>
+            `;
+            
+            // Generate a unique ID for the unit card if it doesn't have one
+            if (!unitCard.id) {
+                unitCard.id = 'unit-' + Math.random().toString(36).substr(2, 9);
+            }
+            
+            // Add dialog to the page
+            document.body.appendChild(dialog);
+            
+            // Focus on the quantity input
+            setTimeout(() => {
+                document.getElementById('quantity').focus();
+            }, 100);
+        }
+
+        function updateUnitQuantity(dialog, unitData, unitCardId) {
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const unitCard = document.getElementById(unitCardId);
+            
+            unitCard.setAttribute('data-quantity', quantity);
+            unitCard.querySelector('.unit-name').textContent = `${unitData.name} (${quantity}x)`;
+            
+            // Update resource display
+            const resourcesDiv = unitCard.querySelector('.unit-resources');
+            resourcesDiv.innerHTML = `
+                <div class="resource-header">Production Resources:</div>
+                <div>Manpower: ${unitData.resources.manpower * quantity}</div>
+                <div>Supplies: ${unitData.resources.supplies * quantity}</div>
+                <div>Fuel: ${unitData.resources.fuel * quantity}</div>
+                <div>Components: ${unitData.resources.components * quantity}</div>
+                <div>Rare Materials: ${unitData.resources.rareMaterials * quantity}</div>
+                <div class="resource-header">Daily Upkeep:</div>
+                <div>Manpower: ${unitData.upkeep.manpower * quantity}</div>
+                <div>Supplies: ${unitData.upkeep.supplies * quantity}</div>
+                <div>Fuel: ${unitData.upkeep.fuel * quantity}</div>
+                <div>Components: ${unitData.upkeep.components * quantity}</div>
+                <div>Rare Materials: ${unitData.upkeep.rareMaterials * quantity}</div>
+            `;
+            
+            dialog.remove();
+            updateResourceSummary();
+        }
+
+        function updateDoctrine(doctrine) {
+            populateUnitBank(doctrine);
+            updateResourceSummary();
+        }
+
+        // Update resource summary
+        function updateResourceSummary() {
+            const productionPlan = getProductionPlan();
+            const totalResources = calculateTotalResources(productionPlan);
+            document.getElementById('totalResources').innerHTML = formatResources(totalResources);
+            
+            const timeline = generateProductionTimeline(productionPlan);
+            document.getElementById('productionTimeline').innerHTML = formatTimeline(timeline);
+        }
+
+        function getProductionPlan() {
+            const plan = [];
+            const days = document.querySelectorAll('.calendar-day');
+            
+            days.forEach(day => {
+                const dayNumber = parseInt(day.getAttribute('data-day'));
+                const units = Array.from(day.querySelectorAll('.unit-card')).map(card => {
+                    const unitData = JSON.parse(card.getAttribute('data-unit'));
+                    const quantity = parseInt(card.getAttribute('data-quantity')) || 1;
+                    return {
+                        unitData,
+                        quantity
+                    };
+                });
+                
+                plan.push({
+                    day: dayNumber,
+                    units
+                });
+            });
+            
+            return plan;
+        }
+
+        function formatTimeline(timeline) {
+            if (timeline.length === 0) {
+                return '<p>No units in production</p>';
+            }
+
+            return timeline.map(item => `
+                <div class="timeline-item">
+                    <p>${item.unit} (${item.quantity}x)</p>
+                    <p>Days ${item.startDay}-${item.endDay}</p>
+                </div>
+            `).join('');
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeCalendar(7);
+            populateUnitBank('western');
+        });
+    </script>
+</body>
+</html> 
+</html> 

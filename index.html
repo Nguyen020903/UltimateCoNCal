@@ -3,23 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>What Do You Want to Do?</title>
-    <link rel="stylesheet" href="index.css">
+    <title>CoNCal - Conflict of Nations Calculator Suite</title>
     <link rel="stylesheet" href="style.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5135077083099833"
-     crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .calculator-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .calculator-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .calculator-card h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .calculator-card p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .calculator-card a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.2s;
+        }
+
+        .calculator-card a:hover {
+            background: #0056b3;
+        }
+    </style>
 </head>
 <body>
+    <header class="universal-header">
+        <h1 align="center"><b>CoNCal</b></h1>
+        <p align="center">Conflict of Nations Calculator Suite</p>
+    </header>
 
-    <div class="container">
-        <h1>What Do You Want to Do?</h1>
-        
-        <div class="button-container">
-            <a href="RssCal.html" class="button">Resource Calculator</a>
-            <a href="DmgCal.html" class="button">Damage Calculator</a>
-            <a href="page3.html" class="button">Coming Soon</a>
+    <div class="calculator-grid">
+        <div class="calculator-card">
+            <h2>Resource Calculator</h2>
+            <p>Calculate resource production and requirements for your cities. Optimize your economy with detailed calculations for different city types and infrastructure levels.</p>
+            <a href="RssCal.html">Open Calculator</a>
+        </div>
+
+        <div class="calculator-card">
+            <h2>Damage Calculator</h2>
+            <p>Compare unit damage statistics and analyze combat effectiveness. Plan your military strategy with detailed unit comparisons and upgrade paths.</p>
+            <a href="DmgCal.html">Open Calculator</a>
+        </div>
+
+        <div class="calculator-card">
+            <h2>Production Planner</h2>
+            <p>Plan your unit production with an interactive calendar interface. Drag and drop units to create production schedules and optimize resource usage.</p>
+            <a href="ProductionPlanner.html">Open Calculator</a>
         </div>
     </div>
 
+    <footer style="text-align: center; padding: 20px; margin-top: 40px;">
+        <p>© 2024 CoNCal - Conflict of Nations Calculator Suite</p>
+    </footer>
 </body>
 </html>
