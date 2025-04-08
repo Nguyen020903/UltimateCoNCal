@@ -89,6 +89,12 @@
             
             // Add units to the bank
             Object.keys(doctrineUnits).forEach(category => {
+                // Create a category header
+                const categoryHeader = document.createElement('div');
+                categoryHeader.className = 'category-header';
+                categoryHeader.innerHTML = `<h3>${category.charAt(0).toUpperCase() + category.slice(1)}</h3>`;
+                unitBank.appendChild(categoryHeader);
+                
                 doctrineUnits[category].forEach(unit => {
                     const unitCard = document.createElement('div');
                     unitCard.className = 'unit-card';
@@ -98,7 +104,11 @@
                     unitCard.innerHTML = `
                         <div class="unit-name">${unit.name}</div>
                         <div class="unit-level">
-                            <input type="number" min="1" max="3" value="1" class="level-input" title="Unit Level">
+                            <select class="level-select" title="Unit Level">
+                                <option value="1">Level 1</option>
+                                <option value="2">Level 2</option>
+                                <option value="3">Level 3</option>
+                            </select>
                         </div>
                         <div class="unit-details collapsed">
                             <div>Production Time: ${unit.productionTime} days</div>
@@ -123,8 +133,8 @@
                     `;
                     
                     // Add event listener to update resources on level change
-                    const levelInput = unitCard.querySelector('.level-input');
-                    levelInput.addEventListener('change', function() {
+                    const levelSelect = unitCard.querySelector('.level-select');
+                    levelSelect.addEventListener('change', function() {
                         updateUnitCardResources(unitCard, this.value);
                     });
                     
@@ -163,7 +173,7 @@
         // Handle drag start
         function handleDragStart(e) {
             const unitData = JSON.parse(e.currentTarget.getAttribute('data-unit'));
-            const level = e.currentTarget.querySelector('.level-input').value;
+            const level = e.currentTarget.querySelector('.level-select').value;
             
             const dragData = {
                 unitData: unitData,
@@ -312,7 +322,11 @@
                         </div>
                         <div class="level-selector">
                             <label for="level">Level:</label>
-                            <input type="number" id="level" value="${currentLevel}" min="1" max="3">
+                            <select id="level">
+                                <option value="1" ${currentLevel === 1 ? 'selected' : ''}>Level 1</option>
+                                <option value="2" ${currentLevel === 2 ? 'selected' : ''}>Level 2</option>
+                                <option value="3" ${currentLevel === 3 ? 'selected' : ''}>Level 3</option>
+                            </select>
                         </div>
                     </div>
                     <div class="dialog-buttons">

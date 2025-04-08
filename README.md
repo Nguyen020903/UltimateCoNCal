@@ -1,55 +1,109 @@
-# Conflict of Nations Calculator Suite
+Conflict of Nations Calculator Suite
+A comprehensive web-based calculator suite built to assist Conflict of Nations (CoN) players in optimizing gameplay through detailed resource planning, unit production scheduling, and combat outcome analysis.
 
-A comprehensive web-based calculator suite for Conflict of Nations, designed to help players optimize their gameplay strategy through efficient resource management and unit production planning.
+Hosted at 👉 https://ultimateconcal.github.io
 
-## Features
+🎮 About Conflict of Nations
+Conflict of Nations: Modern War is a large-scale, real-time strategy game set in the modern era. Players control a nation and must manage diplomacy, warfare, and economy over extended campaigns that can last weeks.
 
-### Resource Calculator (RssCal)
-- Real-time resource production calculations
-- Customizable city types and infrastructure levels
-- Morale and population impact calculations
-- Interactive interface for easy input and modification
+The game features dozens of land, air, and naval units, each with unique roles, stats, costs, and upgrade trees. Managing production efficiency and resource consumption is crucial to victory.
 
-### Damage Calculator (DmgCal)
-- Unit damage calculation and comparison
-- Support for various unit types and upgrades
-- Real-time damage statistics and analysis
-- Easy-to-use interface for quick calculations
+🔧 Suite Features
+🏭 Resource Calculator (RssCal)
+Real-time production tracking for Supplies, Components, Fuel, Electronics, Rare Materials, and Money.
 
-### Production Planner
-- Drag-and-drop unit production scheduling
-- Calendar-like interface for planning
-- Customizable in-game day settings
-- Resource requirement calculations
-- Production timeline visualization
+Customizable by:
 
-## Getting Started
+City type (e.g., industrial, military)
 
-1. Visit the live site at [https://ultimateconcal.github.io](https://ultimateconcal.github.io)
-2. Choose the calculator that best suits your needs:
-   - Resource Calculator for production optimization
-   - Damage Calculator for combat analysis
-   - Production Planner for unit scheduling
+Infrastructure level
 
-## Technical Details
+Morale and population effects
 
-The calculator suite is built using:
-- HTML5
-- CSS3
-- JavaScript
-- Modern web technologies for responsive design
+Helps forecast resource generation and shortages over time.
 
-## Contributing
+⚔️ Damage Calculator (DmgCal)
+Simulates unit vs. unit damage (including terrain bonuses and upgrades).
 
-Feel free to contribute to this project by:
-1. Forking the repository
-2. Creating a feature branch
-3. Submitting a pull request
+Supports ground, air, and naval unit types.
 
-## License
+Provides comparative combat analysis and hitpoint tracking.
 
-This project is open source and available under the MIT License.
+Helps assess the outcome of hypothetical battles.
 
-## Contact
+📅 Production Planner
+Drag-and-drop interface to schedule unit production.
 
-For questions, suggestions, or bug reports, please open an issue in the GitHub repository.
+Calendar-like timeline to map out future builds.
+
+Resource cost calculator with cumulative tracking.
+
+Customizable game day simulation (e.g., "plan for next 10 in-game days").
+
+Helps players optimize build order and avoid production bottlenecks.
+
+📦 Unit Categories (from Conflict of Nations)
+This project is designed to eventually support unit data in the following categories:
+
+Unit Class	Subtypes Included
+Infantry	Motorized, Mechanized, Airborne, Special Forces
+Armor	Main Battle Tanks, Tank Destroyers, Infantry Fighting Vehicles
+Support	Mobile AA, Mobile Artillery, Radar Vehicles
+Air	Fighters, Strike Fighters, Bombers, AWACS
+Naval	Corvettes, Frigates, Destroyers, Submarines
+Elite Units	Elite Infantry, Elite Tanks, Elite Fighters
+Other	Officers, UAVs, Missile Systems, SAM Launchers
+Each unit typically has:
+
+Levels (1–6+)
+
+Production cost (per resource type)
+
+Upkeep cost (daily)
+
+Build time (in hours)
+
+Mobility (speed and terrain types)
+
+Attack/defense stats (vs ground, air, naval)
+
+Special attributes (e.g., stealth, radar)
+
+➡️ A detailed CSV or XLSX file with unit stats will be added to the repository soon.
+
+🚀 Getting Started
+Open the suite: https://ultimateconcal.github.io
+
+Choose a tool:
+
+Resource Calculator → plan and monitor your economy.
+
+Damage Calculator → test battle scenarios.
+
+Production Planner → build smarter, faster.
+
+⚙️ Tech Stack
+HTML5 + CSS3
+
+JavaScript (ES6+)
+
+No backend required (100% client-side)
+
+GitHub Pages for free hosting
+
+🤝 Contributing
+Want to help? Awesome!
+
+Fork the repo
+
+Create a branch (feature/your-feature)
+
+Commit and push your changes
+
+Submit a pull request (PR)
+
+📄 License
+MIT License. Free for personal and commercial use.
+
+🗣️ Feedback & Contact
+Found a bug? Got a suggestion? Open an issue on the GitHub repo

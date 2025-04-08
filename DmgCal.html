@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="DmgCal.css">
-    <script src="unit-selector.js"></script>
     <title>CoNCal - Damage Calculator</title>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5135077083099833"
         crossorigin="anonymous"></script>
@@ -23,38 +22,54 @@
                 <h2>Attacker</h2>
                 <div class="unit-controls">
                     <div class="control-group">
-                        <label for="attacker-doctrine">Doctrine:</label>
-                        <select id="attacker-doctrine"></select>
+                        <label for="attackerDoctrine">Doctrine:</label>
+                        <select id="attackerDoctrine">
+                            <option value="western">Western</option>
+                            <option value="eastern">Eastern</option>
+                            <option value="european">European</option>
+                        </select>
                     </div>
                     <div class="control-group">
-                        <label for="attacker-unit">Unit:</label>
-                        <select id="attacker-unit"></select>
+                        <label for="attackerUnitType">Unit Type:</label>
+                        <select id="attackerUnitType"></select>
                     </div>
                     <div class="control-group">
-                        <label for="attacker-quantity">Quantity:</label>
-                        <input type="number" id="attacker-quantity" value="1" min="1">
+                        <label for="attackerUnit">Unit:</label>
+                        <select id="attackerUnit"></select>
+                    </div>
+                    <div class="control-group">
+                        <label for="attackerQuantity">Quantity:</label>
+                        <input type="number" id="attackerQuantity" value="1" min="1">
                     </div>
                 </div>
-                <div class="unit-stats" id="attacker-stats"></div>
+                <div class="unit-stats" id="attackerUnitStats"></div>
             </div>
 
             <div class="unit-selector">
                 <h2>Defender</h2>
                 <div class="unit-controls">
                     <div class="control-group">
-                        <label for="defender-doctrine">Doctrine:</label>
-                        <select id="defender-doctrine"></select>
+                        <label for="defenderDoctrine">Doctrine:</label>
+                        <select id="defenderDoctrine">
+                            <option value="western">Western</option>
+                            <option value="eastern">Eastern</option>
+                            <option value="european">European</option>
+                        </select>
                     </div>
                     <div class="control-group">
-                        <label for="defender-unit">Unit:</label>
-                        <select id="defender-unit"></select>
+                        <label for="defenderUnitType">Unit Type:</label>
+                        <select id="defenderUnitType"></select>
                     </div>
                     <div class="control-group">
-                        <label for="defender-quantity">Quantity:</label>
-                        <input type="number" id="defender-quantity" value="1" min="1">
+                        <label for="defenderUnit">Unit:</label>
+                        <select id="defenderUnit"></select>
+                    </div>
+                    <div class="control-group">
+                        <label for="defenderQuantity">Quantity:</label>
+                        <input type="number" id="defenderQuantity" value="1" min="1">
                     </div>
                 </div>
-                <div class="unit-stats" id="defender-stats"></div>
+                <div class="unit-stats" id="defenderUnitStats"></div>
             </div>
         </div>
 
@@ -121,9 +136,15 @@
             </div>
         </div>
 
+        <div class="calculate-button">
+            <button id="calculate-button">Calculate Battle Outcome</button>
+        </div>
+
         <div class="calculator-section battle-outcome">
             <div class="outcome-header">
                 <h3>Battle Outcome</h3>
+                <div id="outcomeHeader"></div>
+                <div id="outcomeText"></div>
             </div>
             <div class="outcome-details">
                 <div class="power-comparison">
@@ -151,433 +172,258 @@
                     </div>
                 </div>
             </div>
+            <div id="battle-outcome"></div>
         </div>
     </div>
 
     <script src="DmgCal.js"></script>
     <script>
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', () => {
-            updateAttackerUnits();
-            updateDefenderUnits();
-            calculateDamage();
-        });
-        
-        // Update attacker units based on selected doctrine
-        function updateAttackerUnits() {
-            const doctrine = document.getElementById('attacker-doctrine').value;
-            const unitSelect = document.getElementById('attacker-unit');
-            
-            // Clear existing options
-            unitSelect.innerHTML = '';
-            
-            // Add units from the selected doctrine
-            Object.values(unitData[doctrine]).forEach(category => {
-                category.forEach(unit => {
-                    const option = document.createElement('option');
-                    option.value = unit.id;
-                    option.textContent = unit.name;
-                    unitSelect.appendChild(option);
-                });
-            });
-            
-            updateAttackerStats();
-        }
-        
-        // Update defender units based on selected doctrine
-        function updateDefenderUnits() {
-            const doctrine = document.getElementById('defender-doctrine').value;
-            const unitSelect = document.getElementById('defender-unit');
-            
-            // Clear existing options
-            unitSelect.innerHTML = '';
-            
-            // Add units from the selected doctrine
-            Object.values(unitData[doctrine]).forEach(category => {
-                category.forEach(unit => {
-                    const option = document.createElement('option');
-                    option.value = unit.id;
-                    option.textContent = unit.name;
-                    unitSelect.appendChild(option);
-                });
-            });
-            
-            updateDefenderStats();
-        }
-        
-        // Update attacker stats display
-        function updateAttackerStats() {
-            const doctrine = document.getElementById('attacker-doctrine').value;
-            const unitId = document.getElementById('attacker-unit').value;
-            const statsDiv = document.getElementById('attacker-stats');
-            
-            // Find the unit data
-            let unitData = null;
-            Object.values(unitData[doctrine]).forEach(category => {
-                category.forEach(unit => {
-                    if (unit.id === unitId) {
-                        unitData = unit;
-                    }
-                });
-            });
-            
-            if (unitData) {
-                statsDiv.innerHTML = `
-                    <div class="stat-row">
-                        <span class="stat-label">Health:</span>
-                        <span class="stat-value">${unitData.health}</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Armor:</span>
-                        <span class="stat-value">${unitData.armor}</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Damage:</span>
-                        <span class="stat-value">${unitData.damage}</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Range:</span>
-                        <span class="stat-value">${unitData.range}</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Speed:</span>
-                        <span class="stat-value">${unitData.speed}</span>
-                    </div>
-                `;
-            }
-            
-            calculateDamage();
-        }
-        
-        // Update defender stats display
-        function updateDefenderStats() {
-            const doctrine = document.getElementById('defender-doctrine').value;
-            const unitId = document.getElementById('defender-unit').value;
-            const statsDiv = document.getElementById('defender-stats');
-            
-            // Find the unit data
-            let unitData = null;
-            Object.values(unitData[doctrine]).forEach(category => {
-                category.forEach(unit => {
-                    if (unit.id === unitId) {
-                        unitData = unit;
-                    }
-                });
-            });
-            
-            if (unitData) {
-                statsDiv.innerHTML = `
-                    <div class="stat-row">
-                        <span class="stat-label">Health:</span>
-                        <span class="stat-value">${unitData.health}</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Armor:</span>
-                        <span class="stat-value">${unitData.armor}</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Damage:</span>
-                        <span class="stat-value">${unitData.damage}</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Range:</span>
-                        <span class="stat-value">${unitData.range}</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Speed:</span>
-                        <span class="stat-value">${unitData.speed}</span>
-                    </div>
-                `;
-            }
-            
-            calculateDamage();
-        }
-        
-        // Calculate damage and battle outcome
-        function calculateDamage() {
+        // Main calculation function
+        function calculateBattle() {
+            // Get attacker values
             const attackerDoctrine = document.getElementById('attacker-doctrine').value;
             const attackerUnitId = document.getElementById('attacker-unit').value;
-            const attackerQuantity = parseInt(document.getElementById('attacker-quantity').value);
+            const attackerQuantity = parseInt(document.getElementById('attacker-quantity').value) || 1;
             
+            // Get defender values
             const defenderDoctrine = document.getElementById('defender-doctrine').value;
             const defenderUnitId = document.getElementById('defender-unit').value;
-            const defenderQuantity = parseInt(document.getElementById('defender-quantity').value);
+            const defenderQuantity = parseInt(document.getElementById('defender-quantity').value) || 1;
             
+            // Get battle conditions
             const terrain = document.querySelector('input[name="terrain"]:checked').value;
             const weather = document.querySelector('input[name="weather"]:checked').value;
-            const time = document.querySelector('input[name="time"]:checked').value;
+            const timeOfDay = document.querySelector('input[name="time"]:checked').value;
             
-            // Find the unit data
+            // Find the unit objects
             let attackerUnit = null;
             let defenderUnit = null;
             
-            Object.values(unitData[attackerDoctrine]).forEach(category => {
-                category.forEach(unit => {
+            // Search through unitData to find the selected units
+            for (const category in unitData[attackerDoctrine]) {
+                for (const unitKey in unitData[attackerDoctrine][category]) {
+                    const unit = unitData[attackerDoctrine][category][unitKey];
                     if (unit.id === attackerUnitId) {
                         attackerUnit = unit;
+                        break;
                     }
-                });
-            });
+                }
+                if (attackerUnit) break;
+            }
             
-            Object.values(unitData[defenderDoctrine]).forEach(category => {
-                category.forEach(unit => {
+            for (const category in unitData[defenderDoctrine]) {
+                for (const unitKey in unitData[defenderDoctrine][category]) {
+                    const unit = unitData[defenderDoctrine][category][unitKey];
                     if (unit.id === defenderUnitId) {
                         defenderUnit = unit;
+                        break;
                     }
-                });
-            });
+                }
+                if (defenderUnit) break;
+            }
             
             if (!attackerUnit || !defenderUnit) {
+                document.getElementById('battle-outcome').innerHTML = '<p>Error: Could not find selected units.</p>';
                 return;
             }
             
-            // Calculate power
-            const attackerPower = attackerUnit.damage * attackerUnit.speed;
-            const defenderPower = defenderUnit.damage * defenderUnit.speed;
+            // Calculate base attack power
+            const baseAttackerPower = attackerUnit.attack * attackerQuantity;
+            const baseDefenderPower = defenderUnit.defense * defenderQuantity;
             
             // Calculate modifiers
             const terrainModifier = getTerrainModifier(terrain, attackerUnit.type, defenderUnit.type);
             const weatherModifier = getWeatherModifier(weather, attackerUnit.type, defenderUnit.type);
-            const timeModifier = getTimeModifier(time, attackerUnit.type, defenderUnit.type);
+            const timeModifier = getTimeModifier(timeOfDay, attackerUnit.type, defenderUnit.type);
             
             // Calculate effective power
-            const effectiveAttackerPower = attackerPower * terrainModifier * weatherModifier * timeModifier;
-            const effectiveDefenderPower = defenderPower * terrainModifier * weatherModifier * timeModifier;
+            const effectiveAttackerPower = baseAttackerPower * terrainModifier * weatherModifier * timeModifier;
             
-            // Display power
-            const attackerPowerDisplay = document.getElementById('attacker-power');
-            const defenderPowerDisplay = document.getElementById('defender-power');
-            attackerPowerDisplay.textContent = effectiveAttackerPower.toFixed(2);
-            defenderPowerDisplay.textContent = effectiveDefenderPower.toFixed(2);
+            // Calculate defense modifiers
+            const terrainDefenseModifier = terrainModifiers[terrain][defenderUnit.type]?.defense || 1.0;
+            const weatherDefenseModifier = weatherModifiers[weather][defenderUnit.type]?.defense || 1.0;
+            const timeDefenseModifier = timeModifiers[timeOfDay][defenderUnit.type]?.defense || 1.0;
+            
+            // Calculate effective defense power
+            const effectiveDefenderPower = baseDefenderPower * terrainDefenseModifier * weatherDefenseModifier * timeDefenseModifier;
+            
+            // Calculate damage dealt
+            const attackerDamage = Math.max(0, effectiveAttackerPower - effectiveDefenderPower * 0.5);
+            const defenderDamage = Math.max(0, effectiveDefenderPower * 0.3 - effectiveAttackerPower * 0.1);
+            
+            // Calculate casualties
+            const defenderCasualties = Math.min(defenderQuantity, Math.ceil(attackerDamage / defenderUnit.hp));
+            const attackerCasualties = Math.min(attackerQuantity, Math.ceil(defenderDamage / attackerUnit.hp));
             
             // Calculate battle outcome
-            let battleOutcome = '';
-            let outcomeClass = '';
-            
-            if (effectiveAttackerPower > effectiveDefenderPower) {
-                battleOutcome = 'Attacker Victory';
-                outcomeClass = 'victory';
-            } else if (effectiveDefenderPower > effectiveAttackerPower) {
-                battleOutcome = 'Defender Victory';
-                outcomeClass = 'defeat';
+            let outcome = '';
+            if (defenderCasualties >= defenderQuantity && attackerCasualties < attackerQuantity) {
+                outcome = 'Attacker victory';
+            } else if (attackerCasualties >= attackerQuantity && defenderCasualties < defenderQuantity) {
+                outcome = 'Defender victory';
+            } else if (attackerCasualties >= attackerQuantity && defenderCasualties >= defenderQuantity) {
+                outcome = 'Mutual destruction';
             } else {
-                battleOutcome = 'Stalemate';
-                outcomeClass = 'stalemate';
+                outcome = 'Inconclusive';
             }
             
-            // Display battle outcome
-            const outcomeDiv = document.getElementById('battle-outcome');
-            outcomeDiv.innerHTML = `
-                <div class="outcome-header ${outcomeClass}">
-                    <h3>${battleOutcome}</h3>
-                </div>
+            // Display results
+            document.getElementById('battle-outcome').innerHTML = `
+                <h3>Battle Outcome: ${outcome}</h3>
                 <div class="outcome-details">
                     <div class="power-comparison">
-                        <div class="power-value">
-                            <span class="power-label">Attacker Power:</span>
-                            <span class="power-number">${effectiveAttackerPower.toFixed(2)}</span>
+                        <h4>Power Comparison</h4>
+                        <div class="comparison-row">
+                            <span>Base Attack Power:</span>
+                            <span>${baseAttackerPower.toFixed(1)} (${attackerUnit.attack} × ${attackerQuantity})</span>
                         </div>
-                        <div class="power-value">
-                            <span class="power-label">Defender Power:</span>
-                            <span class="power-number">${effectiveDefenderPower.toFixed(2)}</span>
+                        <div class="comparison-row">
+                            <span>Terrain Modifier:</span>
+                            <span>${terrainModifier.toFixed(2)}×</span>
+                        </div>
+                        <div class="comparison-row">
+                            <span>Weather Modifier:</span>
+                            <span>${weatherModifier.toFixed(2)}×</span>
+                        </div>
+                        <div class="comparison-row">
+                            <span>Time Modifier:</span>
+                            <span>${timeModifier.toFixed(2)}×</span>
+                        </div>
+                        <div class="comparison-row total">
+                            <span>Effective Attack Power:</span>
+                            <span>${effectiveAttackerPower.toFixed(1)}</span>
                         </div>
                     </div>
-                    <div class="modifiers">
-                        <div class="modifier-row">
-                            <span class="modifier-label">Terrain Modifier:</span>
-                            <span class="modifier-value">${terrainModifier.toFixed(2) * 100}%</span>
+                    
+                    <div class="power-comparison">
+                        <h4>Defense Comparison</h4>
+                        <div class="comparison-row">
+                            <span>Base Defense Power:</span>
+                            <span>${baseDefenderPower.toFixed(1)} (${defenderUnit.defense} × ${defenderQuantity})</span>
                         </div>
-                        <div class="modifier-row">
-                            <span class="modifier-label">Weather Modifier:</span>
-                            <span class="modifier-value">${weatherModifier.toFixed(2) * 100}%</span>
+                        <div class="comparison-row">
+                            <span>Terrain Modifier:</span>
+                            <span>${terrainDefenseModifier.toFixed(2)}×</span>
                         </div>
-                        <div class="modifier-row">
-                            <span class="modifier-label">Time Modifier:</span>
-                            <span class="modifier-value">${timeModifier.toFixed(2) * 100}%</span>
+                        <div class="comparison-row">
+                            <span>Weather Modifier:</span>
+                            <span>${weatherDefenseModifier.toFixed(2)}×</span>
+                        </div>
+                        <div class="comparison-row">
+                            <span>Time Modifier:</span>
+                            <span>${timeDefenseModifier.toFixed(2)}×</span>
+                        </div>
+                        <div class="comparison-row total">
+                            <span>Effective Defense Power:</span>
+                            <span>${effectiveDefenderPower.toFixed(1)}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="casualties">
+                    <h4>Casualties</h4>
+                    <div class="casualties-row">
+                        <span>Attacker (${attackerUnit.name}):</span>
+                        <span>${attackerCasualties} / ${attackerQuantity}</span>
+                    </div>
+                    <div class="casualties-row">
+                        <span>Defender (${defenderUnit.name}):</span>
+                        <span>${defenderCasualties} / ${defenderQuantity}</span>
+                    </div>
+                </div>
+                
+                <div class="unit-stats">
+                    <h4>Unit Statistics</h4>
+                    <div class="unit-stats-container">
+                        <div class="unit-stats-column">
+                            <h5>${attackerUnit.name} (Attacker)</h5>
+                            <div class="stat-row"><span>Attack:</span> <span>${attackerUnit.attack}</span></div>
+                            <div class="stat-row"><span>Defense:</span> <span>${attackerUnit.defense}</span></div>
+                            <div class="stat-row"><span>HP:</span> <span>${attackerUnit.hp}</span></div>
+                            <div class="stat-row"><span>Speed:</span> <span>${attackerUnit.speed}</span></div>
+                            <div class="stat-row"><span>Range:</span> <span>${attackerUnit.range}</span></div>
+                        </div>
+                        <div class="unit-stats-column">
+                            <h5>${defenderUnit.name} (Defender)</h5>
+                            <div class="stat-row"><span>Attack:</span> <span>${defenderUnit.attack}</span></div>
+                            <div class="stat-row"><span>Defense:</span> <span>${defenderUnit.defense}</span></div>
+                            <div class="stat-row"><span>HP:</span> <span>${defenderUnit.hp}</span></div>
+                            <div class="stat-row"><span>Speed:</span> <span>${defenderUnit.speed}</span></div>
+                            <div class="stat-row"><span>Range:</span> <span>${defenderUnit.range}</span></div>
                         </div>
                     </div>
                 </div>
             `;
         }
-        
-        // Get terrain modifier based on unit types
-        function getTerrainModifier(terrain, attackerType, defenderType) {
-            const modifier = 1;
+
+        // Function to update the stats display when a unit is selected
+        function updateUnitStats(side) {
+            const unitId = document.getElementById(`${side}-unit`).value;
+            const statsContainer = document.getElementById(`${side}-unit-stats`);
             
-            // Apply terrain modifiers based on unit types
-            switch (terrain) {
-                case 'plains':
-                    // No special modifiers for plains
-                    break;
-                    
-                case 'forest':
-                    // Infantry and light units get bonuses in forest
-                    if (attackerType === 'infantry' || attackerType === 'light') {
-                        modifier *= 1.2;
-                    }
-                    if (defenderType === 'infantry' || defenderType === 'light') {
-                        modifier *= 1.2;
-                    }
-                    
-                    // Heavy units get penalties in forest
-                    if (attackerType === 'heavy') {
-                        modifier *= 0.8;
-                    }
-                    if (defenderType === 'heavy') {
-                        modifier *= 0.8;
-                    }
-                    break;
-                    
-                case 'urban':
-                    // Infantry get bonuses in urban areas
-                    if (attackerType === 'infantry') {
-                        modifier *= 1.3;
-                    }
-                    if (defenderType === 'infantry') {
-                        modifier *= 1.3;
-                    }
-                    
-                    // Vehicles get penalties in urban areas
-                    if (attackerType === 'armored' || attackerType === 'heavy') {
-                        modifier *= 0.7;
-                    }
-                    if (defenderType === 'armored' || defenderType === 'heavy') {
-                        modifier *= 0.7;
-                    }
-                    break;
-                    
-                case 'mountain':
-                    // Infantry get bonuses in mountains
-                    if (attackerType === 'infantry') {
-                        modifier *= 1.2;
-                    }
-                    if (defenderType === 'infantry') {
-                        modifier *= 1.2;
-                    }
-                    
-                    // Vehicles get penalties in mountains
-                    if (attackerType === 'armored' || attackerType === 'heavy') {
-                        modifier *= 0.6;
-                    }
-                    if (defenderType === 'armored' || defenderType === 'heavy') {
-                        modifier *= 0.6;
-                    }
-                    break;
-                    
-                case 'desert':
-                    // Light vehicles get bonuses in desert
-                    if (attackerType === 'light') {
-                        modifier *= 1.1;
-                    }
-                    if (defenderType === 'light') {
-                        modifier *= 1.1;
-                    }
-                    
-                    // Infantry get penalties in desert
-                    if (attackerType === 'infantry') {
-                        modifier *= 0.9;
-                    }
-                    if (defenderType === 'infantry') {
-                        modifier *= 0.9;
-                    }
-                    break;
+            if (!unitId) {
+                statsContainer.innerHTML = '<p>Select a unit to see stats</p>';
+                return;
             }
             
-            return modifier;
-        }
-        
-        // Get weather modifier based on unit types
-        function getWeatherModifier(weather, attackerType, defenderType) {
-            const modifier = 1;
+            let selectedUnit = null;
+            const doctrine = document.getElementById(`${side}-doctrine`).value;
             
-            // Apply weather modifiers based on unit types
-            switch (weather) {
-                case 'clear':
-                    // No special modifiers for clear weather
-                    break;
-                    
-                case 'rain':
-                    // Air units get penalties in rain
-                    if (attackerType === 'air') {
-                        modifier *= 0.8;
+            // Find the selected unit in unitData
+            for (const category in unitData[doctrine]) {
+                for (const unitKey in unitData[doctrine][category]) {
+                    const unit = unitData[doctrine][category][unitKey];
+                    if (unit.id === unitId) {
+                        selectedUnit = unit;
+                        break;
                     }
-                    if (defenderType === 'air') {
-                        modifier *= 0.8;
-                    }
-                    
-                    // Naval units get bonuses in rain
-                    if (attackerType === 'naval') {
-                        modifier *= 1.1;
-                    }
-                    if (defenderType === 'naval') {
-                        modifier *= 1.1;
-                    }
-                    break;
-                    
-                case 'snow':
-                    // All units get penalties in snow
-                    modifier *= 0.9;
-                    
-                    // Air units get extra penalties in snow
-                    if (attackerType === 'air') {
-                        modifier *= 0.7;
-                    }
-                    if (defenderType === 'air') {
-                        modifier *= 0.7;
-                    }
-                    break;
-                    
-                case 'storm':
-                    // All units get penalties in storm
-                    modifier *= 0.8;
-                    
-                    // Air units get extra penalties in storm
-                    if (attackerType === 'air') {
-                        modifier *= 0.6;
-                    }
-                    if (defenderType === 'air') {
-                        modifier *= 0.6;
-                    }
-                    break;
+                }
+                if (selectedUnit) break;
             }
             
-            return modifier;
-        }
-        
-        // Get time of day modifier based on unit types
-        function getTimeModifier(time, attackerType, defenderType) {
-            const modifier = 1;
-            
-            // Apply time of day modifiers based on unit types
-            switch (time) {
-                case 'day':
-                    // No special modifiers for day
-                    break;
-                    
-                case 'night':
-                    // All units get penalties at night
-                    modifier *= 0.9;
-                    
-                    // Air units get extra penalties at night
-                    if (attackerType === 'air') {
-                        modifier *= 0.7;
-                    }
-                    if (defenderType === 'air') {
-                        modifier *= 0.7;
-                    }
-                    
-                    // Specialized night units get bonuses at night
-                    if (attackerType === 'special') {
-                        modifier *= 1.2;
-                    }
-                    if (defenderType === 'special') {
-                        modifier *= 1.2;
-                    }
-                    break;
+            if (selectedUnit) {
+                statsContainer.innerHTML = `
+                    <div class="stat"><span>Attack:</span> <span>${selectedUnit.attack}</span></div>
+                    <div class="stat"><span>Defense:</span> <span>${selectedUnit.defense}</span></div>
+                    <div class="stat"><span>HP:</span> <span>${selectedUnit.hp}</span></div>
+                    <div class="stat"><span>Speed:</span> <span>${selectedUnit.speed}</span></div>
+                    <div class="stat"><span>Range:</span> <span>${selectedUnit.range}</span></div>
+                    <div class="stat"><span>Type:</span> <span>${selectedUnit.type}</span></div>
+                `;
+            } else {
+                statsContainer.innerHTML = '<p>Unit not found</p>';
             }
-            
-            return modifier;
         }
+
+        // Initialize the page when it's loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize doctrine dropdowns
+            const doctrines = ['western', 'eastern', 'european'];
+            
+            const attackerDoctrine = document.getElementById('attacker-doctrine');
+            const defenderDoctrine = document.getElementById('defender-doctrine');
+            
+            doctrines.forEach(doctrine => {
+                const option = document.createElement('option');
+                option.value = doctrine;
+                option.textContent = doctrine.charAt(0).toUpperCase() + doctrine.slice(1);
+                attackerDoctrine.appendChild(option.cloneNode(true));
+                defenderDoctrine.appendChild(option);
+            });
+            
+            // Set up event listeners
+            attackerDoctrine.addEventListener('change', () => updateUnitOptions('attacker'));
+            defenderDoctrine.addEventListener('change', () => updateUnitOptions('defender'));
+            
+            document.getElementById('attacker-unit').addEventListener('change', () => updateUnitStats('attacker'));
+            document.getElementById('defender-unit').addEventListener('change', () => updateUnitStats('defender'));
+            
+            document.getElementById('calculate-button').addEventListener('click', calculateBattle);
+            
+            // Initialize unit options for both sides
+            updateUnitOptions('attacker');
+            updateUnitOptions('defender');
+        });
     </script>
 </body>
 

@@ -1,4 +1,4 @@
-// Unit data structure
+// Unit data structure for Conflict of Nations
 const unitData = {
     western: {
         infantry: [
@@ -7,17 +7,17 @@ const unitData = {
                 name: 'Motorized Infantry',
                 productionTime: 1,
                 resources: {
-                    manpower: 100,
-                    supplies: 50,
-                    fuel: 25,
-                    components: 10,
+                    manpower: 180,
+                    supplies: 120,
+                    fuel: 40,
+                    components: 20,
                     rareMaterials: 0
                 },
                 upkeep: {
-                    manpower: 10,
-                    supplies: 5,
-                    fuel: 2,
-                    components: 0,
+                    manpower: 15,
+                    supplies: 10,
+                    fuel: 3,
+                    components: 1,
                     rareMaterials: 0
                 }
             },
@@ -26,17 +26,17 @@ const unitData = {
                 name: 'Mechanized Infantry',
                 productionTime: 2,
                 resources: {
-                    manpower: 150,
-                    supplies: 75,
-                    fuel: 50,
-                    components: 25,
-                    rareMaterials: 0
+                    manpower: 220,
+                    supplies: 150,
+                    fuel: 60,
+                    components: 40,
+                    rareMaterials: 5
                 },
                 upkeep: {
-                    manpower: 15,
-                    supplies: 7,
+                    manpower: 18,
+                    supplies: 12,
                     fuel: 5,
-                    components: 2,
+                    components: 3,
                     rareMaterials: 0
                 }
             },
@@ -45,116 +45,192 @@ const unitData = {
                 name: 'Airborne Infantry',
                 productionTime: 2,
                 resources: {
-                    manpower: 200,
-                    supplies: 100,
-                    fuel: 75,
+                    manpower: 250,
+                    supplies: 180,
+                    fuel: 80,
                     components: 50,
-                    rareMaterials: 0
+                    rareMaterials: 10
                 },
                 upkeep: {
                     manpower: 20,
-                    supplies: 10,
+                    supplies: 15,
                     fuel: 7,
-                    components: 5,
+                    components: 4,
+                    rareMaterials: 1
+                }
+            },
+            {
+                id: 'marine_infantry',
+                name: 'Marine Infantry',
+                productionTime: 2,
+                resources: {
+                    manpower: 260,
+                    supplies: 190,
+                    fuel: 70,
+                    components: 45,
+                    rareMaterials: 8
+                },
+                upkeep: {
+                    manpower: 22,
+                    supplies: 16,
+                    fuel: 6,
+                    components: 3,
                     rareMaterials: 0
                 }
             },
             {
-                id: 'marines',
-                name: 'Marines',
-                productionTime: 2,
+                id: 'special_forces',
+                name: 'Special Forces',
+                productionTime: 3,
                 resources: {
-                    manpower: 180,
-                    supplies: 90,
-                    fuel: 60,
-                    components: 40,
+                    manpower: 300,
+                    supplies: 230,
+                    fuel: 100,
+                    components: 80,
+                    rareMaterials: 20
+                },
+                upkeep: {
+                    manpower: 25,
+                    supplies: 20,
+                    fuel: 8,
+                    components: 6,
+                    rareMaterials: 1
+                }
+            },
+            {
+                id: 'national_guard',
+                name: 'National Guard',
+                productionTime: 1,
+                resources: {
+                    manpower: 150,
+                    supplies: 100,
+                    fuel: 30,
+                    components: 15,
                     rareMaterials: 0
                 },
                 upkeep: {
-                    manpower: 18,
-                    supplies: 9,
-                    fuel: 6,
-                    components: 4,
+                    manpower: 12,
+                    supplies: 8,
+                    fuel: 2,
+                    components: 1,
                     rareMaterials: 0
                 }
             }
         ],
         armored: [
             {
-                id: 'main_battle_tank',
-                name: 'Main Battle Tank',
-                productionTime: 3,
-                resources: {
-                    manpower: 200,
-                    supplies: 150,
-                    fuel: 100,
-                    components: 75,
-                    rareMaterials: 25
-                },
-                upkeep: {
-                    manpower: 20,
-                    supplies: 15,
-                    fuel: 10,
-                    components: 7,
-                    rareMaterials: 2
-                }
-            },
-            {
                 id: 'armored_fighting_vehicle',
                 name: 'Armored Fighting Vehicle',
                 productionTime: 2,
                 resources: {
-                    manpower: 150,
-                    supplies: 100,
-                    fuel: 75,
-                    components: 50,
+                    manpower: 200,
+                    supplies: 150,
+                    fuel: 80,
+                    components: 60,
                     rareMaterials: 15
                 },
                 upkeep: {
-                    manpower: 15,
-                    supplies: 10,
+                    manpower: 16,
+                    supplies: 12,
                     fuel: 7,
                     components: 5,
                     rareMaterials: 1
                 }
             },
             {
-                id: 'light_tank',
-                name: 'Light Tank',
-                productionTime: 2,
+                id: 'main_battle_tank',
+                name: 'Main Battle Tank',
+                productionTime: 3,
                 resources: {
-                    manpower: 175,
-                    supplies: 125,
-                    fuel: 85,
-                    components: 60,
+                    manpower: 250,
+                    supplies: 180,
+                    fuel: 100,
+                    components: 80,
+                    rareMaterials: 25
+                },
+                upkeep: {
+                    manpower: 20,
+                    supplies: 15,
+                    fuel: 9,
+                    components: 7,
+                    rareMaterials: 2
+                }
+            },
+            {
+                id: 'amphibious_combat_vehicle',
+                name: 'Amphibious Combat Vehicle',
+                productionTime: 3,
+                resources: {
+                    manpower: 230,
+                    supplies: 170,
+                    fuel: 90,
+                    components: 70,
                     rareMaterials: 20
                 },
                 upkeep: {
-                    manpower: 17,
-                    supplies: 12,
+                    manpower: 18,
+                    supplies: 14,
                     fuel: 8,
                     components: 6,
+                    rareMaterials: 1
+                }
+            },
+            {
+                id: 'tank_destroyer',
+                name: 'Tank Destroyer',
+                productionTime: 3,
+                resources: {
+                    manpower: 220,
+                    supplies: 160,
+                    fuel: 85,
+                    components: 65,
+                    rareMaterials: 18
+                },
+                upkeep: {
+                    manpower: 17,
+                    supplies: 13,
+                    fuel: 7,
+                    components: 5,
                     rareMaterials: 1
                 }
             }
         ],
         support: [
             {
+                id: 'towed_artillery',
+                name: 'Towed Artillery',
+                productionTime: 2,
+                resources: {
+                    manpower: 160,
+                    supplies: 120,
+                    fuel: 40,
+                    components: 50,
+                    rareMaterials: 10
+                },
+                upkeep: {
+                    manpower: 15,
+                    supplies: 10,
+                    fuel: 3,
+                    components: 4,
+                    rareMaterials: 0
+                }
+            },
+            {
                 id: 'self_propelled_artillery',
                 name: 'Self-Propelled Artillery',
                 productionTime: 3,
                 resources: {
-                    manpower: 175,
-                    supplies: 125,
-                    fuel: 90,
-                    components: 65,
-                    rareMaterials: 20
+                    manpower: 190,
+                    supplies: 140,
+                    fuel: 70,
+                    components: 60,
+                    rareMaterials: 15
                 },
                 upkeep: {
-                    manpower: 17,
+                    manpower: 16,
                     supplies: 12,
-                    fuel: 9,
-                    components: 6,
+                    fuel: 6,
+                    components: 5,
                     rareMaterials: 1
                 }
             },
@@ -163,35 +239,92 @@ const unitData = {
                 name: 'Multiple Rocket Launcher',
                 productionTime: 3,
                 resources: {
+                    manpower: 180,
+                    supplies: 130,
+                    fuel: 60,
+                    components: 65,
+                    rareMaterials: 20
+                },
+                upkeep: {
+                    manpower: 15,
+                    supplies: 11,
+                    fuel: 5,
+                    components: 6,
+                    rareMaterials: 1
+                }
+            },
+            {
+                id: 'mobile_anti_air_vehicle',
+                name: 'Mobile Anti-Air Vehicle',
+                productionTime: 2,
+                resources: {
+                    manpower: 170,
+                    supplies: 125,
+                    fuel: 55,
+                    components: 55,
+                    rareMaterials: 12
+                },
+                upkeep: {
+                    manpower: 14,
+                    supplies: 10,
+                    fuel: 4,
+                    components: 4,
+                    rareMaterials: 1
+                }
+            },
+            {
+                id: 'mobile_sam_launcher',
+                name: 'Mobile SAM Launcher',
+                productionTime: 3,
+                resources: {
                     manpower: 200,
                     supplies: 150,
-                    fuel: 100,
-                    components: 75,
+                    fuel: 65,
+                    components: 70,
                     rareMaterials: 25
                 },
                 upkeep: {
-                    manpower: 20,
-                    supplies: 15,
-                    fuel: 10,
-                    components: 7,
+                    manpower: 17,
+                    supplies: 13,
+                    fuel: 5,
+                    components: 6,
                     rareMaterials: 2
                 }
             },
             {
-                id: 'anti_aircraft_vehicle',
-                name: 'Anti-Aircraft Vehicle',
+                id: 'theater_defense_system',
+                name: 'Theater Defense System',
+                productionTime: 4,
+                resources: {
+                    manpower: 250,
+                    supplies: 200,
+                    fuel: 80,
+                    components: 100,
+                    rareMaterials: 35
+                },
+                upkeep: {
+                    manpower: 20,
+                    supplies: 17,
+                    fuel: 7,
+                    components: 9,
+                    rareMaterials: 3
+                }
+            },
+            {
+                id: 'mobile_radar',
+                name: 'Mobile Radar',
                 productionTime: 2,
                 resources: {
                     manpower: 150,
-                    supplies: 100,
-                    fuel: 75,
-                    components: 50,
+                    supplies: 110,
+                    fuel: 50,
+                    components: 65,
                     rareMaterials: 15
                 },
                 upkeep: {
-                    manpower: 15,
-                    supplies: 10,
-                    fuel: 7,
+                    manpower: 12,
+                    supplies: 9,
+                    fuel: 4,
                     components: 5,
                     rareMaterials: 1
                 }
@@ -199,39 +332,58 @@ const unitData = {
         ],
         helicopters: [
             {
-                id: 'attack_helicopter',
-                name: 'Attack Helicopter',
+                id: 'helicopter_gunship',
+                name: 'Helicopter Gunship',
                 productionTime: 3,
                 resources: {
-                    manpower: 250,
-                    supplies: 175,
-                    fuel: 125,
-                    components: 100,
-                    rareMaterials: 30
-                },
-                upkeep: {
-                    manpower: 25,
-                    supplies: 17,
-                    fuel: 12,
-                    components: 10,
-                    rareMaterials: 3
-                }
-            },
-            {
-                id: 'transport_helicopter',
-                name: 'Transport Helicopter',
-                productionTime: 3,
-                resources: {
-                    manpower: 225,
+                    manpower: 200,
                     supplies: 150,
-                    fuel: 110,
+                    fuel: 90,
                     components: 85,
                     rareMaterials: 25
                 },
                 upkeep: {
-                    manpower: 22,
+                    manpower: 18,
+                    supplies: 13,
+                    fuel: 8,
+                    components: 7,
+                    rareMaterials: 2
+                }
+            },
+            {
+                id: 'attack_helicopter',
+                name: 'Attack Helicopter',
+                productionTime: 3,
+                resources: {
+                    manpower: 230,
+                    supplies: 180,
+                    fuel: 110,
+                    components: 100,
+                    rareMaterials: 30
+                },
+                upkeep: {
+                    manpower: 20,
                     supplies: 15,
-                    fuel: 11,
+                    fuel: 10,
+                    components: 9,
+                    rareMaterials: 2
+                }
+            },
+            {
+                id: 'asw_helicopter',
+                name: 'ASW Helicopter',
+                productionTime: 3,
+                resources: {
+                    manpower: 210,
+                    supplies: 160,
+                    fuel: 100,
+                    components: 90,
+                    rareMaterials: 28
+                },
+                upkeep: {
+                    manpower: 19,
+                    supplies: 14,
+                    fuel: 9,
                     components: 8,
                     rareMaterials: 2
                 }
@@ -239,21 +391,59 @@ const unitData = {
         ],
         fighters: [
             {
-                id: 'fighter_jet',
-                name: 'Fighter Jet',
+                id: 'air_superiority_fighter',
+                name: 'Air Superiority Fighter',
                 productionTime: 4,
                 resources: {
-                    manpower: 300,
+                    manpower: 260,
                     supplies: 200,
-                    fuel: 150,
-                    components: 125,
-                    rareMaterials: 40
+                    fuel: 120,
+                    components: 110,
+                    rareMaterials: 35
                 },
                 upkeep: {
-                    manpower: 30,
+                    manpower: 22,
+                    supplies: 17,
+                    fuel: 11,
+                    components: 10,
+                    rareMaterials: 3
+                }
+            },
+            {
+                id: 'naval_air_superiority_fighter',
+                name: 'Naval Air Superiority Fighter',
+                productionTime: 4,
+                resources: {
+                    manpower: 270,
+                    supplies: 210,
+                    fuel: 130,
+                    components: 120,
+                    rareMaterials: 38
+                },
+                upkeep: {
+                    manpower: 23,
+                    supplies: 18,
+                    fuel: 12,
+                    components: 11,
+                    rareMaterials: 3
+                }
+            },
+            {
+                id: 'stealth_air_superiority_fighter',
+                name: 'Stealth Air Superiority Fighter',
+                productionTime: 5,
+                resources: {
+                    manpower: 300,
+                    supplies: 240,
+                    fuel: 150,
+                    components: 140,
+                    rareMaterials: 45
+                },
+                upkeep: {
+                    manpower: 25,
                     supplies: 20,
-                    fuel: 15,
-                    components: 12,
+                    fuel: 14,
+                    components: 13,
                     rareMaterials: 4
                 }
             },
@@ -262,117 +452,269 @@ const unitData = {
                 name: 'Strike Fighter',
                 productionTime: 4,
                 resources: {
-                    manpower: 325,
-                    supplies: 225,
-                    fuel: 175,
-                    components: 150,
-                    rareMaterials: 45
+                    manpower: 280,
+                    supplies: 220,
+                    fuel: 140,
+                    components: 130,
+                    rareMaterials: 40
                 },
                 upkeep: {
-                    manpower: 32,
-                    supplies: 22,
-                    fuel: 17,
-                    components: 15,
+                    manpower: 24,
+                    supplies: 19,
+                    fuel: 13,
+                    components: 12,
+                    rareMaterials: 3
+                }
+            },
+            {
+                id: 'naval_strike_fighter',
+                name: 'Naval Strike Fighter',
+                productionTime: 4,
+                resources: {
+                    manpower: 290,
+                    supplies: 230,
+                    fuel: 145,
+                    components: 135,
+                    rareMaterials: 42
+                },
+                upkeep: {
+                    manpower: 25,
+                    supplies: 20,
+                    fuel: 13,
+                    components: 12,
                     rareMaterials: 4
+                }
+            },
+            {
+                id: 'stealth_strike_fighter',
+                name: 'Stealth Strike Fighter',
+                productionTime: 5,
+                resources: {
+                    manpower: 320,
+                    supplies: 260,
+                    fuel: 160,
+                    components: 150,
+                    rareMaterials: 48
+                },
+                upkeep: {
+                    manpower: 27,
+                    supplies: 22,
+                    fuel: 15,
+                    components: 14,
+                    rareMaterials: 4
+                }
+            },
+            {
+                id: 'uav',
+                name: 'UAV',
+                productionTime: 3,
+                resources: {
+                    manpower: 180,
+                    supplies: 150,
+                    fuel: 100,
+                    components: 120,
+                    rareMaterials: 30
+                },
+                upkeep: {
+                    manpower: 15,
+                    supplies: 12,
+                    fuel: 9,
+                    components: 10,
+                    rareMaterials: 2
                 }
             }
         ],
         heavies: [
             {
-                id: 'strategic_bomber',
-                name: 'Strategic Bomber',
-                productionTime: 5,
+                id: 'naval_patrol_aircraft',
+                name: 'Naval Patrol Aircraft',
+                productionTime: 4,
                 resources: {
-                    manpower: 400,
-                    supplies: 300,
-                    fuel: 250,
-                    components: 200,
-                    rareMaterials: 60
+                    manpower: 270,
+                    supplies: 210,
+                    fuel: 130,
+                    components: 150,
+                    rareMaterials: 40
                 },
                 upkeep: {
-                    manpower: 40,
-                    supplies: 30,
-                    fuel: 25,
-                    components: 20,
-                    rareMaterials: 6
+                    manpower: 23,
+                    supplies: 18,
+                    fuel: 12,
+                    components: 14,
+                    rareMaterials: 3
                 }
             },
             {
-                id: 'tactical_bomber',
-                name: 'Tactical Bomber',
-                productionTime: 4,
+                id: 'awacs',
+                name: 'AWACS',
+                productionTime: 5,
                 resources: {
-                    manpower: 350,
-                    supplies: 250,
-                    fuel: 200,
-                    components: 175,
+                    manpower: 300,
+                    supplies: 240,
+                    fuel: 160,
+                    components: 180,
                     rareMaterials: 50
                 },
                 upkeep: {
-                    manpower: 35,
-                    supplies: 25,
-                    fuel: 20,
+                    manpower: 25,
+                    supplies: 20,
+                    fuel: 15,
+                    components: 16,
+                    rareMaterials: 4
+                }
+            },
+            {
+                id: 'naval_awacs',
+                name: 'Naval AWACS',
+                productionTime: 5,
+                resources: {
+                    manpower: 310,
+                    supplies: 250,
+                    fuel: 170,
+                    components: 190,
+                    rareMaterials: 55
+                },
+                upkeep: {
+                    manpower: 26,
+                    supplies: 21,
+                    fuel: 16,
                     components: 17,
                     rareMaterials: 5
+                }
+            },
+            {
+                id: 'heavy_bomber',
+                name: 'Heavy Bomber',
+                productionTime: 5,
+                resources: {
+                    manpower: 350,
+                    supplies: 280,
+                    fuel: 200,
+                    components: 210,
+                    rareMaterials: 60
+                },
+                upkeep: {
+                    manpower: 30,
+                    supplies: 24,
+                    fuel: 18,
+                    components: 19,
+                    rareMaterials: 5
+                }
+            },
+            {
+                id: 'stealth_bomber',
+                name: 'Stealth Bomber',
+                productionTime: 6,
+                resources: {
+                    manpower: 400,
+                    supplies: 320,
+                    fuel: 230,
+                    components: 240,
+                    rareMaterials: 70
+                },
+                upkeep: {
+                    manpower: 34,
+                    supplies: 27,
+                    fuel: 20,
+                    components: 22,
+                    rareMaterials: 6
                 }
             }
         ],
         naval: [
             {
-                id: 'destroyer',
-                name: 'Destroyer',
-                productionTime: 5,
+                id: 'corvette',
+                name: 'Corvette',
+                productionTime: 4,
                 resources: {
-                    manpower: 450,
-                    supplies: 350,
-                    fuel: 300,
-                    components: 250,
-                    rareMaterials: 75
+                    manpower: 300,
+                    supplies: 240,
+                    fuel: 180,
+                    components: 200,
+                    rareMaterials: 50
                 },
                 upkeep: {
-                    manpower: 45,
-                    supplies: 35,
-                    fuel: 30,
-                    components: 25,
-                    rareMaterials: 7
+                    manpower: 25,
+                    supplies: 20,
+                    fuel: 15,
+                    components: 17,
+                    rareMaterials: 4
                 }
             },
             {
                 id: 'frigate',
                 name: 'Frigate',
-                productionTime: 4,
+                productionTime: 5,
                 resources: {
-                    manpower: 375,
-                    supplies: 275,
-                    fuel: 225,
-                    components: 200,
+                    manpower: 350,
+                    supplies: 280,
+                    fuel: 210,
+                    components: 230,
                     rareMaterials: 60
                 },
                 upkeep: {
-                    manpower: 37,
-                    supplies: 27,
-                    fuel: 22,
+                    manpower: 30,
+                    supplies: 24,
+                    fuel: 18,
                     components: 20,
+                    rareMaterials: 5
+                }
+            },
+            {
+                id: 'destroyer',
+                name: 'Destroyer',
+                productionTime: 6,
+                resources: {
+                    manpower: 400,
+                    supplies: 320,
+                    fuel: 240,
+                    components: 260,
+                    rareMaterials: 70
+                },
+                upkeep: {
+                    manpower: 34,
+                    supplies: 27,
+                    fuel: 20,
+                    components: 22,
                     rareMaterials: 6
                 }
             },
             {
                 id: 'cruiser',
                 name: 'Cruiser',
-                productionTime: 6,
+                productionTime: 7,
                 resources: {
                     manpower: 500,
                     supplies: 400,
-                    fuel: 350,
-                    components: 300,
-                    rareMaterials: 90
+                    fuel: 300,
+                    components: 320,
+                    rareMaterials: 85
+                },
+                upkeep: {
+                    manpower: 42,
+                    supplies: 34,
+                    fuel: 25,
+                    components: 27,
+                    rareMaterials: 7
+                }
+            },
+            {
+                id: 'aircraft_carrier',
+                name: 'Aircraft Carrier',
+                productionTime: 8,
+                resources: {
+                    manpower: 600,
+                    supplies: 480,
+                    fuel: 360,
+                    components: 400,
+                    rareMaterials: 100
                 },
                 upkeep: {
                     manpower: 50,
                     supplies: 40,
-                    fuel: 35,
-                    components: 30,
-                    rareMaterials: 9
+                    fuel: 30,
+                    components: 34,
+                    rareMaterials: 8
                 }
             }
         ],
@@ -380,534 +722,269 @@ const unitData = {
             {
                 id: 'attack_submarine',
                 name: 'Attack Submarine',
-                productionTime: 5,
+                productionTime: 6,
                 resources: {
-                    manpower: 425,
-                    supplies: 325,
-                    fuel: 275,
-                    components: 225,
-                    rareMaterials: 70
+                    manpower: 380,
+                    supplies: 300,
+                    fuel: 220,
+                    components: 240,
+                    rareMaterials: 65
                 },
                 upkeep: {
-                    manpower: 42,
-                    supplies: 32,
-                    fuel: 27,
-                    components: 22,
-                    rareMaterials: 7
+                    manpower: 32,
+                    supplies: 25,
+                    fuel: 18,
+                    components: 20,
+                    rareMaterials: 5
                 }
             },
             {
                 id: 'ballistic_missile_submarine',
                 name: 'Ballistic Missile Submarine',
-                productionTime: 6,
+                productionTime: 7,
                 resources: {
-                    manpower: 475,
-                    supplies: 375,
-                    fuel: 325,
-                    components: 275,
-                    rareMaterials: 85
-                },
-                upkeep: {
-                    manpower: 47,
-                    supplies: 37,
-                    fuel: 32,
-                    components: 27,
-                    rareMaterials: 8
-                }
-            }
-        ]
-    },
-    eastern: {
-        infantry: [
-            {
-                id: 'motorized_infantry_eastern',
-                name: 'Motorized Infantry',
-                productionTime: 1,
-                resources: {
-                    manpower: 90,
-                    supplies: 45,
-                    fuel: 20,
-                    components: 8,
-                    rareMaterials: 0
-                },
-                upkeep: {
-                    manpower: 9,
-                    supplies: 4,
-                    fuel: 2,
-                    components: 0,
-                    rareMaterials: 0
-                }
-            },
-            {
-                id: 'mechanized_infantry_eastern',
-                name: 'Mechanized Infantry',
-                productionTime: 2,
-                resources: {
-                    manpower: 140,
-                    supplies: 70,
-                    fuel: 45,
-                    components: 20,
-                    rareMaterials: 0
-                },
-                upkeep: {
-                    manpower: 14,
-                    supplies: 7,
-                    fuel: 4,
-                    components: 2,
-                    rareMaterials: 0
-                }
-            },
-            {
-                id: 'airborne_infantry_eastern',
-                name: 'Airborne Infantry',
-                productionTime: 2,
-                resources: {
-                    manpower: 180,
-                    supplies: 90,
-                    fuel: 65,
-                    components: 45,
-                    rareMaterials: 0
-                },
-                upkeep: {
-                    manpower: 18,
-                    supplies: 9,
-                    fuel: 6,
-                    components: 4,
-                    rareMaterials: 0
-                }
-            }
-        ],
-        armored: [
-            {
-                id: 'main_battle_tank_eastern',
-                name: 'Main Battle Tank',
-                productionTime: 3,
-                resources: {
-                    manpower: 180,
-                    supplies: 140,
-                    fuel: 90,
-                    components: 70,
-                    rareMaterials: 20
-                },
-                upkeep: {
-                    manpower: 18,
-                    supplies: 14,
-                    fuel: 9,
-                    components: 7,
-                    rareMaterials: 2
-                }
-            },
-            {
-                id: 'armored_fighting_vehicle_eastern',
-                name: 'Armored Fighting Vehicle',
-                productionTime: 2,
-                resources: {
-                    manpower: 140,
-                    supplies: 90,
-                    fuel: 65,
-                    components: 45,
-                    rareMaterials: 12
-                },
-                upkeep: {
-                    manpower: 14,
-                    supplies: 9,
-                    fuel: 6,
-                    components: 4,
-                    rareMaterials: 1
-                }
-            }
-        ],
-        support: [
-            {
-                id: 'self_propelled_artillery_eastern',
-                name: 'Self-Propelled Artillery',
-                productionTime: 3,
-                resources: {
-                    manpower: 160,
-                    supplies: 120,
-                    fuel: 85,
-                    components: 60,
-                    rareMaterials: 15
-                },
-                upkeep: {
-                    manpower: 16,
-                    supplies: 12,
-                    fuel: 8,
-                    components: 6,
-                    rareMaterials: 1
-                }
-            },
-            {
-                id: 'multiple_rocket_launcher_eastern',
-                name: 'Multiple Rocket Launcher',
-                productionTime: 3,
-                resources: {
-                    manpower: 180,
-                    supplies: 140,
-                    fuel: 90,
-                    components: 70,
-                    rareMaterials: 20
-                },
-                upkeep: {
-                    manpower: 18,
-                    supplies: 14,
-                    fuel: 9,
-                    components: 7,
-                    rareMaterials: 2
-                }
-            }
-        ],
-        helicopters: [
-            {
-                id: 'attack_helicopter_eastern',
-                name: 'Attack Helicopter',
-                productionTime: 3,
-                resources: {
-                    manpower: 230,
-                    supplies: 165,
-                    fuel: 115,
-                    components: 90,
-                    rareMaterials: 25
-                },
-                upkeep: {
-                    manpower: 23,
-                    supplies: 16,
-                    fuel: 11,
-                    components: 9,
-                    rareMaterials: 2
-                }
-            }
-        ],
-        fighters: [
-            {
-                id: 'fighter_jet_eastern',
-                name: 'Fighter Jet',
-                productionTime: 4,
-                resources: {
-                    manpower: 280,
-                    supplies: 190,
-                    fuel: 140,
-                    components: 115,
-                    rareMaterials: 35
-                },
-                upkeep: {
-                    manpower: 28,
-                    supplies: 19,
-                    fuel: 14,
-                    components: 11,
-                    rareMaterials: 3
-                }
-            }
-        ],
-        heavies: [
-            {
-                id: 'strategic_bomber_eastern',
-                name: 'Strategic Bomber',
-                productionTime: 5,
-                resources: {
-                    manpower: 380,
-                    supplies: 290,
-                    fuel: 240,
-                    components: 190,
-                    rareMaterials: 55
+                    manpower: 450,
+                    supplies: 360,
+                    fuel: 270,
+                    components: 290,
+                    rareMaterials: 80
                 },
                 upkeep: {
                     manpower: 38,
-                    supplies: 29,
-                    fuel: 24,
-                    components: 19,
-                    rareMaterials: 5
-                }
-            }
-        ],
-        naval: [
-            {
-                id: 'destroyer_eastern',
-                name: 'Destroyer',
-                productionTime: 5,
-                resources: {
-                    manpower: 430,
-                    supplies: 330,
-                    fuel: 280,
-                    components: 230,
-                    rareMaterials: 70
-                },
-                upkeep: {
-                    manpower: 43,
-                    supplies: 33,
-                    fuel: 28,
-                    components: 23,
-                    rareMaterials: 7
-                }
-            }
-        ],
-        submarine: [
-            {
-                id: 'attack_submarine_eastern',
-                name: 'Attack Submarine',
-                productionTime: 5,
-                resources: {
-                    manpower: 405,
-                    supplies: 305,
-                    fuel: 255,
-                    components: 205,
-                    rareMaterials: 65
-                },
-                upkeep: {
-                    manpower: 40,
                     supplies: 30,
-                    fuel: 25,
-                    components: 20,
-                    rareMaterials: 6
-                }
-            }
-        ]
-    },
-    european: {
-        infantry: [
-            {
-                id: 'motorized_infantry_european',
-                name: 'Motorized Infantry',
-                productionTime: 1,
-                resources: {
-                    manpower: 95,
-                    supplies: 48,
                     fuel: 22,
-                    components: 9,
-                    rareMaterials: 0
-                },
-                upkeep: {
-                    manpower: 9,
-                    supplies: 4,
-                    fuel: 2,
-                    components: 0,
-                    rareMaterials: 0
-                }
-            },
-            {
-                id: 'mechanized_infantry_european',
-                name: 'Mechanized Infantry',
-                productionTime: 2,
-                resources: {
-                    manpower: 145,
-                    supplies: 72,
-                    fuel: 48,
-                    components: 22,
-                    rareMaterials: 0
-                },
-                upkeep: {
-                    manpower: 14,
-                    supplies: 7,
-                    fuel: 4,
-                    components: 2,
-                    rareMaterials: 0
-                }
-            },
-            {
-                id: 'airborne_infantry_european',
-                name: 'Airborne Infantry',
-                productionTime: 2,
-                resources: {
-                    manpower: 190,
-                    supplies: 95,
-                    fuel: 70,
-                    components: 47,
-                    rareMaterials: 0
-                },
-                upkeep: {
-                    manpower: 19,
-                    supplies: 9,
-                    fuel: 7,
-                    components: 4,
-                    rareMaterials: 0
-                }
-            }
-        ],
-        armored: [
-            {
-                id: 'main_battle_tank_european',
-                name: 'Main Battle Tank',
-                productionTime: 3,
-                resources: {
-                    manpower: 190,
-                    supplies: 145,
-                    fuel: 95,
-                    components: 72,
-                    rareMaterials: 22
-                },
-                upkeep: {
-                    manpower: 19,
-                    supplies: 14,
-                    fuel: 9,
-                    components: 7,
-                    rareMaterials: 2
-                }
-            },
-            {
-                id: 'armored_fighting_vehicle_european',
-                name: 'Armored Fighting Vehicle',
-                productionTime: 2,
-                resources: {
-                    manpower: 145,
-                    supplies: 95,
-                    fuel: 70,
-                    components: 47,
-                    rareMaterials: 13
-                },
-                upkeep: {
-                    manpower: 14,
-                    supplies: 9,
-                    fuel: 7,
-                    components: 4,
-                    rareMaterials: 1
-                }
-            }
-        ],
-        support: [
-            {
-                id: 'self_propelled_artillery_european',
-                name: 'Self-Propelled Artillery',
-                productionTime: 3,
-                resources: {
-                    manpower: 170,
-                    supplies: 130,
-                    fuel: 88,
-                    components: 63,
-                    rareMaterials: 18
-                },
-                upkeep: {
-                    manpower: 17,
-                    supplies: 13,
-                    fuel: 8,
-                    components: 6,
-                    rareMaterials: 1
-                }
-            },
-            {
-                id: 'multiple_rocket_launcher_european',
-                name: 'Multiple Rocket Launcher',
-                productionTime: 3,
-                resources: {
-                    manpower: 190,
-                    supplies: 145,
-                    fuel: 95,
-                    components: 72,
-                    rareMaterials: 22
-                },
-                upkeep: {
-                    manpower: 19,
-                    supplies: 14,
-                    fuel: 9,
-                    components: 7,
-                    rareMaterials: 2
-                }
-            }
-        ],
-        helicopters: [
-            {
-                id: 'attack_helicopter_european',
-                name: 'Attack Helicopter',
-                productionTime: 3,
-                resources: {
-                    manpower: 240,
-                    supplies: 170,
-                    fuel: 120,
-                    components: 95,
-                    rareMaterials: 28
-                },
-                upkeep: {
-                    manpower: 24,
-                    supplies: 17,
-                    fuel: 12,
-                    components: 9,
-                    rareMaterials: 2
-                }
-            }
-        ],
-        fighters: [
-            {
-                id: 'fighter_jet_european',
-                name: 'Fighter Jet',
-                productionTime: 4,
-                resources: {
-                    manpower: 290,
-                    supplies: 195,
-                    fuel: 145,
-                    components: 120,
-                    rareMaterials: 38
-                },
-                upkeep: {
-                    manpower: 29,
-                    supplies: 19,
-                    fuel: 14,
-                    components: 12,
-                    rareMaterials: 3
-                }
-            }
-        ],
-        heavies: [
-            {
-                id: 'strategic_bomber_european',
-                name: 'Strategic Bomber',
-                productionTime: 5,
-                resources: {
-                    manpower: 390,
-                    supplies: 295,
-                    fuel: 245,
-                    components: 195,
-                    rareMaterials: 58
-                },
-                upkeep: {
-                    manpower: 39,
-                    supplies: 29,
-                    fuel: 24,
-                    components: 19,
-                    rareMaterials: 5
-                }
-            }
-        ],
-        naval: [
-            {
-                id: 'destroyer_european',
-                name: 'Destroyer',
-                productionTime: 5,
-                resources: {
-                    manpower: 440,
-                    supplies: 340,
-                    fuel: 290,
-                    components: 240,
-                    rareMaterials: 73
-                },
-                upkeep: {
-                    manpower: 44,
-                    supplies: 34,
-                    fuel: 29,
                     components: 24,
                     rareMaterials: 7
                 }
             }
         ],
-        submarine: [
+        missiles: [
             {
-                id: 'attack_submarine_european',
-                name: 'Attack Submarine',
-                productionTime: 5,
+                id: 'conventional_warhead',
+                name: 'Conventional Warhead',
+                productionTime: 2,
                 resources: {
-                    manpower: 415,
-                    supplies: 315,
-                    fuel: 265,
-                    components: 215,
-                    rareMaterials: 68
+                    manpower: 100,
+                    supplies: 120,
+                    fuel: 60,
+                    components: 80,
+                    rareMaterials: 20
                 },
                 upkeep: {
-                    manpower: 41,
-                    supplies: 31,
-                    fuel: 26,
-                    components: 21,
+                    manpower: 8,
+                    supplies: 10,
+                    fuel: 5,
+                    components: 7,
+                    rareMaterials: 1
+                }
+            },
+            {
+                id: 'chemical_warhead',
+                name: 'Chemical Warhead',
+                productionTime: 3,
+                resources: {
+                    manpower: 120,
+                    supplies: 150,
+                    fuel: 70,
+                    components: 100,
+                    rareMaterials: 30
+                },
+                upkeep: {
+                    manpower: 10,
+                    supplies: 12,
+                    fuel: 6,
+                    components: 8,
+                    rareMaterials: 2
+                }
+            },
+            {
+                id: 'nuclear_warhead',
+                name: 'Nuclear Warhead',
+                productionTime: 5,
+                resources: {
+                    manpower: 150,
+                    supplies: 200,
+                    fuel: 100,
+                    components: 150,
+                    rareMaterials: 50
+                },
+                upkeep: {
+                    manpower: 12,
+                    supplies: 16,
+                    fuel: 8,
+                    components: 12,
+                    rareMaterials: 4
+                }
+            },
+            {
+                id: 'cruise_missile',
+                name: 'Cruise Missile',
+                productionTime: 3,
+                resources: {
+                    manpower: 110,
+                    supplies: 130,
+                    fuel: 65,
+                    components: 90,
+                    rareMaterials: 25
+                },
+                upkeep: {
+                    manpower: 9,
+                    supplies: 11,
+                    fuel: 5,
+                    components: 7,
+                    rareMaterials: 2
+                }
+            },
+            {
+                id: 'ballistic_missile',
+                name: 'Ballistic Missile',
+                productionTime: 4,
+                resources: {
+                    manpower: 130,
+                    supplies: 160,
+                    fuel: 80,
+                    components: 110,
+                    rareMaterials: 35
+                },
+                upkeep: {
+                    manpower: 11,
+                    supplies: 13,
+                    fuel: 7,
+                    components: 9,
+                    rareMaterials: 3
+                }
+            },
+            {
+                id: 'icbm',
+                name: 'ICBM',
+                productionTime: 6,
+                resources: {
+                    manpower: 180,
+                    supplies: 220,
+                    fuel: 110,
+                    components: 170,
+                    rareMaterials: 60
+                },
+                upkeep: {
+                    manpower: 15,
+                    supplies: 18,
+                    fuel: 9,
+                    components: 14,
+                    rareMaterials: 5
+                }
+            },
+            {
+                id: 'cruise_missile_launcher',
+                name: 'Cruise Missile Launcher',
+                productionTime: 4,
+                resources: {
+                    manpower: 200,
+                    supplies: 180,
+                    fuel: 90,
+                    components: 150,
+                    rareMaterials: 40
+                },
+                upkeep: {
+                    manpower: 17,
+                    supplies: 15,
+                    fuel: 7,
+                    components: 13,
+                    rareMaterials: 3
+                }
+            },
+            {
+                id: 'ballistic_missile_launcher',
+                name: 'Ballistic Missile Launcher',
+                productionTime: 5,
+                resources: {
+                    manpower: 240,
+                    supplies: 210,
+                    fuel: 110,
+                    components: 180,
+                    rareMaterials: 50
+                },
+                upkeep: {
+                    manpower: 20,
+                    supplies: 18,
+                    fuel: 9,
+                    components: 15,
+                    rareMaterials: 4
+                }
+            },
+            {
+                id: 'icbm_launcher',
+                name: 'ICBM Launcher',
+                productionTime: 7,
+                resources: {
+                    manpower: 300,
+                    supplies: 260,
+                    fuel: 130,
+                    components: 220,
+                    rareMaterials: 70
+                },
+                upkeep: {
+                    manpower: 25,
+                    supplies: 22,
+                    fuel: 11,
+                    components: 18,
                     rareMaterials: 6
                 }
             }
         ]
+    },
+    eastern: {
+        // Eastern doctrine units with similar structure but slightly different values
+        // These could be filled with more accurate values from the game
+        infantry: [
+            {
+                id: 'eastern_motorized_infantry',
+                name: 'Motorized Infantry',
+                productionTime: 1,
+                resources: {
+                    manpower: 200,
+                    supplies: 110,
+                    fuel: 35,
+                    components: 15,
+                    rareMaterials: 0
+                },
+                upkeep: {
+                    manpower: 16,
+                    supplies: 9,
+                    fuel: 3,
+                    components: 1,
+                    rareMaterials: 0
+                }
+            },
+            // Add other eastern infantry units...
+        ],
+        // Add other eastern categories...
+    },
+    european: {
+        // European doctrine units with similar structure but slightly different values
+        // These could be filled with more accurate values from the game
+        infantry: [
+            {
+                id: 'european_motorized_infantry',
+                name: 'Motorized Infantry',
+                productionTime: 1,
+                resources: {
+                    manpower: 190,
+                    supplies: 130,
+                    fuel: 45,
+                    components: 25,
+                    rareMaterials: 0
+                },
+                upkeep: {
+                    manpower: 16,
+                    supplies: 11,
+                    fuel: 4,
+                    components: 2,
+                    rareMaterials: 0
+                }
+            },
+            // Add other european infantry units...
+        ],
+        // Add other european categories...
     }
 };
 
