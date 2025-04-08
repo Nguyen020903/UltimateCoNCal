@@ -79,6 +79,101 @@
             updateResourceSummary();
         }
 
+        // Populate the unit bank with units from the selected doctrine
+        function populateUnitBank(doctrine) {
+            const unitBank = document.querySelector('.unit-bank');
+            const doctrineUnits = unitData[doctrine];
+            
+            // Clear existing units
+            unitBank.innerHTML = '<h2>Available Units</h2>';
+            
+            // Add units to the bank
+            Object.keys(doctrineUnits).forEach(category => {
+                doctrineUnits[category].forEach(unit => {
+                    const unitCard = document.createElement('div');
+                    unitCard.className = 'unit-card';
+                    unitCard.setAttribute('draggable', 'true');
+                    unitCard.setAttribute('data-unit', JSON.stringify(unit));
+                    
+                    unitCard.innerHTML = `
+                        <div class="unit-name">${unit.name}</div>
+                        <div class="unit-level">
+                            <input type="number" min="1" max="3" value="1" class="level-input" title="Unit Level">
+                        </div>
+                        <div class="unit-details collapsed">
+                            <div>Production Time: ${unit.productionTime} days</div>
+                            <div class="unit-resources">
+                                <div class="resource-header">Production Resources (Level 1):</div>
+                                <div>Manpower: ${unit.resources.manpower}</div>
+                                <div>Supplies: ${unit.resources.supplies}</div>
+                                <div>Fuel: ${unit.resources.fuel}</div>
+                                <div>Components: ${unit.resources.components}</div>
+                                <div>Rare Materials: ${unit.resources.rareMaterials}</div>
+                                <div class="resource-header">Daily Upkeep (Level 1):</div>
+                                <div>Manpower: ${unit.upkeep.manpower}</div>
+                                <div>Supplies: ${unit.upkeep.supplies}</div>
+                                <div>Fuel: ${unit.upkeep.fuel}</div>
+                                <div>Components: ${unit.upkeep.components}</div>
+                                <div>Rare Materials: ${unit.upkeep.rareMaterials}</div>
+                            </div>
+                        </div>
+                        <div class="unit-actions">
+                            <button onclick="toggleUnitDetails(this.parentElement.parentElement)">Details</button>
+                        </div>
+                    `;
+                    
+                    // Add event listener to update resources on level change
+                    const levelInput = unitCard.querySelector('.level-input');
+                    levelInput.addEventListener('change', function() {
+                        updateUnitCardResources(unitCard, this.value);
+                    });
+                    
+                    // Add drag event listeners
+                    unitCard.addEventListener('dragstart', handleDragStart);
+                    
+                    unitBank.appendChild(unitCard);
+                });
+            });
+        }
+
+        // Update unit card resources based on level
+        function updateUnitCardResources(unitCard, level) {
+            const unitData = JSON.parse(unitCard.getAttribute('data-unit'));
+            // For now, we'll use multiplier based on level
+            const levelMultiplier = parseInt(level) || 1;
+            const multiplier = 1 + (levelMultiplier - 1) * 0.25; // 25% increase per level
+            
+            const resourcesDiv = unitCard.querySelector('.unit-resources');
+            resourcesDiv.innerHTML = `
+                <div class="resource-header">Production Resources (Level ${level}):</div>
+                <div>Manpower: ${Math.round(unitData.resources.manpower * multiplier)}</div>
+                <div>Supplies: ${Math.round(unitData.resources.supplies * multiplier)}</div>
+                <div>Fuel: ${Math.round(unitData.resources.fuel * multiplier)}</div>
+                <div>Components: ${Math.round(unitData.resources.components * multiplier)}</div>
+                <div>Rare Materials: ${Math.round(unitData.resources.rareMaterials * multiplier)}</div>
+                <div class="resource-header">Daily Upkeep (Level ${level}):</div>
+                <div>Manpower: ${Math.round(unitData.upkeep.manpower * multiplier)}</div>
+                <div>Supplies: ${Math.round(unitData.upkeep.supplies * multiplier)}</div>
+                <div>Fuel: ${Math.round(unitData.upkeep.fuel * multiplier)}</div>
+                <div>Components: ${Math.round(unitData.upkeep.components * multiplier)}</div>
+                <div>Rare Materials: ${Math.round(unitData.upkeep.rareMaterials * multiplier)}</div>
+            `;
+        }
+
+        // Handle drag start
+        function handleDragStart(e) {
+            const unitData = JSON.parse(e.currentTarget.getAttribute('data-unit'));
+            const level = e.currentTarget.querySelector('.level-input').value;
+            
+            const dragData = {
+                unitData: unitData,
+                level: parseInt(level)
+            };
+            
+            e.dataTransfer.setData('text/plain', JSON.stringify(dragData));
+            e.dataTransfer.effectAllowed = 'copy';
+        }
+
         // Handle drag and drop functionality
         function handleDragOver(e) {
             e.preventDefault();
@@ -94,11 +189,11 @@
             const dayElement = e.currentTarget;
             dayElement.classList.remove('dragover');
             
-            const unitData = JSON.parse(e.dataTransfer.getData('text/plain'));
-            showQuantityDialog(dayElement, unitData);
+            const dragData = JSON.parse(e.dataTransfer.getData('text/plain'));
+            showQuantityDialog(dayElement, dragData.unitData, dragData.level);
         }
 
-        function showQuantityDialog(dayElement, unitData) {
+        function showQuantityDialog(dayElement, unitData, level) {
             // Create dialog container
             const dialog = document.createElement('div');
             dialog.className = 'quantity-dialog';
@@ -108,7 +203,7 @@
                 <div class="dialog-content">
                     <h3>Select Quantity</h3>
                     <div class="unit-info">
-                        <div class="unit-name">${unitData.name}</div>
+                        <div class="unit-name">${unitData.name} (Level ${level})</div>
                         <div class="unit-details">
                             <div>Production Time: ${unitData.productionTime} days</div>
                         </div>
@@ -118,7 +213,7 @@
                         <input type="number" id="quantity" value="1" min="1" max="100">
                     </div>
                     <div class="dialog-buttons">
-                        <button onclick="addUnitToDay(this.parentElement.parentElement.parentElement, ${JSON.stringify(unitData)})">Add</button>
+                        <button onclick="addUnitToDay(this.parentElement.parentElement.parentElement, ${JSON.stringify(unitData)}, ${level})">Add</button>
                         <button onclick="this.parentElement.parentElement.parentElement.remove()">Cancel</button>
                     </div>
                 </div>
@@ -133,32 +228,42 @@
             }, 100);
         }
 
-        function addUnitToDay(dialog, unitData) {
+        function addUnitToDay(dialog, unitData, level) {
             const quantity = parseInt(document.getElementById('quantity').value);
             const dayElement = document.querySelector('.calendar-day.dragover') || 
-                              document.querySelector('.calendar-day:last-child');
+                              document.querySelector(`.calendar-day[data-day="${dialog.getAttribute('data-day')}]`);
+            
+            if (!dayElement) {
+                dialog.remove();
+                return;
+            }
+            
+            // Use a multiplier based on level
+            const levelMultiplier = level || 1;
+            const multiplier = 1 + (levelMultiplier - 1) * 0.25; // 25% increase per level
             
             const unitCard = document.createElement('div');
             unitCard.className = 'unit-card';
             unitCard.setAttribute('data-unit', JSON.stringify(unitData));
             unitCard.setAttribute('data-quantity', quantity);
+            unitCard.setAttribute('data-level', level);
             unitCard.innerHTML = `
-                <div class="unit-name">${unitData.name} (${quantity}x)</div>
+                <div class="unit-name">${unitData.name} (${quantity}x) - Lvl ${level}</div>
                 <div class="unit-details collapsed">
                     <div>Production Time: ${unitData.productionTime} days</div>
                     <div class="unit-resources">
                         <div class="resource-header">Production Resources:</div>
-                        <div>Manpower: ${unitData.resources.manpower * quantity}</div>
-                        <div>Supplies: ${unitData.resources.supplies * quantity}</div>
-                        <div>Fuel: ${unitData.resources.fuel * quantity}</div>
-                        <div>Components: ${unitData.resources.components * quantity}</div>
-                        <div>Rare Materials: ${unitData.resources.rareMaterials * quantity}</div>
+                        <div>Manpower: ${Math.round(unitData.resources.manpower * multiplier) * quantity}</div>
+                        <div>Supplies: ${Math.round(unitData.resources.supplies * multiplier) * quantity}</div>
+                        <div>Fuel: ${Math.round(unitData.resources.fuel * multiplier) * quantity}</div>
+                        <div>Components: ${Math.round(unitData.resources.components * multiplier) * quantity}</div>
+                        <div>Rare Materials: ${Math.round(unitData.resources.rareMaterials * multiplier) * quantity}</div>
                         <div class="resource-header">Daily Upkeep:</div>
-                        <div>Manpower: ${unitData.upkeep.manpower * quantity}</div>
-                        <div>Supplies: ${unitData.upkeep.supplies * quantity}</div>
-                        <div>Fuel: ${unitData.upkeep.fuel * quantity}</div>
-                        <div>Components: ${unitData.upkeep.components * quantity}</div>
-                        <div>Rare Materials: ${unitData.upkeep.rareMaterials * quantity}</div>
+                        <div>Manpower: ${Math.round(unitData.upkeep.manpower * multiplier) * quantity}</div>
+                        <div>Supplies: ${Math.round(unitData.upkeep.supplies * multiplier) * quantity}</div>
+                        <div>Fuel: ${Math.round(unitData.upkeep.fuel * multiplier) * quantity}</div>
+                        <div>Components: ${Math.round(unitData.upkeep.components * multiplier) * quantity}</div>
+                        <div>Rare Materials: ${Math.round(unitData.upkeep.rareMaterials * multiplier) * quantity}</div>
                     </div>
                 </div>
                 <div class="unit-actions">
@@ -184,6 +289,7 @@
         function editUnitQuantity(unitCard) {
             const unitData = JSON.parse(unitCard.getAttribute('data-unit'));
             const currentQuantity = parseInt(unitCard.getAttribute('data-quantity'));
+            const currentLevel = parseInt(unitCard.getAttribute('data-level'));
             
             // Create dialog container
             const dialog = document.createElement('div');
@@ -192,16 +298,22 @@
             // Create dialog content
             dialog.innerHTML = `
                 <div class="dialog-content">
-                    <h3>Edit Quantity</h3>
+                    <h3>Edit Unit</h3>
                     <div class="unit-info">
                         <div class="unit-name">${unitData.name}</div>
                         <div class="unit-details">
                             <div>Production Time: ${unitData.productionTime} days</div>
                         </div>
                     </div>
-                    <div class="quantity-selector">
-                        <label for="quantity">Quantity:</label>
-                        <input type="number" id="quantity" value="${currentQuantity}" min="1" max="100">
+                    <div class="edit-controls">
+                        <div class="quantity-selector">
+                            <label for="quantity">Quantity:</label>
+                            <input type="number" id="quantity" value="${currentQuantity}" min="1" max="100">
+                        </div>
+                        <div class="level-selector">
+                            <label for="level">Level:</label>
+                            <input type="number" id="level" value="${currentLevel}" min="1" max="3">
+                        </div>
                     </div>
                     <div class="dialog-buttons">
                         <button onclick="updateUnitQuantity(this.parentElement.parentElement.parentElement, ${JSON.stringify(unitData)}, '${unitCard.id}')">Update</button>
@@ -226,26 +338,37 @@
 
         function updateUnitQuantity(dialog, unitData, unitCardId) {
             const quantity = parseInt(document.getElementById('quantity').value);
+            const level = parseInt(document.getElementById('level').value);
             const unitCard = document.getElementById(unitCardId);
             
+            if (!unitCard) {
+                dialog.remove();
+                return;
+            }
+            
+            // Use a multiplier based on level
+            const levelMultiplier = level || 1;
+            const multiplier = 1 + (levelMultiplier - 1) * 0.25; // 25% increase per level
+            
             unitCard.setAttribute('data-quantity', quantity);
-            unitCard.querySelector('.unit-name').textContent = `${unitData.name} (${quantity}x)`;
+            unitCard.setAttribute('data-level', level);
+            unitCard.querySelector('.unit-name').textContent = `${unitData.name} (${quantity}x) - Lvl ${level}`;
             
             // Update resource display
             const resourcesDiv = unitCard.querySelector('.unit-resources');
             resourcesDiv.innerHTML = `
                 <div class="resource-header">Production Resources:</div>
-                <div>Manpower: ${unitData.resources.manpower * quantity}</div>
-                <div>Supplies: ${unitData.resources.supplies * quantity}</div>
-                <div>Fuel: ${unitData.resources.fuel * quantity}</div>
-                <div>Components: ${unitData.resources.components * quantity}</div>
-                <div>Rare Materials: ${unitData.resources.rareMaterials * quantity}</div>
+                <div>Manpower: ${Math.round(unitData.resources.manpower * multiplier) * quantity}</div>
+                <div>Supplies: ${Math.round(unitData.resources.supplies * multiplier) * quantity}</div>
+                <div>Fuel: ${Math.round(unitData.resources.fuel * multiplier) * quantity}</div>
+                <div>Components: ${Math.round(unitData.resources.components * multiplier) * quantity}</div>
+                <div>Rare Materials: ${Math.round(unitData.resources.rareMaterials * multiplier) * quantity}</div>
                 <div class="resource-header">Daily Upkeep:</div>
-                <div>Manpower: ${unitData.upkeep.manpower * quantity}</div>
-                <div>Supplies: ${unitData.upkeep.supplies * quantity}</div>
-                <div>Fuel: ${unitData.upkeep.fuel * quantity}</div>
-                <div>Components: ${unitData.upkeep.components * quantity}</div>
-                <div>Rare Materials: ${unitData.upkeep.rareMaterials * quantity}</div>
+                <div>Manpower: ${Math.round(unitData.upkeep.manpower * multiplier) * quantity}</div>
+                <div>Supplies: ${Math.round(unitData.upkeep.supplies * multiplier) * quantity}</div>
+                <div>Fuel: ${Math.round(unitData.upkeep.fuel * multiplier) * quantity}</div>
+                <div>Components: ${Math.round(unitData.upkeep.components * multiplier) * quantity}</div>
+                <div>Rare Materials: ${Math.round(unitData.upkeep.rareMaterials * multiplier) * quantity}</div>
             `;
             
             dialog.remove();
@@ -255,6 +378,96 @@
         function updateDoctrine(doctrine) {
             populateUnitBank(doctrine);
             updateResourceSummary();
+        }
+
+        // Calculate total resources required for the production plan
+        function calculateTotalResources(productionPlan) {
+            const totalResources = {
+                manpower: 0,
+                supplies: 0,
+                fuel: 0,
+                components: 0,
+                rareMaterials: 0
+            };
+            
+            productionPlan.forEach(day => {
+                day.units.forEach(unit => {
+                    const unitData = unit.unitData;
+                    const quantity = unit.quantity;
+                    const level = unit.level;
+                    
+                    // Use a multiplier based on level
+                    const levelMultiplier = level || 1;
+                    const multiplier = 1 + (levelMultiplier - 1) * 0.25; // 25% increase per level
+                    
+                    totalResources.manpower += Math.round(unitData.resources.manpower * multiplier) * quantity;
+                    totalResources.supplies += Math.round(unitData.resources.supplies * multiplier) * quantity;
+                    totalResources.fuel += Math.round(unitData.resources.fuel * multiplier) * quantity;
+                    totalResources.components += Math.round(unitData.resources.components * multiplier) * quantity;
+                    totalResources.rareMaterials += Math.round(unitData.resources.rareMaterials * multiplier) * quantity;
+                });
+            });
+            
+            return totalResources;
+        }
+
+        // Format resources for display
+        function formatResources(resources) {
+            return `
+                <div class="resource-list">
+                    <div class="resource-section">
+                        <h4>Production Resources</h4>
+                        <div class="resource-item">
+                            <span class="resource-label">Manpower:</span>
+                            <span class="resource-value">${resources.manpower}</span>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-label">Supplies:</span>
+                            <span class="resource-value">${resources.supplies}</span>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-label">Fuel:</span>
+                            <span class="resource-value">${resources.fuel}</span>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-label">Components:</span>
+                            <span class="resource-value">${resources.components}</span>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-label">Rare Materials:</span>
+                            <span class="resource-value">${resources.rareMaterials}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Generate production timeline
+        function generateProductionTimeline(productionPlan) {
+            const timeline = [];
+            
+            productionPlan.forEach(day => {
+                day.units.forEach(unit => {
+                    const unitData = unit.unitData;
+                    const quantity = unit.quantity;
+                    const level = unit.level;
+                    const startDay = day.day;
+                    const endDay = startDay + unitData.productionTime - 1;
+                    
+                    timeline.push({
+                        unit: unitData.name,
+                        quantity: quantity,
+                        level: level,
+                        startDay: startDay,
+                        endDay: endDay
+                    });
+                });
+            });
+            
+            // Sort timeline by start day
+            timeline.sort((a, b) => a.startDay - b.startDay);
+            
+            return timeline;
         }
 
         // Update resource summary
@@ -276,9 +489,11 @@
                 const units = Array.from(day.querySelectorAll('.unit-card')).map(card => {
                     const unitData = JSON.parse(card.getAttribute('data-unit'));
                     const quantity = parseInt(card.getAttribute('data-quantity')) || 1;
+                    const level = parseInt(card.getAttribute('data-level')) || 1;
                     return {
                         unitData,
-                        quantity
+                        quantity,
+                        level
                     };
                 });
                 
@@ -298,7 +513,7 @@
 
             return timeline.map(item => `
                 <div class="timeline-item">
-                    <p>${item.unit} (${item.quantity}x)</p>
+                    <p>${item.unit} (${item.quantity}x) - Level ${item.level}</p>
                     <p>Days ${item.startDay}-${item.endDay}</p>
                 </div>
             `).join('');
@@ -351,27 +566,36 @@
                 
                 if (dayElement) {
                     day.units.forEach(unit => {
+                        const unitData = unit.unitData;
+                        const quantity = unit.quantity;
+                        const level = unit.level || 1;
+                        
+                        // Use a multiplier based on level
+                        const levelMultiplier = level;
+                        const multiplier = 1 + (levelMultiplier - 1) * 0.25; // 25% increase per level
+                        
                         const unitCard = document.createElement('div');
                         unitCard.className = 'unit-card';
-                        unitCard.setAttribute('data-unit', JSON.stringify(unit.unitData));
-                        unitCard.setAttribute('data-quantity', unit.quantity);
+                        unitCard.setAttribute('data-unit', JSON.stringify(unitData));
+                        unitCard.setAttribute('data-quantity', quantity);
+                        unitCard.setAttribute('data-level', level);
                         unitCard.innerHTML = `
-                            <div class="unit-name">${unit.unitData.name} (${unit.quantity}x)</div>
+                            <div class="unit-name">${unitData.name} (${quantity}x) - Lvl ${level}</div>
                             <div class="unit-details collapsed">
-                                <div>Production Time: ${unit.unitData.productionTime} days</div>
+                                <div>Production Time: ${unitData.productionTime} days</div>
                                 <div class="unit-resources">
                                     <div class="resource-header">Production Resources:</div>
-                                    <div>Manpower: ${unit.unitData.resources.manpower * unit.quantity}</div>
-                                    <div>Supplies: ${unit.unitData.resources.supplies * unit.quantity}</div>
-                                    <div>Fuel: ${unit.unitData.resources.fuel * unit.quantity}</div>
-                                    <div>Components: ${unit.unitData.resources.components * unit.quantity}</div>
-                                    <div>Rare Materials: ${unit.unitData.resources.rareMaterials * unit.quantity}</div>
+                                    <div>Manpower: ${Math.round(unitData.resources.manpower * multiplier) * quantity}</div>
+                                    <div>Supplies: ${Math.round(unitData.resources.supplies * multiplier) * quantity}</div>
+                                    <div>Fuel: ${Math.round(unitData.resources.fuel * multiplier) * quantity}</div>
+                                    <div>Components: ${Math.round(unitData.resources.components * multiplier) * quantity}</div>
+                                    <div>Rare Materials: ${Math.round(unitData.resources.rareMaterials * multiplier) * quantity}</div>
                                     <div class="resource-header">Daily Upkeep:</div>
-                                    <div>Manpower: ${unit.unitData.upkeep.manpower * unit.quantity}</div>
-                                    <div>Supplies: ${unit.unitData.upkeep.supplies * unit.quantity}</div>
-                                    <div>Fuel: ${unit.unitData.upkeep.fuel * unit.quantity}</div>
-                                    <div>Components: ${unit.unitData.upkeep.components * unit.quantity}</div>
-                                    <div>Rare Materials: ${unit.unitData.upkeep.rareMaterials * unit.quantity}</div>
+                                    <div>Manpower: ${Math.round(unitData.upkeep.manpower * multiplier) * quantity}</div>
+                                    <div>Supplies: ${Math.round(unitData.upkeep.supplies * multiplier) * quantity}</div>
+                                    <div>Fuel: ${Math.round(unitData.upkeep.fuel * multiplier) * quantity}</div>
+                                    <div>Components: ${Math.round(unitData.upkeep.components * multiplier) * quantity}</div>
+                                    <div>Rare Materials: ${Math.round(unitData.upkeep.rareMaterials * multiplier) * quantity}</div>
                                 </div>
                             </div>
                             <div class="unit-actions">
@@ -391,7 +615,7 @@
         }
 
         function clearAllUnits(showAlert = true) {
-            const unitCards = document.querySelectorAll('.unit-card');
+            const unitCards = document.querySelectorAll('.calendar-day .unit-card');
             
             unitCards.forEach(card => {
                 card.remove();

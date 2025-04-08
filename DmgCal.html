@@ -6,1064 +6,579 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="DmgCal.css">
     <script src="unit-selector.js"></script>
-    <title>Unit Composition</title>
+    <title>CoNCal - Damage Calculator</title>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5135077083099833"
         crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Upkeep Calculator</h1>
-        <h2>Doctrine</h2>
-        <div class="doctrine-dropdown">
-            <select id="doctrine" onchange="updateDoctrine()">
-                <option value="western">Western</option>
-                <option value="eastern">Eastern</option>
-                <option value="european">European</option>
-            </select>
+    <div class="damage-calculator">
+        <header>
+            <h1>Damage Calculator</h1>
+            <p>Calculate battle outcomes between different units</p>
+        </header>
+
+        <div class="calculator-section unit-comparison">
+            <div class="unit-selector">
+                <h2>Attacker</h2>
+                <div class="unit-controls">
+                    <div class="control-group">
+                        <label for="attacker-doctrine">Doctrine:</label>
+                        <select id="attacker-doctrine"></select>
+                    </div>
+                    <div class="control-group">
+                        <label for="attacker-unit">Unit:</label>
+                        <select id="attacker-unit"></select>
+                    </div>
+                    <div class="control-group">
+                        <label for="attacker-quantity">Quantity:</label>
+                        <input type="number" id="attacker-quantity" value="1" min="1">
+                    </div>
+                </div>
+                <div class="unit-stats" id="attacker-stats"></div>
+            </div>
+
+            <div class="unit-selector">
+                <h2>Defender</h2>
+                <div class="unit-controls">
+                    <div class="control-group">
+                        <label for="defender-doctrine">Doctrine:</label>
+                        <select id="defender-doctrine"></select>
+                    </div>
+                    <div class="control-group">
+                        <label for="defender-unit">Unit:</label>
+                        <select id="defender-unit"></select>
+                    </div>
+                    <div class="control-group">
+                        <label for="defender-quantity">Quantity:</label>
+                        <input type="number" id="defender-quantity" value="1" min="1">
+                    </div>
+                </div>
+                <div class="unit-stats" id="defender-stats"></div>
+            </div>
         </div>
-        <div class="unit-selection">
-            <h2>Unit Selection</h2>
-            <div class="horizontal-selector">
-                <button class="unit-type-btn">Infantry</button>
-                <button class="unit-type-btn">Armored</button>
-                <button class="unit-type-btn">Support</button>
-                <button class="unit-type-btn">Helicopters</button>
-                <button class="unit-type-btn">Fighters</button>
-                <button class="unit-type-btn">Heavies</button>
-                <button class="unit-type-btn">Naval</button>
-                <button class="unit-type-btn">Submarine</button>
-                <button class="unit-type-btn">Seasons</button>
-            </div>
-            <!-- Infantry Units -->
-            <!-- Western -->
-            <div id="infantry-western" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/infantry/light_infantry_western.png">
-                        </div>
-                        <p>Motorized Infantry</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/infantry/mechanized_infantry_western.png">
-                        </div>
-                        <p>Mechanized Infantry</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/infantry/marines_western.png">
-                        </div>
-                        <p>Naval Infantry</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/infantry/airmobile_infantry_western.png">
-                        </div>
-                        <p>Airborne Infantry</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/infantry/special_forces_western.png">
-                        </div>
-                        <p>Special Forces</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/infantry/national_guard_western.png">
-                        </div>
-                        <p>National Guard</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/infantry/mercenary_western.png">
-                        </div>
-                        <p>Mercenaries</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
 
-            <!-- Eastern -->
-            <div id="infantry-eastern" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/infantry/light_infantry_eastern.png">
-                        </div>
-                        <p>Motorized Infantry</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/infantry/mechanized_infantry_eastern.png">
-                        </div>
-                        <p>Mechanized Infantry</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/infantry/marines_eastern.png">
-                        </div>
-                        <p>Naval Infantry</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
+        <div class="calculator-section battle-conditions">
+            <h2>Battle Conditions</h2>
+            <div class="conditions-grid">
+                <div class="condition-group">
+                    <h3>Terrain</h3>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="terrain" value="plains" checked>
+                            Plains
+                        </label>
+                        <label>
+                            <input type="radio" name="terrain" value="forest">
+                            Forest
+                        </label>
+                        <label>
+                            <input type="radio" name="terrain" value="mountains">
+                            Mountains
+                        </label>
+                        <label>
+                            <input type="radio" name="terrain" value="urban">
+                            Urban
+                        </label>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/infantry/airmobile_infantry_eastern.png">
-                        </div>
-                        <p>Airborne Infantry</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/infantry/special_forces_eastern.png">
-                        </div>
-                        <p>Special Forces</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/infantry/national_guard_eastern.png">
-                        </div>
-                        <p>National Guard</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/infantry/mercenary_eastern.png">
-                        </div>
-                        <p>Mercenaries</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
 
-            <!-- European -->
-            <div id="infantry-european" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/infantry/light_infantry_eu.png">
-                        </div>
-                        <p>Motorized Infantry</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/infantry/mechanized_infantry_eu.png">
-                        </div>
-                        <p>Mechanized Infantry</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
+                <div class="condition-group">
+                    <h3>Weather</h3>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="weather" value="clear" checked>
+                            Clear
+                        </label>
+                        <label>
+                            <input type="radio" name="weather" value="rain">
+                            Rain
+                        </label>
+                        <label>
+                            <input type="radio" name="weather" value="snow">
+                            Snow
+                        </label>
+                        <label>
+                            <input type="radio" name="weather" value="storm">
+                            Storm
+                        </label>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/infantry/marines_eu.png">
-                        </div>
-                        <p>Naval Infantry</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/infantry/airmobile_infantry_eu.png">
-                        </div>
-                        <p>Airborne Infantry</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/infantry/special_forces_eu.png">
-                        </div>
-                        <p>Special Forces</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/infantry/national_guard_eu.png">
-                        </div>
-                        <p>National Guard</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/infantry/mercenary_eu.png">
-                        </div>
-                        <p>Mercenaries</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
 
-            <!-- Armored Units -->
-            <!-- Western -->
-            <div id="armored-western" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/armored/combat_recon_vehicle_western.png">
-                        </div>
-                        <p>Combat Recon Vehicle</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/armored/afv_western.png">
-                        </div>
-                        <p>Armored Fighting Vehicle</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/armored/acv_western.png">
-                        </div>
-                        <p>Amphibious Combat Vehicle</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/armored/mbt_western.png">
-                        </div>
-                        <p>Main Battle Tank</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/armored/tank_destroyer_western.png">
-                        </div>
-                        <p>Tank Destroyer</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Eastern -->
-            <div id="armored-eastern" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/armored/combat_recon_vehicle_eastern.png">
-                        </div>
-                        <p>Combat Recon Vehicle</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/armored/afv_eastern.png">
-                        </div>
-                        <p>Armored Fighting Vehicle</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/armored/acv_eastern.png">
-                        </div>
-                        <p>Amphibious Combat Vehicle</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/armored/mbt_eastern.png">
-                        </div>
-                        <p>Main Battle Tank</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/armored/tank_destroyer_eastern.png">
-                        </div>
-                        <p>Tank Destroyer</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
-
-            <!-- European -->
-            <div id="armored-european" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/armored/combat_recon_vehicle_eu.png">
-                        </div>
-                        <p>Combat Recon Vehicle</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/armored/afv_eu.png">
-                        </div>
-                        <p>Armored Fighting Vehicle</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/armored/acv_eu.png">
-                        </div>
-                        <p>Amphibious Combat Vehicle</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/armored/mbt_eu.png">
-                        </div>
-                        <p>Main Battle Tank</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/armored/tank_destroyer_eu.png">
-                        </div>
-                        <p>Tank Destroyer</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Support Units -->
-            <!-- Western -->
-            <div id="support-western" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/support/towed_howitzer_artillery_western.png">
-                        </div>
-                        <p>Towed Artillery</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/support/spg_western.png">
-                        </div>
-                        <p>Mobile Artillery</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/support/mlrs_western.png">
-                        </div>
-                        <p>Multiple Rocket Launcher</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/support/maa_western.png">
-                        </div>
-                        <p>Mobile Anti-Air Vehicle</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/support/sam_western.png">
-                        </div>
-                        <p>Mobile SAM Launcher</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/support/tds_western.png">
-                        </div>
-                        <p>Theater Defense System</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/support/radar_western.png">
-                        </div>
-                        <p>Mobile Radar</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Eastern -->
-            <div id="support-eastern" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/support/towed_howitzer_artillery_eastern.png">
-                        </div>
-                        <p>Towed Artillery</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/support/spg_eastern.png">
-                        </div>
-                        <p>Mobile Artillery</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/support/mlrs_eastern.png">
-                        </div>
-                        <p>Multiple Rocket Launcher</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/support/maa_eastern.png">
-                        </div>
-                        <p>Mobile Anti-Air Vehicle</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/support/sam_eastern.png">
-                        </div>
-                        <p>Mobile SAM Launcher</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/support/tds_eastern.png">
-                        </div>
-                        <p>Theater Defense System</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/support/radar_eastern.png">
-                        </div>
-                        <p>Mobile Radar</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
-
-            <!-- European -->
-            <div id="support-european" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/support/towed_howitzer_artillery_eu.png">
-                        </div>
-                        <p>Towed Artillery</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/support/spg_eu.png">
-                        </div>
-                        <p>Mobile Artillery</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/support/mlrs_eu.png">
-                        </div>
-                        <p>Multiple Rocket Launcher</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/support/maa_eu.png">
-                        </div>
-                        <p>Mobile Anti-Air Vehicle</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/support/sam_eu.png">
-                        </div>
-                        <p>Mobile SAM Launcher</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/support/tds_eu.png">
-                        </div>
-                        <p>Theater Defense System</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/support/radar_eu.png">
-                        </div>
-                        <p>Mobile Radar</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Helicopter Units -->
-            <!-- Western -->
-            <div id="helicopters-western" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/helicopter/gunship_western.png">
-                        </div>
-                        <p>Helicopter Gunship</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/helicopter/attack_helicopter_western.png">
-                        </div>
-                        <p>Attack Helicopter</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/helicopter/asw_helicopter_western.png">
-                        </div>
-                        <p>ASW Helicopter</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Eastern -->
-            <div id="helicopters-eastern" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/helicopter/gunship_eastern.png">
-                        </div>
-                        <p>Helicopter Gunship</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/helicopter/attack_helicopter_eastern.png">
-                        </div>
-                        <p>Attack Helicopter</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/helicopter/asw_helicopter_eastern.png">
-                        </div>
-                        <p>ASW Helicopter</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
-
-            <!-- European -->
-            <div id="helicopters-european" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/helicopter/gunship_eu.png">
-                        </div>
-                        <p>Helicopter Gunship</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/helicopter/attack_helicopter_eu.png">
-                        </div>
-                        <p>Attack Helicopter</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/helicopter/asw_helicopter_eu.png">
-                        </div>
-                        <p>ASW Helicopter</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Fighter Units -->
-            <!-- Western -->
-            <div id="fighters-western" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets\unit\fighter\air_superiority_fighter_western.png">
-                        </div>
-                        <p>Air Superiority Fighter</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets\unit\fighter\naval_air_superiority_fighter_western.png">
-                        </div>
-                        <p>Naval Air Superiority Fighter</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets\unit\fighter\stealth_air_superiority_fighter_western.png">
-                        </div>
-                        <p>Stealth Air Superiority Fighter</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Eastern -->
-            <div id="fighters-eastern" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets\unit\fighter\air_superiority_fighter_eastern.png">
-                        </div>
-                        <p>Air Superiority Fighter</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets\unit\fighter\naval_air_superiority_fighter_eastern.png">
-                        </div>
-                        <p>Naval Air Superiority Fighter</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
-
-            <!-- European -->
-            <div id="fighters-european" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/fighters/fighter_jet_eu.png">
-                        </div>
-                        <p>Fighter Jet</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Heavy Units -->
-            <div id="heavies-western" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/heavies/heavy_tank_western.png">
-                        </div>
-                        <p>Heavy Tank</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
-
-            <div id="heavies-eastern" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/heavies/heavy_tank_eastern.png">
-                        </div>
-                        <p>Heavy Tank</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
-
-            <div id="heavies-european" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/heavies/heavy_tank_eu.png">
-                        </div>
-                        <p>Heavy Tank</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Naval Units -->
-            <div id="naval-western" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/naval/destroyer_western.png">
-                        </div>
-                        <p>Destroyer</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
-
-            <div id="naval-eastern" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/naval/destroyer_eastern.png">
-                        </div>
-                        <p>Destroyer</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
-
-            <div id="naval-european" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/naval/destroyer_eu.png">
-                        </div>
-                        <p>Destroyer</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Submarine Units -->
-            <div id="submarine-western" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/submarine/submarine_western.png">
-                        </div>
-                        <p>Submarine</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
-
-            <div id="submarine-eastern" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/submarine/submarine_eastern.png">
-                        </div>
-                        <p>Submarine</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
-
-            <div id="submarine-european" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/submarine/submarine_eu.png">
-                        </div>
-                        <p>Submarine</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Seasons -->
-            <div id="seasons-western" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/seasons/spring_western.png">
-                        </div>
-                        <p>Spring</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
-
-            <div id="seasons-eastern" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/seasons/spring_eastern.png">
-                        </div>
-                        <p>Spring</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
-                    </div>
-                </div>
-            </div>
-
-            <div id="seasons-european" class="unit-list unit-tab">
-                <div class="row">
-                    <div class="unit">
-                        <div class="image-container">
-                            <img src="assets/unit/seasons/spring_eu.png">
-                        </div>
-                        <p>Spring</p>
-                    </div>
-                    <div class="quantity-selector">
-                        <input type="number" class="quantity" value="0" min="0" oninput="validateInput(this)">
+                <div class="condition-group">
+                    <h3>Time of Day</h3>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="time" value="day" checked>
+                            Day
+                        </label>
+                        <label>
+                            <input type="radio" name="time" value="night">
+                            Night
+                        </label>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="calculator-section battle-outcome">
+            <div class="outcome-header">
+                <h3>Battle Outcome</h3>
+            </div>
+            <div class="outcome-details">
+                <div class="power-comparison">
+                    <div class="power-value">
+                        <span class="power-label">Attacker Power:</span>
+                        <span class="power-number" id="attacker-power">0</span>
+                    </div>
+                    <div class="power-value">
+                        <span class="power-label">Defender Power:</span>
+                        <span class="power-number" id="defender-power">0</span>
+                    </div>
+                </div>
+                <div class="modifiers">
+                    <div class="modifier-row">
+                        <span class="modifier-label">Terrain Modifier:</span>
+                        <span class="modifier-value" id="terrain-modifier">100%</span>
+                    </div>
+                    <div class="modifier-row">
+                        <span class="modifier-label">Weather Modifier:</span>
+                        <span class="modifier-value" id="weather-modifier">100%</span>
+                    </div>
+                    <div class="modifier-row">
+                        <span class="modifier-label">Time Modifier:</span>
+                        <span class="modifier-value" id="time-modifier">100%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="DmgCal.js"></script>
+    <script>
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            updateAttackerUnits();
+            updateDefenderUnits();
+            calculateDamage();
+        });
+        
+        // Update attacker units based on selected doctrine
+        function updateAttackerUnits() {
+            const doctrine = document.getElementById('attacker-doctrine').value;
+            const unitSelect = document.getElementById('attacker-unit');
+            
+            // Clear existing options
+            unitSelect.innerHTML = '';
+            
+            // Add units from the selected doctrine
+            Object.values(unitData[doctrine]).forEach(category => {
+                category.forEach(unit => {
+                    const option = document.createElement('option');
+                    option.value = unit.id;
+                    option.textContent = unit.name;
+                    unitSelect.appendChild(option);
+                });
+            });
+            
+            updateAttackerStats();
+        }
+        
+        // Update defender units based on selected doctrine
+        function updateDefenderUnits() {
+            const doctrine = document.getElementById('defender-doctrine').value;
+            const unitSelect = document.getElementById('defender-unit');
+            
+            // Clear existing options
+            unitSelect.innerHTML = '';
+            
+            // Add units from the selected doctrine
+            Object.values(unitData[doctrine]).forEach(category => {
+                category.forEach(unit => {
+                    const option = document.createElement('option');
+                    option.value = unit.id;
+                    option.textContent = unit.name;
+                    unitSelect.appendChild(option);
+                });
+            });
+            
+            updateDefenderStats();
+        }
+        
+        // Update attacker stats display
+        function updateAttackerStats() {
+            const doctrine = document.getElementById('attacker-doctrine').value;
+            const unitId = document.getElementById('attacker-unit').value;
+            const statsDiv = document.getElementById('attacker-stats');
+            
+            // Find the unit data
+            let unitData = null;
+            Object.values(unitData[doctrine]).forEach(category => {
+                category.forEach(unit => {
+                    if (unit.id === unitId) {
+                        unitData = unit;
+                    }
+                });
+            });
+            
+            if (unitData) {
+                statsDiv.innerHTML = `
+                    <div class="stat-row">
+                        <span class="stat-label">Health:</span>
+                        <span class="stat-value">${unitData.health}</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Armor:</span>
+                        <span class="stat-value">${unitData.armor}</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Damage:</span>
+                        <span class="stat-value">${unitData.damage}</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Range:</span>
+                        <span class="stat-value">${unitData.range}</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Speed:</span>
+                        <span class="stat-value">${unitData.speed}</span>
+                    </div>
+                `;
+            }
+            
+            calculateDamage();
+        }
+        
+        // Update defender stats display
+        function updateDefenderStats() {
+            const doctrine = document.getElementById('defender-doctrine').value;
+            const unitId = document.getElementById('defender-unit').value;
+            const statsDiv = document.getElementById('defender-stats');
+            
+            // Find the unit data
+            let unitData = null;
+            Object.values(unitData[doctrine]).forEach(category => {
+                category.forEach(unit => {
+                    if (unit.id === unitId) {
+                        unitData = unit;
+                    }
+                });
+            });
+            
+            if (unitData) {
+                statsDiv.innerHTML = `
+                    <div class="stat-row">
+                        <span class="stat-label">Health:</span>
+                        <span class="stat-value">${unitData.health}</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Armor:</span>
+                        <span class="stat-value">${unitData.armor}</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Damage:</span>
+                        <span class="stat-value">${unitData.damage}</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Range:</span>
+                        <span class="stat-value">${unitData.range}</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Speed:</span>
+                        <span class="stat-value">${unitData.speed}</span>
+                    </div>
+                `;
+            }
+            
+            calculateDamage();
+        }
+        
+        // Calculate damage and battle outcome
+        function calculateDamage() {
+            const attackerDoctrine = document.getElementById('attacker-doctrine').value;
+            const attackerUnitId = document.getElementById('attacker-unit').value;
+            const attackerQuantity = parseInt(document.getElementById('attacker-quantity').value);
+            
+            const defenderDoctrine = document.getElementById('defender-doctrine').value;
+            const defenderUnitId = document.getElementById('defender-unit').value;
+            const defenderQuantity = parseInt(document.getElementById('defender-quantity').value);
+            
+            const terrain = document.querySelector('input[name="terrain"]:checked').value;
+            const weather = document.querySelector('input[name="weather"]:checked').value;
+            const time = document.querySelector('input[name="time"]:checked').value;
+            
+            // Find the unit data
+            let attackerUnit = null;
+            let defenderUnit = null;
+            
+            Object.values(unitData[attackerDoctrine]).forEach(category => {
+                category.forEach(unit => {
+                    if (unit.id === attackerUnitId) {
+                        attackerUnit = unit;
+                    }
+                });
+            });
+            
+            Object.values(unitData[defenderDoctrine]).forEach(category => {
+                category.forEach(unit => {
+                    if (unit.id === defenderUnitId) {
+                        defenderUnit = unit;
+                    }
+                });
+            });
+            
+            if (!attackerUnit || !defenderUnit) {
+                return;
+            }
+            
+            // Calculate power
+            const attackerPower = attackerUnit.damage * attackerUnit.speed;
+            const defenderPower = defenderUnit.damage * defenderUnit.speed;
+            
+            // Calculate modifiers
+            const terrainModifier = getTerrainModifier(terrain, attackerUnit.type, defenderUnit.type);
+            const weatherModifier = getWeatherModifier(weather, attackerUnit.type, defenderUnit.type);
+            const timeModifier = getTimeModifier(time, attackerUnit.type, defenderUnit.type);
+            
+            // Calculate effective power
+            const effectiveAttackerPower = attackerPower * terrainModifier * weatherModifier * timeModifier;
+            const effectiveDefenderPower = defenderPower * terrainModifier * weatherModifier * timeModifier;
+            
+            // Display power
+            const attackerPowerDisplay = document.getElementById('attacker-power');
+            const defenderPowerDisplay = document.getElementById('defender-power');
+            attackerPowerDisplay.textContent = effectiveAttackerPower.toFixed(2);
+            defenderPowerDisplay.textContent = effectiveDefenderPower.toFixed(2);
+            
+            // Calculate battle outcome
+            let battleOutcome = '';
+            let outcomeClass = '';
+            
+            if (effectiveAttackerPower > effectiveDefenderPower) {
+                battleOutcome = 'Attacker Victory';
+                outcomeClass = 'victory';
+            } else if (effectiveDefenderPower > effectiveAttackerPower) {
+                battleOutcome = 'Defender Victory';
+                outcomeClass = 'defeat';
+            } else {
+                battleOutcome = 'Stalemate';
+                outcomeClass = 'stalemate';
+            }
+            
+            // Display battle outcome
+            const outcomeDiv = document.getElementById('battle-outcome');
+            outcomeDiv.innerHTML = `
+                <div class="outcome-header ${outcomeClass}">
+                    <h3>${battleOutcome}</h3>
+                </div>
+                <div class="outcome-details">
+                    <div class="power-comparison">
+                        <div class="power-value">
+                            <span class="power-label">Attacker Power:</span>
+                            <span class="power-number">${effectiveAttackerPower.toFixed(2)}</span>
+                        </div>
+                        <div class="power-value">
+                            <span class="power-label">Defender Power:</span>
+                            <span class="power-number">${effectiveDefenderPower.toFixed(2)}</span>
+                        </div>
+                    </div>
+                    <div class="modifiers">
+                        <div class="modifier-row">
+                            <span class="modifier-label">Terrain Modifier:</span>
+                            <span class="modifier-value">${terrainModifier.toFixed(2) * 100}%</span>
+                        </div>
+                        <div class="modifier-row">
+                            <span class="modifier-label">Weather Modifier:</span>
+                            <span class="modifier-value">${weatherModifier.toFixed(2) * 100}%</span>
+                        </div>
+                        <div class="modifier-row">
+                            <span class="modifier-label">Time Modifier:</span>
+                            <span class="modifier-value">${timeModifier.toFixed(2) * 100}%</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Get terrain modifier based on unit types
+        function getTerrainModifier(terrain, attackerType, defenderType) {
+            const modifier = 1;
+            
+            // Apply terrain modifiers based on unit types
+            switch (terrain) {
+                case 'plains':
+                    // No special modifiers for plains
+                    break;
+                    
+                case 'forest':
+                    // Infantry and light units get bonuses in forest
+                    if (attackerType === 'infantry' || attackerType === 'light') {
+                        modifier *= 1.2;
+                    }
+                    if (defenderType === 'infantry' || defenderType === 'light') {
+                        modifier *= 1.2;
+                    }
+                    
+                    // Heavy units get penalties in forest
+                    if (attackerType === 'heavy') {
+                        modifier *= 0.8;
+                    }
+                    if (defenderType === 'heavy') {
+                        modifier *= 0.8;
+                    }
+                    break;
+                    
+                case 'urban':
+                    // Infantry get bonuses in urban areas
+                    if (attackerType === 'infantry') {
+                        modifier *= 1.3;
+                    }
+                    if (defenderType === 'infantry') {
+                        modifier *= 1.3;
+                    }
+                    
+                    // Vehicles get penalties in urban areas
+                    if (attackerType === 'armored' || attackerType === 'heavy') {
+                        modifier *= 0.7;
+                    }
+                    if (defenderType === 'armored' || defenderType === 'heavy') {
+                        modifier *= 0.7;
+                    }
+                    break;
+                    
+                case 'mountain':
+                    // Infantry get bonuses in mountains
+                    if (attackerType === 'infantry') {
+                        modifier *= 1.2;
+                    }
+                    if (defenderType === 'infantry') {
+                        modifier *= 1.2;
+                    }
+                    
+                    // Vehicles get penalties in mountains
+                    if (attackerType === 'armored' || attackerType === 'heavy') {
+                        modifier *= 0.6;
+                    }
+                    if (defenderType === 'armored' || defenderType === 'heavy') {
+                        modifier *= 0.6;
+                    }
+                    break;
+                    
+                case 'desert':
+                    // Light vehicles get bonuses in desert
+                    if (attackerType === 'light') {
+                        modifier *= 1.1;
+                    }
+                    if (defenderType === 'light') {
+                        modifier *= 1.1;
+                    }
+                    
+                    // Infantry get penalties in desert
+                    if (attackerType === 'infantry') {
+                        modifier *= 0.9;
+                    }
+                    if (defenderType === 'infantry') {
+                        modifier *= 0.9;
+                    }
+                    break;
+            }
+            
+            return modifier;
+        }
+        
+        // Get weather modifier based on unit types
+        function getWeatherModifier(weather, attackerType, defenderType) {
+            const modifier = 1;
+            
+            // Apply weather modifiers based on unit types
+            switch (weather) {
+                case 'clear':
+                    // No special modifiers for clear weather
+                    break;
+                    
+                case 'rain':
+                    // Air units get penalties in rain
+                    if (attackerType === 'air') {
+                        modifier *= 0.8;
+                    }
+                    if (defenderType === 'air') {
+                        modifier *= 0.8;
+                    }
+                    
+                    // Naval units get bonuses in rain
+                    if (attackerType === 'naval') {
+                        modifier *= 1.1;
+                    }
+                    if (defenderType === 'naval') {
+                        modifier *= 1.1;
+                    }
+                    break;
+                    
+                case 'snow':
+                    // All units get penalties in snow
+                    modifier *= 0.9;
+                    
+                    // Air units get extra penalties in snow
+                    if (attackerType === 'air') {
+                        modifier *= 0.7;
+                    }
+                    if (defenderType === 'air') {
+                        modifier *= 0.7;
+                    }
+                    break;
+                    
+                case 'storm':
+                    // All units get penalties in storm
+                    modifier *= 0.8;
+                    
+                    // Air units get extra penalties in storm
+                    if (attackerType === 'air') {
+                        modifier *= 0.6;
+                    }
+                    if (defenderType === 'air') {
+                        modifier *= 0.6;
+                    }
+                    break;
+            }
+            
+            return modifier;
+        }
+        
+        // Get time of day modifier based on unit types
+        function getTimeModifier(time, attackerType, defenderType) {
+            const modifier = 1;
+            
+            // Apply time of day modifiers based on unit types
+            switch (time) {
+                case 'day':
+                    // No special modifiers for day
+                    break;
+                    
+                case 'night':
+                    // All units get penalties at night
+                    modifier *= 0.9;
+                    
+                    // Air units get extra penalties at night
+                    if (attackerType === 'air') {
+                        modifier *= 0.7;
+                    }
+                    if (defenderType === 'air') {
+                        modifier *= 0.7;
+                    }
+                    
+                    // Specialized night units get bonuses at night
+                    if (attackerType === 'special') {
+                        modifier *= 1.2;
+                    }
+                    if (defenderType === 'special') {
+                        modifier *= 1.2;
+                    }
+                    break;
+            }
+            
+            return modifier;
+        }
+    </script>
 </body>
 
 </html>

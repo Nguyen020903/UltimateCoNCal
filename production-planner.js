@@ -1100,4 +1100,16 @@ window.calculateUnitUpkeep = calculateUnitUpkeep;
 window.calculateTotalResources = calculateTotalResources;
 window.generateProductionTimeline = generateProductionTimeline;
 window.populateUnitBank = populateUnitBank;
-window.formatResources = formatResources; 
+window.formatResources = formatResources;
+
+// Helper function for unit data access
+function getUnitLevelData(unitData, level) {
+    if (!unitData || !unitData.levels || !unitData.levels.length) return null;
+    
+    // Default to level 1 if no level specified or level is out of range
+    if (!level || level < 1 || level > unitData.levels.length) {
+        level = 1;
+    }
+    
+    return unitData.levels[level - 1];
+} 
