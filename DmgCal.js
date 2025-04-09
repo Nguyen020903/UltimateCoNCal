@@ -506,12 +506,13 @@ const doctrines = {
       unitSelect.innerHTML = '<option value="">Select Unit</option>';
       
       // If a unit type is selected, add the corresponding units
-      if (unitType) {
-          // Get the units for this doctrine and unit type
-          const units = unitData[doctrine][unitType];
+      if (unitType && unitData[doctrine] && unitData[doctrine][unitType]) {
+          // Get the unit object for this doctrine and unit type
+          const unitTypeObj = unitData[doctrine][unitType];
           
           // Iterate through each unit and add as an option
-          Object.values(units).forEach(unit => {
+          Object.keys(unitTypeObj).forEach(key => {
+              const unit = unitTypeObj[key];
               const option = document.createElement('option');
               option.value = unit.id;
               option.textContent = unit.name;
@@ -640,3 +641,24 @@ const doctrines = {
   document.addEventListener('DOMContentLoaded', function() {
       initializeCalculator();
   });
+
+  // Function to calculate battle outcome when button is clicked
+  function calculateBattle() {
+      // Just call updateBattleOutcome which already has all the logic
+      updateBattleOutcome();
+      
+      // Show a more detailed view in the battle-outcome div
+      const battleOutcomeElement = document.getElementById('battle-outcome');
+      if (battleOutcomeElement) {
+          const attackerUnit = document.getElementById('attackerUnit').options[document.getElementById('attackerUnit').selectedIndex].text;
+          const defenderUnit = document.getElementById('defenderUnit').options[document.getElementById('defenderUnit').selectedIndex].text;
+          const attackerPower = document.getElementById('attacker-power').textContent;
+          const defenderPower = document.getElementById('defender-power').textContent;
+          
+          battleOutcomeElement.innerHTML = `
+              <h3>Battle Analysis</h3>
+              <p>${attackerUnit} (Power: ${attackerPower}) vs ${defenderUnit} (Power: ${defenderPower})</p>
+              <p>For a more detailed analysis, please check the power comparison above.</p>
+          `;
+      }
+  }
