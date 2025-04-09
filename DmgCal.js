@@ -32,6 +32,107 @@ const doctrines = {
     },
   };
   
+  // Unit weights for damage distribution
+  const unitWeights = {
+      // Infantry
+      motorizedInfantry: 3,
+      mechanizedInfantry: 7,
+      marineInfantry: 5,
+      airborneInfantry: 5,
+      specialForces: 1,
+      nationalGuard: 4,
+      
+      // Armor
+      combatReconVehicle: 2,
+      armoredFightingVehicle: 7,
+      amphibiousCombatVehicle: 6,
+      mainBattleTank: 9,
+      tankDestroyer: 8,
+      
+      // Support
+      towedArtillery: 2,
+      mobileArtillery: 6,
+      multipleRocketLauncher: 6,
+      mobileAA: 4,
+      sam: 3,
+      tds: 1,
+      mobileRadar: 1,
+      
+      // Air Units
+      airSuperiorityFighter: 10,
+      strikeFighter: 5,
+      stealthStrikeFighter: 3,
+      uav: 2,
+      awacs: 1,
+      heavyBomber: 4,
+      stealthBomber: 1,
+      
+      // Naval Units
+      corvette: 5,
+      frigate: 4,
+      destroyer: 8,
+      cruiser: 5,
+      aircraftCarrier: 2,
+      attackSubmarine: 4,
+      missileSubmarine: 1
+  };
+  
+  // Unit classification (soft vs hard)
+  const unitClassification = {
+      // Soft units (infantry)
+      motorizedInfantry: 'soft',
+      mechanizedInfantry: 'soft',
+      marineInfantry: 'soft',
+      airborneInfantry: 'soft',
+      specialForces: 'soft',
+      nationalGuard: 'soft',
+      
+      // Hard units (vehicles, armor, etc.)
+      combatReconVehicle: 'hard',
+      armoredFightingVehicle: 'hard',
+      amphibiousCombatVehicle: 'hard',
+      mainBattleTank: 'hard',
+      tankDestroyer: 'hard',
+      towedArtillery: 'hard',
+      mobileArtillery: 'hard',
+      multipleRocketLauncher: 'hard',
+      mobileAA: 'hard',
+      sam: 'hard',
+      tds: 'hard',
+      mobileRadar: 'hard',
+      
+      // Air units (treated as hard)
+      airSuperiorityFighter: 'hard',
+      strikeFighter: 'hard',
+      stealthStrikeFighter: 'hard',
+      uav: 'hard',
+      awacs: 'hard',
+      heavyBomber: 'hard',
+      stealthBomber: 'hard',
+      
+      // Naval units (all hard)
+      corvette: 'hard',
+      frigate: 'hard',
+      destroyer: 'hard',
+      cruiser: 'hard',
+      aircraftCarrier: 'hard',
+      attackSubmarine: 'hard',
+      missileSubmarine: 'hard'
+  };
+  
+  // Ranged units list
+  const rangedUnits = [
+      'towedArtillery',
+      'mobileArtillery',
+      'multipleRocketLauncher',
+      'corvette',
+      'frigate',
+      'destroyer',
+      'cruiser',
+      'aircraftCarrier',
+      'missileSubmarine'
+  ];
+  
   // Unit Class Definition
   class Unit {
     constructor(id, name, type, attack, defense, hp, speed, baseRange) {
@@ -444,6 +545,154 @@ const doctrines = {
       water: { attackMod: 1.0, defenseMod: 1.0 }
   };
   
+  // Global variables to track unit stacks
+  const attackerStack = [];
+  const defenderStack = [];
+
+  // Helper function to create a unit from selection
+  function createUnitFromSelection(side) {
+      const doctrine = document.getElementById(`${side}Doctrine`).value;
+      const unitType = document.getElementById(`${side}UnitType`).value;
+      const unitId = document.getElementById(`${side}Unit`).value;
+      const level = parseInt(document.getElementById(`${side}Level`).value);
+      const quantity = parseInt(document.getElementById(`${side}Quantity`).value) || 1;
+      
+      if (!unitType || !unitId) {
+          alert(`Please select a unit type and unit for the ${side}`);
+          return null;
+      }
+      
+      // Get the unit data from the unitData object
+      if (unitData[doctrine] && unitData[doctrine][unitType] && unitData[doctrine][unitType][unitId]) {
+          const unitInfo = unitData[doctrine][unitType][unitId];
+          
+          // Create a Unit object
+          const unit = new Unit(
+              unitInfo.id,
+              unitInfo.name,
+              unitInfo.type,
+              unitInfo.attack,
+              unitInfo.defense,
+              unitInfo.hp,
+              unitInfo.speed,
+              unitInfo.range || 1
+          );
+          
+          // Set doctrine and level
+          unit.setDoctrine(doctrine);
+          unit.upgrade(level);
+          
+          return {
+              unit: unit,
+              quantity: quantity
+          };
+      } else {
+          console.error(`Unit data not found for ${doctrine} ${unitType} ${unitId}`);
+          return null;
+      }
+  }
+
+  // Add unit to stack
+  function addUnitToStack(side) {
+      const unitSelection = createUnitFromSelection(side);
+      if (!unitSelection) return;
+      
+      const stack = side === 'attacker' ? attackerStack : defenderStack;
+      const stackContainer = document.getElementById(`${side}Stack`);
+      
+      // Add to stack array
+      stack.push(unitSelection);
+      
+      // Add to UI
+      const unitCard = document.createElement('div');
+      unitCard.className = 'unit-card';
+      unitCard.dataset.index = stack.length - 1;
+      
+      unitCard.innerHTML = `
+          <div class="unit-card-header">
+              <span class="unit-name">${unitSelection.unit.name}</span>
+              <span class="unit-level">Lvl ${unitSelection.unit.level}</span>
+          </div>
+          <div class="unit-card-body">
+              <span class="unit-quantity">x${unitSelection.quantity}</span>
+              <span class="unit-type">${unitSelection.unit.type}</span>
+          </div>
+          <button class="remove-unit-btn" data-side="${side}" data-index="${stack.length - 1}">X</button>
+      `;
+      
+      stackContainer.appendChild(unitCard);
+      
+      // Add event listener to remove button
+      unitCard.querySelector('.remove-unit-btn').addEventListener('click', function() {
+          removeUnitFromStack(side, parseInt(this.dataset.index));
+      });
+      
+      // Update the stack details if the battle outcome is visible
+      if (document.getElementById('battle-outcome').style.display === 'block') {
+          updateBattleOutcome();
+      }
+  }
+
+  // Remove unit from stack
+  function removeUnitFromStack(side, index) {
+      const stack = side === 'attacker' ? attackerStack : defenderStack;
+      const stackContainer = document.getElementById(`${side}Stack`);
+      
+      // Remove from array
+      stack.splice(index, 1);
+      
+      // Update UI
+      stackContainer.innerHTML = '';
+      
+      // Rebuild stack UI
+      stack.forEach((unitSelection, idx) => {
+          const unitCard = document.createElement('div');
+          unitCard.className = 'unit-card';
+          unitCard.dataset.index = idx;
+          
+          unitCard.innerHTML = `
+              <div class="unit-card-header">
+                  <span class="unit-name">${unitSelection.unit.name}</span>
+                  <span class="unit-level">Lvl ${unitSelection.unit.level}</span>
+              </div>
+              <div class="unit-card-body">
+                  <span class="unit-quantity">x${unitSelection.quantity}</span>
+                  <span class="unit-type">${unitSelection.unit.type}</span>
+              </div>
+              <button class="remove-unit-btn" data-side="${side}" data-index="${idx}">X</button>
+          `;
+          
+          stackContainer.appendChild(unitCard);
+          
+          // Add event listener to remove button
+          unitCard.querySelector('.remove-unit-btn').addEventListener('click', function() {
+              removeUnitFromStack(side, parseInt(this.dataset.index));
+          });
+      });
+      
+      // Update the stack details if the battle outcome is visible
+      if (document.getElementById('battle-outcome').style.display === 'block') {
+          updateBattleOutcome();
+      }
+  }
+
+  // Clear stack
+  function clearStack(side) {
+      const stack = side === 'attacker' ? attackerStack : defenderStack;
+      const stackContainer = document.getElementById(`${side}Stack`);
+      
+      // Clear array
+      stack.length = 0;
+      
+      // Clear UI
+      stackContainer.innerHTML = '';
+      
+      // Update the stack details if the battle outcome is visible
+      if (document.getElementById('battle-outcome').style.display === 'block') {
+          updateBattleOutcome();
+      }
+  }
+
   // Helper function to populate unit type options based on selected doctrine
   function populateUnitTypes(doctrineSelectId, unitTypeSelectId) {
       const doctrineSelect = document.getElementById(doctrineSelectId);
@@ -677,111 +926,189 @@ const doctrines = {
       return terrainModifiers[terrain].attackMod;
   }
 
-  // Function to update battle outcome
-  function updateBattleOutcome() {
-      const attackerUnit = getSelectedUnit('attacker');
-      const defenderUnit = getSelectedUnit('defender');
-      
-      if (!attackerUnit || !defenderUnit) {
-          alert('Please select both attacker and defender units');
+  // Function to calculate battle outcome with stacks
+  function calculateBattleOutcome() {
+      // Check if there are units in both stacks
+      if (attackerStack.length === 0 || defenderStack.length === 0) {
+          alert('Please add units to both attacker and defender stacks');
           return;
       }
       
-      const attackerQty = parseInt(document.getElementById('attackerQuantity').value) || 1;
-      const defenderQty = parseInt(document.getElementById('defenderQuantity').value) || 1;
-      
       const terrain = document.querySelector('input[name="terrain"]:checked').value;
+      const entrenchment = document.getElementById('entrenchment').checked;
+      const officerBoost = document.getElementById('officerBoost').checked;
       
-      const attackerStats = attackerUnit.getEffectiveStats(terrain);
-      const defenderStats = defenderUnit.getEffectiveStats(terrain);
+      // Create compositions for attacker and defender
+      const attackerComp = new Composition();
+      const defenderComp = new Composition();
       
-      const attackerPower = calculateUnitPower('attackerDoctrine', 'attackerUnitType', 'attackerUnit', 'attackerQuantity', true);
-      const defenderPower = calculateUnitPower('defenderDoctrine', 'defenderUnitType', 'defenderUnit', 'defenderQuantity', false);
+      // Add units to compositions
+      attackerStack.forEach(item => {
+          attackerComp.addUnit(item.unit, item.quantity);
+      });
+      
+      defenderStack.forEach(item => {
+          defenderComp.addUnit(item.unit, item.quantity);
+      });
+      
+      // Calculate total power for attacker and defender
+      const attackerPower = attackerComp.calculateTotalPower(terrain, true);
+      const defenderPower = defenderComp.calculateTotalPower(terrain, false);
+      
+      // Apply special modifiers
+      let entrenchmentMod = 1.0;
+      let officerMod = 1.0;
+      
+      if (entrenchment) {
+          entrenchmentMod = 0.75; // -25% damage received
+      }
+      
+      if (officerBoost) {
+          officerMod = 1.2; // +20% combat effectiveness
+      }
+      
+      const modifiedAttackerPower = attackerPower * officerMod;
+      const modifiedDefenderPower = defenderPower * officerMod * (1/entrenchmentMod); // Inverse of damage reduction
       
       // Update the power display
-      document.getElementById('attacker-power').textContent = attackerPower.toFixed(2);
-      document.getElementById('defender-power').textContent = defenderPower.toFixed(2);
+      document.getElementById('attacker-power').textContent = modifiedAttackerPower.toFixed(2);
+      document.getElementById('defender-power').textContent = modifiedDefenderPower.toFixed(2);
       
-      // Update modifiers
+      // Update terrain modifiers
       updateTerrainModifiers();
       
+      // Update special modifiers display
+      const specialModifiersEl = document.getElementById('special-modifier-value');
+      let specialModText = '';
+      
+      if (entrenchment) {
+          specialModText += 'Entrenchment: -25% damage received by defender';
+      }
+      
+      if (officerBoost) {
+          if (specialModText) specialModText += '<br>';
+          specialModText += 'Officer Boost: +20% combat effectiveness';
+      }
+      
+      if (!specialModText) specialModText = 'None';
+      specialModifiersEl.innerHTML = specialModText;
+      
       // Calculate outcome
-      const powerRatio = attackerPower / defenderPower;
+      const powerRatio = modifiedAttackerPower / modifiedDefenderPower;
       const outcomeHeader = document.getElementById('outcomeHeader');
       const outcomeText = document.getElementById('outcomeText');
       
       // Clear previous classes
       outcomeHeader.className = 'outcome-header';
       
+      // Update stack details
+      updateStackDetails('attacker');
+      updateStackDetails('defender');
+      
+      // Determine battle outcome
       if (powerRatio > 1.5) {
+          // Attacker has significant advantage
           outcomeHeader.classList.add('attacker-advantage');
           outcomeHeader.textContent = 'Attacker Victory';
-          const casualtyRate = Math.min(0.9, Math.max(0.2, 1 - (defenderPower / attackerPower)));
-          const defenderLosses = Math.ceil(defenderQty * casualtyRate);
-          const attackerLosses = Math.ceil(attackerQty * (casualtyRate / 3));
           
-          outcomeText.innerHTML = `
-              <div class="casualties">
-                  <p>Estimated casualties:</p>
-                  <p>Attacker: ${attackerLosses} unit(s)</p>
-                  <p>Defender: ${defenderLosses} unit(s)</p>
-              </div>
-          `;
+          // Simulate battle to calculate casualties
+          simulateBattle(attackerComp, defenderComp, 'attacker-advantage');
+          
       } else if (powerRatio < 0.67) {
+          // Defender has significant advantage
           outcomeHeader.classList.add('defender-advantage');
           outcomeHeader.textContent = 'Defender Victory';
-          const casualtyRate = Math.min(0.9, Math.max(0.2, 1 - (attackerPower / defenderPower)));
-          const attackerLosses = Math.ceil(attackerQty * casualtyRate);
-          const defenderLosses = Math.ceil(defenderQty * (casualtyRate / 3));
           
-          outcomeText.innerHTML = `
-              <div class="casualties">
-                  <p>Estimated casualties:</p>
-                  <p>Attacker: ${attackerLosses} unit(s)</p>
-                  <p>Defender: ${defenderLosses} unit(s)</p>
-              </div>
-          `;
+          // Simulate battle to calculate casualties
+          simulateBattle(attackerComp, defenderComp, 'defender-advantage');
+          
       } else {
+          // Balanced battle
           outcomeHeader.classList.add('balanced');
           outcomeHeader.textContent = 'Balanced Battle';
-          const casualtyRate = Math.min(0.6, Math.max(0.3, 0.45));
-          const attackerLosses = Math.ceil(attackerQty * casualtyRate);
-          const defenderLosses = Math.ceil(defenderQty * casualtyRate);
           
-          outcomeText.innerHTML = `
-              <div class="casualties">
-                  <p>Estimated casualties:</p>
-                  <p>Attacker: ${attackerLosses} unit(s)</p>
-                  <p>Defender: ${defenderLosses} unit(s)</p>
-              </div>
-          `;
+          // Simulate battle to calculate casualties
+          simulateBattle(attackerComp, defenderComp, 'balanced');
       }
       
       // Display the outcome section
       document.getElementById('battle-outcome').style.display = 'block';
   }
 
-  // Function to handle the Calculate button click
-  function calculateBattle() {
-      const battleOutcomeElement = document.getElementById('battle-outcome');
-      const attackerUnitSelect = document.getElementById('attackerUnit');
-      const defenderUnitSelect = document.getElementById('defenderUnit');
+  // Function to update stack details in the battle outcome section
+  function updateStackDetails(side) {
+      const stack = side === 'attacker' ? attackerStack : defenderStack;
+      const stackDetailsEl = document.getElementById(`${side}StackDetails`);
       
-      // Check if units are selected
-      if (!attackerUnitSelect || !attackerUnitSelect.value || 
-          !defenderUnitSelect || !defenderUnitSelect.value) {
-          alert("Please select both attacker and defender units");
-          return;
+      stackDetailsEl.innerHTML = '';
+      
+      stack.forEach((item, index) => {
+          const unitEl = document.createElement('div');
+          unitEl.className = 'stack-unit';
+          
+          const terrain = document.querySelector('input[name="terrain"]:checked').value;
+          const stats = item.unit.getEffectiveStats(terrain);
+          
+          unitEl.innerHTML = `
+              <div class="stack-unit-header">
+                  <span class="stack-unit-name">${item.unit.name}</span>
+                  <span class="stack-unit-level">Lvl ${item.unit.level}</span>
+                  <span class="stack-unit-qty">x${item.quantity}</span>
+              </div>
+              <div class="stack-unit-stats">
+                  <span class="stack-unit-stat">ATK: ${stats.attack.toFixed(1)}</span>
+                  <span class="stack-unit-stat">DEF: ${stats.defense.toFixed(1)}</span>
+                  <span class="stack-unit-stat">HP: ${stats.hp.toFixed(0)}</span>
+                  <span class="stack-unit-stat">Type: ${item.unit.classification}</span>
+              </div>
+          `;
+          
+          stackDetailsEl.appendChild(unitEl);
+      });
+  }
+
+  // Function to simulate battle and calculate casualties
+  function simulateBattle(attackerComp, defenderComp, outcome) {
+      const attackerUnitCount = attackerComp.units.length;
+      const defenderUnitCount = defenderComp.units.length;
+      
+      let attackerLosses = 0;
+      let defenderLosses = 0;
+      
+      if (outcome === 'attacker-advantage') {
+          // Attacker wins - defender suffers heavy losses
+          const casualtyRate = Math.min(0.9, Math.max(0.2, 1 - (defenderComp.calculateTotalPower() / attackerComp.calculateTotalPower())));
+          defenderLosses = Math.ceil(defenderUnitCount * casualtyRate);
+          attackerLosses = Math.ceil(attackerUnitCount * (casualtyRate / 3));
+      } else if (outcome === 'defender-advantage') {
+          // Defender wins - attacker suffers heavy losses
+          const casualtyRate = Math.min(0.9, Math.max(0.2, 1 - (attackerComp.calculateTotalPower() / defenderComp.calculateTotalPower())));
+          attackerLosses = Math.ceil(attackerUnitCount * casualtyRate);
+          defenderLosses = Math.ceil(defenderUnitCount * (casualtyRate / 3));
+      } else {
+          // Balanced battle - both sides suffer moderate losses
+          const casualtyRate = Math.min(0.6, Math.max(0.3, 0.45));
+          attackerLosses = Math.ceil(attackerUnitCount * casualtyRate);
+          defenderLosses = Math.ceil(defenderUnitCount * casualtyRate);
       }
       
-      // Show the battle outcome section
-      battleOutcomeElement.style.display = 'block';
+      // Total up units from stack quantities
+      let totalAttackerUnits = attackerStack.reduce((sum, item) => sum + item.quantity, 0);
+      let totalDefenderUnits = defenderStack.reduce((sum, item) => sum + item.quantity, 0);
       
-      // Update all calculations
-      updateBattleOutcome();
+      // Adjust casualties based on stack quantities
+      const attackerCasualties = Math.min(totalAttackerUnits, Math.ceil((attackerLosses / attackerUnitCount) * totalAttackerUnits));
+      const defenderCasualties = Math.min(totalDefenderUnits, Math.ceil((defenderLosses / defenderUnitCount) * totalDefenderUnits));
       
-      // Scroll to battle outcome
-      battleOutcomeElement.scrollIntoView({ behavior: 'smooth' });
+      // Update the outcome text
+      const outcomeText = document.getElementById('outcomeText');
+      outcomeText.innerHTML = `
+          <div class="casualties">
+              <p>Estimated casualties:</p>
+              <p>Attacker: ${attackerCasualties} unit(s) (${Math.round(attackerCasualties/totalAttackerUnits*100)}%)</p>
+              <p>Defender: ${defenderCasualties} unit(s) (${Math.round(defenderCasualties/totalDefenderUnits*100)}%)</p>
+          </div>
+      `;
   }
 
   // Initialize page when DOM is loaded
@@ -836,10 +1163,52 @@ const doctrines = {
           });
       }
       
+      // Set up add unit buttons
+      const addAttackerUnitBtn = document.getElementById('addAttackerUnit');
+      if (addAttackerUnitBtn) {
+          addAttackerUnitBtn.addEventListener('click', function() {
+              addUnitToStack('attacker');
+          });
+      }
+      
+      const addDefenderUnitBtn = document.getElementById('addDefenderUnit');
+      if (addDefenderUnitBtn) {
+          addDefenderUnitBtn.addEventListener('click', function() {
+              addUnitToStack('defender');
+          });
+      }
+      
+      // Set up clear stack buttons
+      const clearAttackerStackBtn = document.getElementById('clearAttackerStack');
+      if (clearAttackerStackBtn) {
+          clearAttackerStackBtn.addEventListener('click', function() {
+              clearStack('attacker');
+          });
+      }
+      
+      const clearDefenderStackBtn = document.getElementById('clearDefenderStack');
+      if (clearDefenderStackBtn) {
+          clearDefenderStackBtn.addEventListener('click', function() {
+              clearStack('defender');
+          });
+      }
+      
       // Set up Calculate button
       const calculateBtn = document.getElementById('calculateBtn');
       if (calculateBtn) {
-          calculateBtn.addEventListener('click', calculateBattle);
+          calculateBtn.addEventListener('click', function() {
+              // Check if there are units in both stacks
+              if (attackerStack.length === 0 || defenderStack.length === 0) {
+                  alert('Please add units to both attacker and defender stacks');
+                  return;
+              }
+              
+              // Calculate battle outcome
+              calculateBattleOutcome();
+              
+              // Scroll to battle outcome
+              document.getElementById('battle-outcome').scrollIntoView({ behavior: 'smooth' });
+          });
       }
       
       // Set up terrain radio buttons
@@ -847,7 +1216,17 @@ const doctrines = {
       terrainRadios.forEach(radio => {
           radio.addEventListener('change', function() {
               if (document.getElementById('battle-outcome').style.display === 'block') {
-                  updateBattleOutcome();
+                  calculateBattleOutcome();
+              }
+          });
+      });
+      
+      // Set up special conditions checkboxes
+      const specialConditions = document.querySelectorAll('#entrenchment, #officerBoost');
+      specialConditions.forEach(checkbox => {
+          checkbox.addEventListener('change', function() {
+              if (document.getElementById('battle-outcome').style.display === 'block') {
+                  calculateBattleOutcome();
               }
           });
       });

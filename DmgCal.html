@@ -38,9 +38,28 @@
                         <select id="attackerUnit"></select>
                     </div>
                     <div class="control-group">
+                        <label for="attackerLevel">Level:</label>
+                        <select id="attackerLevel">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
                         <label for="attackerQuantity">Quantity:</label>
                         <input type="number" id="attackerQuantity" value="1" min="1">
                     </div>
+                    <div class="control-group">
+                        <button id="addAttackerUnit" class="add-unit-btn">Add to Stack</button>
+                    </div>
+                </div>
+                <div class="unit-stack-container">
+                    <h3>Unit Stack</h3>
+                    <div id="attackerStack" class="unit-stack"></div>
+                    <button id="clearAttackerStack" class="clear-stack-btn">Clear Stack</button>
                 </div>
                 <div class="unit-stats" id="attackerUnitStats"></div>
             </div>
@@ -65,9 +84,28 @@
                         <select id="defenderUnit"></select>
                     </div>
                     <div class="control-group">
+                        <label for="defenderLevel">Level:</label>
+                        <select id="defenderLevel">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
                         <label for="defenderQuantity">Quantity:</label>
                         <input type="number" id="defenderQuantity" value="1" min="1">
                     </div>
+                    <div class="control-group">
+                        <button id="addDefenderUnit" class="add-unit-btn">Add to Stack</button>
+                    </div>
+                </div>
+                <div class="unit-stack-container">
+                    <h3>Unit Stack</h3>
+                    <div id="defenderStack" class="unit-stack"></div>
+                    <button id="clearDefenderStack" class="clear-stack-btn">Clear Stack</button>
                 </div>
                 <div class="unit-stats" id="defenderUnitStats"></div>
             </div>
@@ -109,6 +147,19 @@
                         </label>
                     </div>
                 </div>
+                <div class="condition-group">
+                    <h3>Special Conditions</h3>
+                    <div class="checkbox-group">
+                        <label>
+                            <input type="checkbox" id="entrenchment">
+                            Entrenchment (-25% damage received)
+                        </label>
+                        <label>
+                            <input type="checkbox" id="officerBoost">
+                            Officer Boost
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -138,6 +189,20 @@
                         <span class="modifier-label">Terrain Modifier:</span>
                         <span class="modifier-value" id="terrain-modifier">A: 1.00 / D: 1.00</span>
                     </div>
+                    <div class="modifier-row" id="special-modifiers">
+                        <span class="modifier-label">Special Modifiers:</span>
+                        <span class="modifier-value" id="special-modifier-value">None</span>
+                    </div>
+                </div>
+            </div>
+            <div class="stack-details">
+                <div class="stack-column">
+                    <h3>Attacker Stack</h3>
+                    <div id="attackerStackDetails" class="stack-details-list"></div>
+                </div>
+                <div class="stack-column">
+                    <h3>Defender Stack</h3>
+                    <div id="defenderStackDetails" class="stack-details-list"></div>
                 </div>
             </div>
         </div>

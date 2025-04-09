@@ -1,0 +1,268 @@
+{
+    "Motorized Infantry": {
+      "Western": {
+        "Research Unlock": "0 • 0 • +1 • +1 • +2 • +2"
+      },
+      "European": {},
+      "Eastern": {
+        "Research Unlock": "0 • 0 • +1 • +1 • +2 • +2"
+      }
+    },
+    "Mechanized Infantry": {
+      "Western": {
+        "Research Unlock": "+1 • +1 • +2 • +2 • +2 • +2"
+      },
+      "European": {
+        "Bonuses": {
+          "HP": "+25%",
+          "Speed": "+10%"
+        }
+      },
+      "Eastern": {
+        "Research Unlock": "+1 • +1 • +2 • +2 • +2 • +2"
+      }
+    },
+    "Naval Infantry": {
+      "Western": {
+        "Bonuses": {
+          "HP": "+15%",
+          "Speed": "+10%"
+        }
+      },
+      "European": {},
+      "Eastern": {}
+    },
+    "Airborne Infantry": {
+      "Western": {
+        "Research Unlock": "0 • -1 • -2 • -2 • -2 • -2"
+      },
+      "European": {},
+      "Eastern": {
+        "Research Unlock": "0 • +2 • +2 • +2 • +2 • +3"
+      }
+    },
+    "Special Forces": {
+      "Western": {
+        "Research Unlock": "+1 • +1 • +2 • +2 • +3"
+      },
+      "European": {},
+      "Eastern": {
+        "Bonuses": {
+          "HP": "+10%"
+        },
+        "Research Unlock": "-1 • -1 • -2 • -2 • -3"
+      }
+    },
+    "Armored Combat Vehicle": {
+      "Western": {
+        "Bonuses": {
+          "HP": "+3"
+        },
+        "Research Unlock": "-2 • -2 • -4 • -4 • -6 • -6"
+      },
+      "European": {},
+      "Eastern": {
+        "Research Unlock": "-1 • -1 • -2 • -2 • -2 • -2"
+      }
+    },
+    "Main Battle Tank": {
+      "Western": {
+        "Bonuses": {
+          "HP": "+10%"
+        },
+        "Research Unlock": "+1 • +1 • +2 • +2 • +2 • +3"
+      },
+      "European": {
+        "Bonuses": {
+          "Infantry Damage": "+10%"
+        }
+      },
+      "Eastern": {
+        "Bonuses": {
+          "Speed": "+10%"
+        },
+        "Research Unlock": "-1 • -1 • -2 • -2 • -2 • -2"
+      }
+    },
+    "Tank Destroyers": {
+      "Western": {
+        "Research Unlock": "+1 • +1 • +1 • +2 • +2 • +3"
+      },
+      "European": {
+        "Bonuses": {
+          "Armor Damage": "+5%",
+          "HP": "+3"
+        }
+      },
+      "Eastern": {
+        "Research Unlock": "-1 • -1 • -2 • -2 • -4 • -5"
+      }
+    },
+    "Towered Artillery": {
+      "Western": {},
+      "European": {},
+      "Eastern": {}
+    },
+    "Mobile Artillery": {
+      "Western": {
+        "Research Unlock": "0 • +1 • +1 • +2 • +2 • +2"
+      },
+      "European": {
+        "Bonuses": {
+          "Infantry Damage": "+5%",
+          "HP": "+20%"
+        }
+      },
+      "Eastern": {
+        "Research Unlock": "-1 • -1 • -1 • -2 • -2 • -2"
+      }
+    },
+    "Mobile Anti-Air Vehicle": {
+      "Western": {},
+      "European": {
+        "Bonuses": {
+          "Helicopter Damage": "+20%"
+        }
+      },
+      "Eastern": {}
+    },
+    "SAM": {
+      "Western": {},
+      "European": {},
+      "Eastern": {
+        "Bonuses": {
+          "Aircraft Range": "+20%"
+        },
+        "Research Unlock": "-1 • -1 • -2 • -2 • -2 • -3"
+      }
+    },
+    "TDS": {
+      "Western": {
+        "Research Unlock": "-1 • -1 • -1 • -2 • 0 • -3"
+      },
+      "European": {},
+      "Eastern": {}
+    },
+    "Gunship Helicopter": {
+      "Western": {},
+      "European": {},
+      "Eastern": {
+        "Research Unlock": "+1 • +2 • +2 • +2 • 0 • 0"
+      }
+    },
+    "Attack Helicopter": {
+      "Western": {
+        "Bonuses": {
+          "Air-to-Ground": "+20%",
+          "Helicopter Damage": "+20%"
+        },
+        "Research Unlock": "-2 • -2 • -2 • -4 • -4 • -4"
+      },
+      "European": {},
+      "Eastern": {
+        "Research Unlock": "-1 • -1 • -1 • -2 • -2 • -2"
+      }
+    },
+    "Air Superiority Fighter": {
+      "Western": {
+        "Bonuses": {
+          "Aircraft Damage": "+10%",
+          "Helicopter Damage": "+10%"
+        },
+        "Research Unlock": "0 • 0 • -2 • -2 • -2 • -2"
+      },
+      "European": {},
+      "Eastern": {
+        "Research Unlock": "0 • 0 • +2 • +2 • +2 • +2"
+      }
+    },
+    "Strike Fighter": {
+      "Western": {
+        "Research Unlock": "+2 • +2 • +2 • +4 • +4 • +4"
+      },
+      "European": {
+        "Bonuses": {
+          "HP": "+20%"
+        }
+      },
+      "Eastern": {
+        "Research Unlock": "+1 • +1 • +1 • +2 • +2 • +2"
+      }
+    },
+    "AWACS": {
+      "Western": {
+        "Research Unlock": "-2 • -2 • -2 • -2 • -2 • -3"
+      },
+      "European": {},
+      "Eastern": {
+        "Research Unlock": "+1 • +1 • +1 • +1 • +1 • +2"
+      }
+    },
+    "Heavy Bombers": {
+      "Western": {
+        "Bonuses": {
+          "Infantry Damage": "+20%",
+          "HP": "+3"
+        }
+      },
+      "European": {},
+      "Eastern": {
+        "Research Unlock": "+1 • +1 • +1 • +2 • +3 • +3"
+      }
+    },
+    "Infantry Officer": {
+      "Western": {
+        "Research Unlock": "0 • +1 • +1 • +2 • +3 • +2"
+      },
+      "European": {},
+      "Eastern": {
+        "Research Unlock": "0 • 0 • 0 • 0 • +1 • +2"
+      }
+    },
+    "Airborne Officer": {
+      "Western": {
+        "Research Unlock": "-2 • -2 • -1 • -2 • -2 • -1 • -2"
+      },
+      "European": {},
+      "Eastern": {
+        "Research Unlock": "0 • 0 • 0 • -1 • -1 • -1 • -1"
+      }
+    },
+    "Tank Commander": {
+      "Western": {
+        "Research Unlock": "+1 • 0 • 0 • -2 • -3 • -3 • -3"
+      },
+      "European": {},
+      "Eastern": {
+        "Research Unlock": "-1 • -1 • -2 • -3 • 0 • 0"
+      }
+    },
+    "Rotary Wing Officer": {
+      "Western": {
+        "Research Unlock": "-1 • 0 • 0 • +1 • +1 • +1 • +2"
+      },
+      "European": {},
+      "Eastern": {
+        "Research Unlock": "+1 • +1 • 0 • +1 • +1 • +2"
+      }
+    },
+    "Fixed Wing Officer": {
+      "Western": {
+        "Research Unlock": "+2 • +1 • +1 • -2 • -2 • -2 • -2"
+      },
+      "European": {},
+      "Eastern": {
+        "Research Unlock": "+1 • +1 • 0 • +1 • +1 • +2"
+      }
+    },
+    "Naval Officer": {
+      "Western": {
+        "Research Unlock": "0 • +1 • +1 • 0 • +2 • +1 • 0"
+      },
+      "European": {},
+      "Eastern": {
+        "Research Unlock": "0 • 0 • 0 • 0 • +1 • +2"
+      }
+    }
+  }
+  
