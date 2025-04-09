@@ -40,6 +40,13 @@ header p {
     margin-bottom: 20px;
 }
 
+.unit-selectors-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+}
+
 .unit-selector {
     background-color: white;
     border-radius: 8px;
@@ -413,6 +420,14 @@ header p {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    .unit-selectors-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .unit-selector {
+        margin-bottom: 20px;
+    }
+    
     .calculator-sections {
         grid-template-columns: 1fr;
     }
@@ -431,7 +446,7 @@ header p {
     }
     
     .unit-card {
-        width: 100%;
+        flex-direction: column;
     }
     
     .stack-details {

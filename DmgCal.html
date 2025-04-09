@@ -18,98 +18,100 @@
         </header>
 
         <div class="calculator-section unit-comparison">
-            <div class="unit-selector">
-                <h2>Attacker</h2>
-                <div class="unit-controls">
-                    <div class="control-group">
-                        <label for="attackerDoctrine">Doctrine:</label>
-                        <select id="attackerDoctrine">
-                <option value="western">Western</option>
-                <option value="eastern">Eastern</option>
-                <option value="european">European</option>
-            </select>
-        </div>
-                    <div class="control-group">
-                        <label for="attackerUnitType">Unit Type:</label>
-                        <select id="attackerUnitType"></select>
+            <div class="unit-selectors-container">
+                <div class="unit-selector attacker-section">
+                    <h2>Attacker</h2>
+                    <div class="unit-controls">
+                        <div class="control-group">
+                            <label for="attackerDoctrine">Doctrine:</label>
+                            <select id="attackerDoctrine">
+                                <option value="western">Western</option>
+                                <option value="eastern">Eastern</option>
+                                <option value="european">European</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="attackerUnitType">Unit Type:</label>
+                            <select id="attackerUnitType"></select>
+                        </div>
+                        <div class="control-group">
+                            <label for="attackerUnit">Unit:</label>
+                            <select id="attackerUnit"></select>
+                        </div>
+                        <div class="control-group">
+                            <label for="attackerLevel">Level:</label>
+                            <select id="attackerLevel">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="attackerQuantity">Quantity:</label>
+                            <input type="number" id="attackerQuantity" value="1" min="1">
+                        </div>
+                        <div class="control-group">
+                            <button id="addAttackerUnit" class="add-unit-btn">Add to Stack</button>
+                        </div>
                     </div>
-                    <div class="control-group">
-                        <label for="attackerUnit">Unit:</label>
-                        <select id="attackerUnit"></select>
+                    <div class="unit-stack-container">
+                        <h3>Unit Stack</h3>
+                        <div id="attackerStack" class="unit-stack"></div>
+                        <button id="clearAttackerStack" class="clear-stack-btn">Clear Stack</button>
                     </div>
-                    <div class="control-group">
-                        <label for="attackerLevel">Level:</label>
-                        <select id="attackerLevel">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
-                    </div>
-                    <div class="control-group">
-                        <label for="attackerQuantity">Quantity:</label>
-                        <input type="number" id="attackerQuantity" value="1" min="1">
-                    </div>
-                    <div class="control-group">
-                        <button id="addAttackerUnit" class="add-unit-btn">Add to Stack</button>
-                    </div>
+                    <div class="unit-stats" id="attackerUnitStats"></div>
                 </div>
-                <div class="unit-stack-container">
-                    <h3>Unit Stack</h3>
-                    <div id="attackerStack" class="unit-stack"></div>
-                    <button id="clearAttackerStack" class="clear-stack-btn">Clear Stack</button>
-                </div>
-                <div class="unit-stats" id="attackerUnitStats"></div>
-            </div>
 
-            <div class="unit-selector">
-                <h2>Defender</h2>
-                <div class="unit-controls">
-                    <div class="control-group">
-                        <label for="defenderDoctrine">Doctrine:</label>
-                        <select id="defenderDoctrine">
-                            <option value="western">Western</option>
-                            <option value="eastern">Eastern</option>
-                            <option value="european">European</option>
-                        </select>
+                <div class="unit-selector defender-section">
+                    <h2>Defender</h2>
+                    <div class="unit-controls">
+                        <div class="control-group">
+                            <label for="defenderDoctrine">Doctrine:</label>
+                            <select id="defenderDoctrine">
+                                <option value="western">Western</option>
+                                <option value="eastern">Eastern</option>
+                                <option value="european">European</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="defenderUnitType">Unit Type:</label>
+                            <select id="defenderUnitType"></select>
+                        </div>
+                        <div class="control-group">
+                            <label for="defenderUnit">Unit:</label>
+                            <select id="defenderUnit"></select>
+                        </div>
+                        <div class="control-group">
+                            <label for="defenderLevel">Level:</label>
+                            <select id="defenderLevel">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="defenderQuantity">Quantity:</label>
+                            <input type="number" id="defenderQuantity" value="1" min="1">
+                        </div>
+                        <div class="control-group">
+                            <button id="addDefenderUnit" class="add-unit-btn">Add to Stack</button>
+                        </div>
                     </div>
-                    <div class="control-group">
-                        <label for="defenderUnitType">Unit Type:</label>
-                        <select id="defenderUnitType"></select>
+                    <div class="unit-stack-container">
+                        <h3>Unit Stack</h3>
+                        <div id="defenderStack" class="unit-stack"></div>
+                        <button id="clearDefenderStack" class="clear-stack-btn">Clear Stack</button>
                     </div>
-                    <div class="control-group">
-                        <label for="defenderUnit">Unit:</label>
-                        <select id="defenderUnit"></select>
-                    </div>
-                    <div class="control-group">
-                        <label for="defenderLevel">Level:</label>
-                        <select id="defenderLevel">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
-                    </div>
-                    <div class="control-group">
-                        <label for="defenderQuantity">Quantity:</label>
-                        <input type="number" id="defenderQuantity" value="1" min="1">
-                    </div>
-                    <div class="control-group">
-                        <button id="addDefenderUnit" class="add-unit-btn">Add to Stack</button>
-                    </div>
-                </div>
-                <div class="unit-stack-container">
-                    <h3>Unit Stack</h3>
-                    <div id="defenderStack" class="unit-stack"></div>
-                    <button id="clearDefenderStack" class="clear-stack-btn">Clear Stack</button>
-                </div>
-                <div class="unit-stats" id="defenderUnitStats"></div>
+                    <div class="unit-stats" id="defenderUnitStats"></div>
                 </div>
             </div>
+        </div>
 
         <div class="calculator-section battle-conditions">
             <h2>Battle Conditions</h2>
@@ -159,13 +161,13 @@
                             Officer Boost
                         </label>
                     </div>
-                    </div>
                 </div>
             </div>
+        </div>
 
         <div class="calculate-button">
             <button id="calculateBtn">Calculate Battle Outcome</button>
-            </div>
+        </div>
 
         <div class="calculator-section battle-outcome" id="battle-outcome">
             <div class="outcome-header">
@@ -203,9 +205,9 @@
                 <div class="stack-column">
                     <h3>Defender Stack</h3>
                     <div id="defenderStackDetails" class="stack-details-list"></div>
-                    </div>
                 </div>
             </div>
+        </div>
 
         <div class="calculator-section damage-explanation">
             <h2>Damage Calculation System</h2>
