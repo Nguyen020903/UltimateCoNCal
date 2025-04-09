@@ -541,3 +541,37 @@ header p {
 .negative-modifier {
     color: red;
 }
+
+/* Return to Main Page button styles */
+.return-home-container {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+}
+
+.return-home-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 15px;
+    background-color: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.return-home-button i {
+    margin-right: 8px;
+}
+
+.return-home-button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.return-home-button:active {
+    transform: translateY(0);
+}

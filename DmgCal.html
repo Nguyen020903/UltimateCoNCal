@@ -8,6 +8,7 @@
     <title>CoNCal - Damage Calculator</title>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5135077083099833"
         crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 
 <body>
@@ -16,6 +17,10 @@
             <h1>Damage Calculator</h1>
             <p>Calculate battle outcomes between different units</p>
         </header>
+
+        <div class="return-home-container">
+            <a href="index.html" class="return-home-button"><i class="fas fa-home"></i> Return to Main Page</a>
+        </div>
 
         <div class="calculator-section unit-comparison">
             <div class="unit-selectors-container">
@@ -228,6 +233,55 @@
     </div>
 
     <script src="DmgCal.js"></script>
+    <script>
+        // Initialize the unit selectors when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize attacker dropdowns
+            const attackerDoctrine = document.getElementById('attackerDoctrine');
+            const attackerUnitType = document.getElementById('attackerUnitType');
+            const attackerUnit = document.getElementById('attackerUnit');
+            
+            // Initialize defender dropdowns
+            const defenderDoctrine = document.getElementById('defenderDoctrine');
+            const defenderUnitType = document.getElementById('defenderUnitType');
+            const defenderUnit = document.getElementById('defenderUnit');
+            
+            // Add event listeners for doctrine changes
+            attackerDoctrine.addEventListener('change', function() {
+                populateUnitTypes('attackerDoctrine', 'attackerUnitType');
+                // Clear unit dropdown when doctrine changes
+                attackerUnit.innerHTML = '';
+            });
+            
+            defenderDoctrine.addEventListener('change', function() {
+                populateUnitTypes('defenderDoctrine', 'defenderUnitType');
+                // Clear unit dropdown when doctrine changes
+                defenderUnit.innerHTML = '';
+            });
+            
+            // Add event listeners for unit type changes
+            attackerUnitType.addEventListener('change', function() {
+                populateUnits('attackerDoctrine', 'attackerUnitType', 'attackerUnit');
+            });
+            
+            defenderUnitType.addEventListener('change', function() {
+                populateUnits('defenderDoctrine', 'defenderUnitType', 'defenderUnit');
+            });
+            
+            // Initialize dropdowns with default values
+            populateUnitTypes('attackerDoctrine', 'attackerUnitType');
+            populateUnitTypes('defenderDoctrine', 'defenderUnitType');
+            
+            // Update unit stats when a unit is selected
+            attackerUnit.addEventListener('change', function() {
+                updateUnitStats('attackerDoctrine', 'attackerUnitType', 'attackerUnit', 'attackerUnitStats');
+            });
+            
+            defenderUnit.addEventListener('change', function() {
+                updateUnitStats('defenderDoctrine', 'defenderUnitType', 'defenderUnit', 'defenderUnitStats');
+            });
+        });
+    </script>
 </body>
 
 </html>
