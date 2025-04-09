@@ -2140,8 +2140,10 @@ const doctrines = {
 
   // Function to update terrain modifiers display
   function updateTerrainModifiers() {
-    // Get the terrain modifier display element
+    // Get the terrain modifier elements
     const terrainModifierEl = document.getElementById('terrain-modifier');
+    const attackerTerrainMod = document.getElementById('attacker-terrain-mod');
+    const defenderTerrainMod = document.getElementById('defender-terrain-mod');
     
     // Get selected terrain values
     const attackerTerrain = document.querySelector('input[name="attacker-terrain"]:checked').value;
@@ -2153,38 +2155,51 @@ const doctrines = {
     let attackerUnitCount = 0;
     let defenderUnitCount = 0;
     
-    // Calculate attacker modifiers
-    attackerComp.units.forEach(item => {
-        const mod = item.unit.getStatModifier(attackerTerrain);
-        totalAttackerMod += mod.attack * item.quantity;
-        attackerUnitCount += item.quantity;
-    });
+    // Calculate attacker modifiers if we have units
+    if (typeof attackerComp !== 'undefined' && attackerComp.units) {
+        attackerComp.units.forEach(item => {
+            if (item.unit && typeof item.unit.getStatModifier === 'function') {
+                const mod = item.unit.getStatModifier(attackerTerrain);
+                totalAttackerMod += mod.attack * item.quantity;
+                attackerUnitCount += item.quantity;
+            }
+        });
+    }
     
-    // Calculate defender modifiers
-    defenderComp.units.forEach(item => {
-        const mod = item.unit.getStatModifier(defenderTerrain);
-        totalDefenderMod += mod.defense * item.quantity;
-        defenderUnitCount += item.quantity;
-    });
+    // Calculate defender modifiers if we have units
+    if (typeof defenderComp !== 'undefined' && defenderComp.units) {
+        defenderComp.units.forEach(item => {
+            if (item.unit && typeof item.unit.getStatModifier === 'function') {
+                const mod = item.unit.getStatModifier(defenderTerrain);
+                totalDefenderMod += mod.defense * item.quantity;
+                defenderUnitCount += item.quantity;
+            }
+        });
+    }
     
     // Calculate averages
     const avgAttackerMod = (attackerUnitCount > 0) ? (totalAttackerMod / attackerUnitCount).toFixed(2) : "1.00";
     const avgDefenderMod = (defenderUnitCount > 0) ? (totalDefenderMod / defenderUnitCount).toFixed(2) : "1.00";
     
-    // Update the display
+    // Update the displays if elements exist
     if (terrainModifierEl) {
         terrainModifierEl.textContent = `A: ${avgAttackerMod} / D: ${avgDefenderMod}`;
     }
     
-    // Update individual terrain modifiers
-    const attackerTerrainMod = document.getElementById('attacker-terrain-mod');
-    const defenderTerrainMod = document.getElementById('defender-terrain-mod');
-    
     if (attackerTerrainMod) {
         attackerTerrainMod.textContent = `x${avgAttackerMod}`;
     }
+    
     if (defenderTerrainMod) {
         defenderTerrainMod.textContent = `x${avgDefenderMod}`;
+    }
+    
+    // Show/hide terrain error message
+    const terrainError = document.getElementById('terrain-error');
+    if (terrainError) {
+        const hasIncompatibleUnits = (attackerUnitCount === 0 && typeof attackerComp !== 'undefined' && attackerComp.units && attackerComp.units.length > 0) ||
+                                   (defenderUnitCount === 0 && typeof defenderComp !== 'undefined' && defenderComp.units && defenderComp.units.length > 0);
+        terrainError.style.display = hasIncompatibleUnits ? 'block' : 'none';
     }
 }
 
