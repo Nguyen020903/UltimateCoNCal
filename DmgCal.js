@@ -2908,3 +2908,75 @@ const doctrines = {
       stackDetails.appendChild(detailItem);
     });
   }
+
+  // Add event listeners for terrain changes
+  document.addEventListener('DOMContentLoaded', function() {
+    // Add event listeners for terrain radio buttons
+    document.querySelectorAll('input[name="attacker-terrain"], input[name="defender-terrain"]').forEach(radio => {
+        radio.addEventListener('change', updateTerrainModifiers);
+    });
+  });
+
+  function updateTerrainModifiers() {
+    // Get the terrain modifier elements
+    const terrainModifierEl = document.getElementById('terrain-modifier');
+    const attackerTerrainMod = document.getElementById('attacker-terrain-mod');
+    const defenderTerrainMod = document.getElementById('defender-terrain-mod');
+    
+    // Get selected terrain values
+    const attackerTerrain = document.querySelector('input[name="attacker-terrain"]:checked').value;
+    const defenderTerrain = document.querySelector('input[name="defender-terrain"]:checked').value;
+    
+    // Initialize counters
+    let totalAttackerMod = 0;
+    let totalDefenderMod = 0;
+    let attackerUnitCount = 0;
+    let defenderUnitCount = 0;
+    
+    // Calculate attacker modifiers if we have units
+    if (typeof attackerComp !== 'undefined' && attackerComp.units) {
+        attackerComp.units.forEach(item => {
+            if (item.unit && typeof item.unit.getStatModifier === 'function') {
+                const mod = item.unit.getStatModifier(attackerTerrain);
+                totalAttackerMod += mod.attack * item.quantity;
+                attackerUnitCount += item.quantity;
+            }
+        });
+    }
+    
+    // Calculate defender modifiers if we have units
+    if (typeof defenderComp !== 'undefined' && defenderComp.units) {
+        defenderComp.units.forEach(item => {
+            if (item.unit && typeof item.unit.getStatModifier === 'function') {
+                const mod = item.unit.getStatModifier(defenderTerrain);
+                totalDefenderMod += mod.defense * item.quantity;
+                defenderUnitCount += item.quantity;
+            }
+        });
+    }
+    
+    // Calculate averages
+    const avgAttackerMod = (attackerUnitCount > 0) ? (totalAttackerMod / attackerUnitCount).toFixed(2) : "1.00";
+    const avgDefenderMod = (defenderUnitCount > 0) ? (totalDefenderMod / defenderUnitCount).toFixed(2) : "1.00";
+    
+    // Update the displays
+    if (terrainModifierEl) {
+        terrainModifierEl.textContent = `A: ${avgAttackerMod} / D: ${avgDefenderMod}`;
+    }
+    
+    if (attackerTerrainMod) {
+        attackerTerrainMod.textContent = `x${avgAttackerMod}`;
+    }
+    
+    if (defenderTerrainMod) {
+        defenderTerrainMod.textContent = `x${avgDefenderMod}`;
+    }
+    
+    // Show/hide terrain error message
+    const terrainError = document.getElementById('terrain-error');
+    if (terrainError) {
+        const hasIncompatibleUnits = (attackerUnitCount === 0 && typeof attackerComp !== 'undefined' && attackerComp.units && attackerComp.units.length > 0) ||
+                                   (defenderUnitCount === 0 && typeof defenderComp !== 'undefined' && defenderComp.units && defenderComp.units.length > 0);
+        terrainError.style.display = hasIncompatibleUnits ? 'block' : 'none';
+    }
+}
