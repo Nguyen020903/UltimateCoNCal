@@ -9,6 +9,59 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5135077083099833"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        .unit-stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .unit-stat-row:last-child {
+            border-bottom: none;
+        }
+        
+        .stat-label {
+            font-weight: 500;
+            color: #666;
+        }
+        
+        .stat-value {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .sub-stat {
+            padding-left: 20px;
+            font-size: 0.9em;
+        }
+        
+        .sub-stat .stat-label {
+            color: #888;
+        }
+        
+        #unitStats {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        #unitStats {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        #unitSelect {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 
 <body>
@@ -230,8 +283,32 @@
             </div>
         </div>
 
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Unit Stats</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="unitStats"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="calculator-section">
+            <h3>Unit Selection</h3>
+            <select id="unitSelect" class="form-control">
+                <option value="">Select a unit...</option>
+            </select>
+            <div id="unitStats" class="unit-stats-container"></div>
+        </div>
+
     </div>
 
+    <!-- Load the JavaScript file at the end of the body -->
     <script src="DmgCal.js"></script>
     <script>
         // Initialize the unit selectors when the page loads
@@ -249,12 +326,10 @@
             // Add event listeners for doctrine changes
             attackerDoctrine.addEventListener('change', function() {
                 populateUnitTypes('attackerDoctrine', 'attackerUnitType');
-                attackerUnit.innerHTML = '<option value="">Select Unit</option>';
             });
             
             defenderDoctrine.addEventListener('change', function() {
                 populateUnitTypes('defenderDoctrine', 'defenderUnitType');
-                defenderUnit.innerHTML = '<option value="">Select Unit</option>';
             });
             
             // Add event listeners for unit type changes
@@ -266,34 +341,32 @@
                 populateUnits('defenderDoctrine', 'defenderUnitType', 'defenderUnit');
             });
             
-            // Initialize dropdowns with default values
-            populateUnitTypes('attackerDoctrine', 'attackerUnitType');
-            populateUnitTypes('defenderDoctrine', 'defenderUnitType');
-            
-            // Update unit stats when a unit is selected
+            // Add event listeners for unit changes
             attackerUnit.addEventListener('change', async function() {
-                const doctrine = attackerDoctrine.value;
-                const unitType = attackerUnitType.value;
-                const unitName = attackerUnit.value;
-                if (doctrine && unitType && unitName) {
-                    const unitData = await loadUnitData(doctrine, unitType, unitName);
-                    if (unitData) {
-                        updateUnitStats('attacker', unitData);
+                if (attackerUnit.value) {
+                    const unit = await createUnitFromSelection('attacker');
+                    if (unit) {
+                        displayUnitStats('attackerUnitStats', unit);
                     }
+                } else {
+                    document.getElementById('attackerUnitStats').innerHTML = '';
                 }
             });
             
             defenderUnit.addEventListener('change', async function() {
-                const doctrine = defenderDoctrine.value;
-                const unitType = defenderUnitType.value;
-                const unitName = defenderUnit.value;
-                if (doctrine && unitType && unitName) {
-                    const unitData = await loadUnitData(doctrine, unitType, unitName);
-                    if (unitData) {
-                        updateUnitStats('defender', unitData);
+                if (defenderUnit.value) {
+                    const unit = await createUnitFromSelection('defender');
+                    if (unit) {
+                        displayUnitStats('defenderUnitStats', unit);
                     }
+                } else {
+                    document.getElementById('defenderUnitStats').innerHTML = '';
                 }
             });
+            
+            // Initialize the unit types for both attacker and defender
+            populateUnitTypes('attackerDoctrine', 'attackerUnitType');
+            populateUnitTypes('defenderDoctrine', 'defenderUnitType');
         });
     </script>
 </body>

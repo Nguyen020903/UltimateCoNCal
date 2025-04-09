@@ -110,8 +110,14 @@ const doctrines = {
     }
     
     try {
+      // Normalize the doctrine name to match directory structure
+      const normalizedDoctrine = doctrine.charAt(0).toUpperCase() + doctrine.slice(1).toLowerCase();
+      
       // Construct path to the JSON file
-      const path = `Unit_stats/${doctrine}/${unitType}/${unitName}.json`;
+      // The path structure is Unit_stats/Doctrine/UnitType/UnitName.json
+      const path = `Unit_stats/${normalizedDoctrine}/${unitType}/${unitName}.json`;
+      console.log(`Attempting to load unit data from: ${path}`);
+      
       const response = await fetch(path);
       
       if (!response.ok) {
@@ -310,116 +316,34 @@ const doctrines = {
     const unitTypeSelect = document.getElementById(unitTypeSelectId);
     const unitSelect = document.getElementById(unitSelectId);
     
-    const doctrine = doctrineSelect.value;
-    const unitType = unitTypeSelect.value;
-    
     // Clear existing options
     unitSelect.innerHTML = '<option value="">Select Unit</option>';
     
-    try {
-      // Fetch the directory listing for the selected doctrine and unit type
-      const response = await fetch(`Unit_stats/${doctrine}/${unitType}/`);
-      const files = await response.json(); // This assumes your server returns a JSON list of files
-      
-      files.forEach(file => {
-        if (file.endsWith('.json')) {
-          const unitName = file.replace('.json', '');
-          const option = document.createElement('option');
-          option.value = unitName;
-          option.textContent = unitName.replace(/_/g, ' ');
-          unitSelect.appendChild(option);
-        }
-      });
-    } catch (error) {
-      console.error(`Error loading units: ${error}`);
-      // Fallback to hardcoded units if API fails
-      if (doctrine === 'Eastern') {
-        if (unitType === 'Infantry') {
-          addOption(unitSelect, 'motorized_infantry', 'Motorized Infantry');
-          addOption(unitSelect, 'mechanized_infantry', 'Mechanized Infantry');
-          // Add more units as needed
-        } else if (unitType === 'Armored') {
-          addOption(unitSelect, 't-80', 'T-80 Main Battle Tank');
-          addOption(unitSelect, 't-90', 'T-90 Main Battle Tank');
-          // Add more units as needed
-        }
-      }
-      // Add similar fallbacks for other doctrines
-    }
-  }
-  
-  function addOption(select, value, text) {
-    const option = document.createElement('option');
-    option.value = value;
-    option.textContent = text;
-    select.appendChild(option);
-  }
-  
-  // Update the createUnitFromSelection function to use JSON data
-  async function createUnitFromSelection(side) {
-    // Get the selected values
-    const doctrineId = document.getElementById(`${side}Doctrine`).value.toLowerCase();
-    const unitTypeId = document.getElementById(`${side}UnitType`).value;
-    const unitId = document.getElementById(`${side}Unit`).value;
-    const levelId = parseInt(document.getElementById(`${side}Level`).value) || 1;
-    const quantity = parseInt(document.getElementById(`${side}Quantity`).value) || 1;
+    const selectedDoctrine = doctrineSelect.value.toLowerCase();
+    const selectedUnitType = unitTypeSelect.value.toLowerCase();
     
-    // Data validation
-    if (!doctrineId || !unitTypeId || !unitId) {
-      console.error("Missing required unit selection data");
-      return null;
-    }
+    if (!selectedDoctrine || !selectedUnitType) return;
     
-    try {
-      // Get unit data
-      if (unitData[doctrineId] && unitData[doctrineId][unitTypeId]) {
-        // Find the unit by ID in the unit type collection
-        const unitStats = Object.values(unitData[doctrineId][unitTypeId]).find(u => u.id === unitId);
-        
-        if (!unitStats) {
-          console.error(`Unit with ID ${unitId} not found in ${doctrineId}/${unitTypeId}`);
-          return null;
-        }
-        
-        // Create the unit with our base stats
-        const unit = new Unit(
-          unitId,
-          unitStats.name,
-          unitTypeId,
-          unitStats.attack,
-          unitStats.defense,
-          unitStats.hp,
-          unitStats.speed,
-          unitStats.range
-        );
-        
-        // Set doctrine and level
-        unit.setDoctrine(doctrineId);
-        unit.upgrade(levelId);
-        
-        // Add the unit to the appropriate stack
-        const stack = side === 'attacker' ? attackerStack : defenderStack;
-        
-        // Add the unit to the stack
-        for (let i = 0; i < quantity; i++) {
-          stack.push(unit.clone()); // Add a clone of the unit to avoid reference issues
-        }
-        
-        // Update the stack display
-        updateStackDisplay(side);
-        
-        // Update terrain modifiers
-        updateTerrainModifiers();
-        
-        return unit;
-      } else {
-        console.error(`No unit data found for ${doctrineId}/${unitTypeId}`);
-      }
-    } catch (error) {
-      console.error("Error creating unit:", error);
-    }
+    // Get the units for the selected doctrine and unit type from unitData
+    const availableUnits = unitData[selectedDoctrine]?.[selectedUnitType];
     
-    return null;
+    if (!availableUnits) return;
+    
+    // Add units to dropdown
+    Object.values(availableUnits).forEach(unit => {
+        const option = document.createElement('option');
+        option.value = unit.id;
+        option.textContent = unit.name;
+        unitSelect.appendChild(option);
+    });
+    
+    // Add event listener for unit selection
+    unitSelect.addEventListener('change', function() {
+        const selectedUnit = units[this.value];
+        if (selectedUnit) {
+            displayUnitStats(selectedUnit, unitSelectId.replace('Unit', 'Stats'));
+        }
+    });
   }
   
   // Unit weights for damage distribution
@@ -1376,103 +1300,37 @@ const doctrines = {
     return null;
   }
 
-  // Update the createUnitFromSelection function to use Eastern infantry unit stats
-  function createUnitFromSelection(side) {
-    const doctrineId = document.getElementById(`${side}Doctrine`).value.toLowerCase();
-    const unitTypeId = document.getElementById(`${side}UnitType`).value;
-    const unitId = document.getElementById(`${side}Unit`).value;
-    const levelId = parseInt(document.getElementById(`${side}Level`).value) || 1;
-    const quantity = parseInt(document.getElementById(`${side}Quantity`).value) || 1;
-    
-    // Data validation
-    if (!doctrineId || !unitTypeId || !unitId) {
-      console.error("Missing required unit selection data");
-      return null;
-    }
-    
-    try {
-      // Get unit data
-      if (unitData[doctrineId] && unitData[doctrineId][unitTypeId]) {
-        // Find the unit by ID in the unit type collection
-        const unitStats = Object.values(unitData[doctrineId][unitTypeId]).find(u => u.id === unitId);
-        
-        if (!unitStats) {
-          console.error(`Unit with ID ${unitId} not found in ${doctrineId}/${unitTypeId}`);
-          return null;
-        }
-        
-        // Create the unit with our base stats
-        const unit = new Unit(
-          unitId,
-          unitStats.name,
-          unitTypeId,
-          unitStats.attack,
-          unitStats.defense,
-          unitStats.hp,
-          unitStats.speed,
-          unitStats.range
-        );
-        
-        // Set doctrine and level
-        unit.setDoctrine(doctrineId);
-        unit.upgrade(levelId);
-        
-        // Add the unit to the appropriate stack
-        const stack = side === 'attacker' ? attackerStack : defenderStack;
-        
-        // Add the unit to the stack
-        for (let i = 0; i < quantity; i++) {
-          stack.push(unit.clone()); // Add a clone of the unit to avoid reference issues
-        }
-        
-        // Update the stack display
-        updateStackDisplay(side);
-        
-        // Update terrain modifiers
-        updateTerrainModifiers();
-        
-        return unit;
-      } else {
-        console.error(`No unit data found for ${doctrineId}/${unitTypeId}`);
-      }
-    } catch (error) {
-      console.error("Error creating unit:", error);
-    }
-    
-    return null;
-  }
-
   // Define the available unit types for each doctrine
   const doctrineUnitTypes = {
       'western': [
-          'Infantry',
-          'Armored',
-          'Support',
-          'Helicopter',
-          'Fighters',
-          'Heavies',
-          'Naval',
-          'Submarine'
+          'infantry',
+          'armored',
+          'support',
+          'helicopters',
+          'fighters',
+          'heavies',
+          'naval',
+          'submarine'
       ],
       'eastern': [
-          'Infantry',
-          'Armored',
-          'Support',
-          'Helicopter',
-          'Fighters',
-          'Heavies',
-          'Naval',
-          'Submarine'
+          'infantry',
+          'armored',
+          'support',
+          'helicopters',
+          'fighters',
+          'heavies',
+          'naval',
+          'submarine'
       ],
       'european': [
-          'Infantry',
-          'Armored',
-          'Support',
-          'Helicopter',
-          'Fighters',
-          'Heavies',
-          'Naval',
-          'Submarine'
+          'infantry',
+          'armored',
+          'support',
+          'helicopters',
+          'fighters',
+          'heavies',
+          'naval',
+          'submarine'
       ]
   };
 
@@ -1532,37 +1390,18 @@ const doctrines = {
       if (doctrineUnitTypes[doctrine]) {
           doctrineUnitTypes[doctrine].forEach(unitType => {
               const option = document.createElement('option');
-              option.value = unitType.toLowerCase();
+              option.value = unitType;
               option.textContent = unitType;
               unitTypeSelect.appendChild(option);
           });
       }
-  }
 
-  // Helper function to populate units based on selected doctrine and unit type
-  function populateUnits(doctrineSelectId, unitTypeSelectId, unitSelectId) {
-      const doctrineSelect = document.getElementById(doctrineSelectId);
-      const unitTypeSelect = document.getElementById(unitTypeSelectId);
+      // Clear the unit select dropdown since unit type has changed
+      const unitSelectId = unitTypeSelectId.replace('UnitType', 'Unit');
       const unitSelect = document.getElementById(unitSelectId);
-      
-      const doctrine = doctrineSelect.value.toLowerCase();
-      const unitType = unitTypeSelect.value.toLowerCase();
-
-      // Clear existing options
-      unitSelect.innerHTML = '<option value="">Select Unit</option>';
-
-      if (!doctrine || !unitType) return;
-
-      // Get available units for this doctrine and type
-      const units = availableUnits[doctrine]?.[unitType] || [];
-      
-      // Add unit options
-      units.forEach(unit => {
-          const option = document.createElement('option');
-          option.value = unit.name;
-          option.textContent = `${unit.name} (${unit.type})`;
-          unitSelect.appendChild(option);
-      });
+      if (unitSelect) {
+          unitSelect.innerHTML = '<option value="">Select Unit</option>';
+      }
   }
 
   // Function to update terrain modifiers
@@ -1631,6 +1470,115 @@ const doctrines = {
       
       // Initialize terrain modifiers
       updateTerrainModifiers();
+
+      // Add event listeners for doctrine changes
+      document.getElementById('attackerDoctrine').addEventListener('change', function() {
+          populateUnitTypes('attackerDoctrine', 'attackerUnitType');
+      });
+
+      document.getElementById('defenderDoctrine').addEventListener('change', function() {
+          populateUnitTypes('defenderDoctrine', 'defenderUnitType');
+      });
+
+      // Add event listeners for unit type changes
+      document.getElementById('attackerUnitType').addEventListener('change', function() {
+          populateUnits('attackerDoctrine', 'attackerUnitType', 'attackerUnit');
+      });
+
+      document.getElementById('defenderUnitType').addEventListener('change', function() {
+          populateUnits('defenderDoctrine', 'defenderUnitType', 'defenderUnit');
+      });
+
+      // Initial population of unit types
+      populateUnitTypes('attackerDoctrine', 'attackerUnitType');
+      populateUnitTypes('defenderDoctrine', 'defenderUnitType');
   });
+
+  // Function to display unit stats
+  function displayUnitStats(elementId, unit) {
+    const statsElement = document.getElementById(elementId);
+    if (!statsElement) return;
+    
+    // Get the effective stats for the current terrain
+    const terrain = document.querySelector(`input[name="${elementId.includes('attacker') ? 'attacker' : 'defender'}-terrain"]:checked`).value;
+    const stats = unit.getEffectiveStats(terrain);
+    
+    // Create the stats display
+    let statsHTML = `
+      <div class="unit-stat-row">
+        <span class="stat-label">Name:</span>
+        <span class="stat-value">${unit.name}</span>
+      </div>
+      <div class="unit-stat-row">
+        <span class="stat-label">Type:</span>
+        <span class="stat-value">${unit.type}</span>
+      </div>
+      <div class="unit-stat-row">
+        <span class="stat-label">Level:</span>
+        <span class="stat-value">${unit.level}</span>
+      </div>
+      <div class="unit-stat-row">
+        <span class="stat-label">Attack:</span>
+        <span class="stat-value">${stats.attack.toFixed(1)}</span>
+      </div>
+      <div class="unit-stat-row">
+        <span class="stat-label">Defense:</span>
+        <span class="stat-value">${stats.defense.toFixed(1)}</span>
+      </div>
+      <div class="unit-stat-row">
+        <span class="stat-label">HP:</span>
+        <span class="stat-value">${stats.hp.toFixed(1)}</span>
+      </div>
+      <div class="unit-stat-row">
+        <span class="stat-label">Speed:</span>
+        <span class="stat-value">${stats.speed.toFixed(1)}</span>
+      </div>
+    `;
+    
+    // Add attack type information if available
+    if (unit.attackValues && Object.keys(unit.attackValues).length > 0) {
+      statsHTML += '<div class="unit-stat-row"><span class="stat-label">Attack Types:</span></div>';
+      for (const type in unit.attackValues) {
+        statsHTML += `
+          <div class="unit-stat-row sub-stat">
+            <span class="stat-label">${type}:</span>
+            <span class="stat-value">${unit.attackValues[type].toFixed(1)}</span>
+          </div>
+        `;
+      }
+    }
+    
+    // Add defense type information if available
+    if (unit.defenseValues && Object.keys(unit.defenseValues).length > 0) {
+      statsHTML += '<div class="unit-stat-row"><span class="stat-label">Defense Types:</span></div>';
+      for (const type in unit.defenseValues) {
+        statsHTML += `
+          <div class="unit-stat-row sub-stat">
+            <span class="stat-label">${type}:</span>
+            <span class="stat-value">${unit.defenseValues[type].toFixed(1)}</span>
+          </div>
+        `;
+      }
+    }
+    
+    // Add terrain modifiers if available
+    if (unit.attackModifiers && Object.keys(unit.attackModifiers).length > 0) {
+      statsHTML += '<div class="unit-stat-row"><span class="stat-label">Terrain Modifiers:</span></div>';
+      for (const terrainType in unit.attackModifiers) {
+        const terrainName = terrainMapping[terrainType] || terrainType;
+        const attackMod = unit.attackModifiers[terrainType];
+        const defenseMod = unit.defenseModifiers[terrainType] || 0;
+        
+        statsHTML += `
+          <div class="unit-stat-row sub-stat">
+            <span class="stat-label">${terrainName}:</span>
+            <span class="stat-value">Atk: ${(attackMod * 100).toFixed(0)}% / Def: ${(defenseMod * 100).toFixed(0)}%</span>
+          </div>
+        `;
+      }
+    }
+    
+    statsElement.innerHTML = statsHTML;
+  }
 
   // ... rest of your existing code ...
