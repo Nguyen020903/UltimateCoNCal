@@ -1,0 +1,65 @@
+{
+  "basic": {
+    "name": "Mi-35M  (Helicopter Gunship)",
+    "description": "Medium armed rotary-wing combat aircraft, focussing on soft or lightly armored targets. Usually equipped with heavy machine guns and missile pods. Evades Anti Air Missile detection by flying NOE.",
+    "mobilizationTime": "1 day, 6 hours",
+    "requirements": [
+      "Air Base Lvl. 1",
+      "Arms Industry Lvl. 1",
+      "Research: Fuel Optimization Measures Lvl. 7"
+    ]
+  },
+  "costs": {
+    "resource_1": 1250,
+    "resource_3": 700,
+    "resource_6": 1000,
+    "resource_20": 3350
+  },
+  "upkeep": {
+    "resource_3": 65,
+    "resource_5": 65,
+    "resource_6": 55,
+    "resource_20": 165
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Rotary Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Reveal Stealth",
+    "Front Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Rotary Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Reveal Stealth",
+    "Front Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 12,
+      "type_4": 4,
+      "type_8": 5,
+      "type_1004": 6,
+      "type_2": 2,
+      "type_7": 1.5
+    },
+    "defense": {
+      "type_8": 5,
+      "type_1004": 6
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

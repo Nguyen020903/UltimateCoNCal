@@ -1,0 +1,68 @@
+{
+  "basic": {
+    "name": "Su-35 Super Flanker (Strike Fighter)",
+    "description": "Fixed-wing multi-role combat aircraft with a focus on air-to-ground attack missions. Well equipped to counter air threats, the real value of the strike fighter is it's deep strike capability against both armored and soft targets.",
+    "mobilizationTime": "1 day, 7 hours",
+    "requirements": [
+      "Air Base Lvl. 2",
+      "Arms Industry Lvl. 1",
+      "Research: Su-35 Super Flanker Lvl. 6"
+    ]
+  },
+  "costs": {
+    "resource_2": 1500,
+    "resource_3": 850,
+    "resource_6": 1250,
+    "resource_20": 4500
+  },
+  "upkeep": {
+    "resource_3": 70,
+    "resource_5": 70,
+    "resource_6": 55,
+    "resource_20": 185
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Launch Missile",
+    "Center Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Launch Missile",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 8,
+      "type_4": 8,
+      "type_1": 6,
+      "type_8": 7,
+      "type_1004": 13,
+      "type_2": 4,
+      "type_3": 2,
+      "type_7": 4
+    },
+    "defense": {
+      "type_1": 6,
+      "type_8": 7,
+      "type_1004": 13
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

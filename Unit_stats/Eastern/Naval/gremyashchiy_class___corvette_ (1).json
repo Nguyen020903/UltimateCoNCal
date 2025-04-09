@@ -1,0 +1,79 @@
+{
+  "basic": {
+    "name": "Gremyashchiy Class  (Corvette)",
+    "description": "Smallest class of warship in a modern fleet. Often used as coastal or littoral combat vessel, defending shallow water areas against surface and submarine incursion.",
+    "mobilizationTime": "1 day",
+    "requirements": [
+      "Naval Base Lvl. 2",
+      "Arms Industry Lvl. 1",
+      "Research: Air Defense Upgrade  Lvl. 7"
+    ]
+  },
+  "costs": {
+    "resource_1": 1800,
+    "resource_3": 750,
+    "resource_6": 950,
+    "resource_20": 2250
+  },
+  "upkeep": {
+    "resource_1": 150,
+    "resource_3": 70,
+    "resource_5": 80,
+    "resource_20": 180
+  },
+  "features": [
+    "Radar Signature",
+    "Cannot Conquer",
+    "Attack Range",
+    "Radar Detection",
+    "Sonar",
+    "Reveal Stealth",
+    "Launch Missile",
+    "Deploy Armament",
+    "Center Line",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Attack Range",
+    "Radar Detection",
+    "Sonar",
+    "Reveal Stealth",
+    "Launch Missile",
+    "Deploy Armament",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 3,
+      "type_4": 2,
+      "type_2": 8.5,
+      "type_5": 6.5,
+      "type_3": 1,
+      "type_7": 3
+    },
+    "defense": {
+      "type_1": 2,
+      "type_8": 2.5,
+      "type_1004": 8,
+      "type_2": 8.5,
+      "type_5": 6.5
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {
+      "terrain_19": 2.25,
+      "terrain_20": 4.5
+    },
+    "hitPoints": {
+      "terrain_19": 30,
+      "terrain_20": 30
+    },
+    "sightRange": {
+      "terrain_19": 40,
+      "terrain_20": 40
+    }
+  }
+}

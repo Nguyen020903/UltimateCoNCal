@@ -1,0 +1,61 @@
+{
+  "basic": {
+    "name": "Tu-160 White Swan (Heavy Bomber)",
+    "description": "Long-range heavy bomber, used to penetrate deep into enemy airspace and attack strategic ground targets.",
+    "mobilizationTime": "1 day, 7 hours",
+    "requirements": [
+      "Air Base Lvl. 3",
+      "Arms Industry Lvl. 1",
+      "Research: Tu-160 White Swan Lvl. 6"
+    ]
+  },
+  "costs": {
+    "resource_2": 1750,
+    "resource_3": 975,
+    "resource_6": 1250,
+    "resource_20": 5000
+  },
+  "upkeep": {
+    "resource_3": 65,
+    "resource_5": 70,
+    "resource_6": 55,
+    "resource_20": 195
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Storm Position",
+    "Launch Missile",
+    "Center Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Storm Position",
+    "Launch Missile",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 13,
+      "type_4": 5,
+      "type_2": 5,
+      "type_3": 9,
+      "type_7": 5
+    },
+    "defense": {},
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

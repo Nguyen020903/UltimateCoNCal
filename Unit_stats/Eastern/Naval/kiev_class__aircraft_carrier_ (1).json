@@ -1,0 +1,73 @@
+{
+  "basic": {
+    "name": "Kiev Class (Aircraft Carrier)",
+    "description": "Largest combat ship in the fleet. Serving as a seagoing airbase this vessel dramatically increases the nation's global power projection capability. Being a primary target, the carrier needs to be protected against any kind of threat at all times.",
+    "mobilizationTime": "1 day, 18 hours",
+    "requirements": [
+      "Naval Base Lvl. 5",
+      "Arms Industry Lvl. 1",
+      "Research: Air Defense Upgrade Lvl. 2"
+    ]
+  },
+  "costs": {
+    "resource_2": 3250,
+    "resource_3": 1000,
+    "resource_4": 750,
+    "resource_6": 1250,
+    "resource_20": 3500
+  },
+  "upkeep": {
+    "resource_2": 160,
+    "resource_3": 80,
+    "resource_5": 80,
+    "resource_20": 400
+  },
+  "features": [
+    "Radar Signature",
+    "Cannot Conquer",
+    "Anti-Air",
+    "Radar Detection",
+    "Signature Unit",
+    "Rear Line",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Anti-Air",
+    "Radar Detection",
+    "Signature Unit",
+    "Rear Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_1": 3,
+      "type_8": 6,
+      "type_1003": 4,
+      "type_2": 1,
+      "type_5": 2
+    },
+    "defense": {
+      "type_1": 3,
+      "type_8": 6,
+      "type_1003": 4,
+      "type_2": 1,
+      "type_5": 2
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {
+      "terrain_19": 3,
+      "terrain_20": 1.5
+    },
+    "hitPoints": {
+      "terrain_19": 120,
+      "terrain_20": 120
+    },
+    "sightRange": {
+      "terrain_19": 40,
+      "terrain_20": 40
+    }
+  }
+}

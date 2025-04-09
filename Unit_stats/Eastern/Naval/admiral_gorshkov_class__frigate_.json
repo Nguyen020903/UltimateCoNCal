@@ -1,0 +1,80 @@
+{
+  "basic": {
+    "name": "Admiral Gorshkov Class (Frigate)",
+    "description": "Agile fleet escort vessel, very effective at creating a solid anti-air envelope around friendly surface units.",
+    "mobilizationTime": "1 day, 8 hours",
+    "requirements": [
+      "Naval Base Lvl. 2",
+      "Arms Industry Lvl. 1",
+      "Research: Admiral Gorshkov Class Lvl. 7"
+    ]
+  },
+  "costs": {
+    "resource_2": 2500,
+    "resource_3": 1250,
+    "resource_6": 1500,
+    "resource_20": 3250
+  },
+  "upkeep": {
+    "resource_2": 150,
+    "resource_3": 75,
+    "resource_5": 85,
+    "resource_20": 200
+  },
+  "features": [
+    "Radar Signature",
+    "Cannot Conquer",
+    "Attack Range",
+    "Anti-Air",
+    "Radar Detection",
+    "Reveal Stealth",
+    "Center Line",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Attack Range",
+    "Anti-Air",
+    "Radar Detection",
+    "Reveal Stealth",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 4,
+      "type_4": 2.5,
+      "type_1": 10,
+      "type_8": 2,
+      "type_1004": 2,
+      "type_1003": 8,
+      "type_2": 8,
+      "type_5": 5,
+      "type_3": 2,
+      "type_7": 3.5
+    },
+    "defense": {
+      "type_1": 10,
+      "type_8": 2,
+      "type_1004": 2,
+      "type_1003": 8,
+      "type_2": 8,
+      "type_5": 5
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {
+      "terrain_19": 4,
+      "terrain_20": 2
+    },
+    "hitPoints": {
+      "terrain_19": 38,
+      "terrain_20": 38
+    },
+    "sightRange": {
+      "terrain_19": 40,
+      "terrain_20": 40
+    }
+  }
+}

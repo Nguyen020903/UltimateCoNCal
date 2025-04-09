@@ -1,0 +1,99 @@
+{
+  "basic": {
+    "name": "9A52-4 Tornado (Multiple Rocket Launcher)",
+    "description": "Mobile rocket launcher vehicle, bringing long-range rocket artillery support to the battlefield. Capable of laying down a devastating barrage of destruction this weapon is feared by armor and infantry alike.",
+    "mobilizationTime": "1 day, 6 hours",
+    "requirements": [
+      "Army Base Lvl. 4",
+      "Arms Industry Lvl. 1",
+      "Research: 9A52-4 Tornado Lvl. 5"
+    ]
+  },
+  "costs": {
+    "resource_1": 2250,
+    "resource_3": 800,
+    "resource_6": 1200,
+    "resource_20": 3000
+  },
+  "upkeep": {
+    "resource_1": 120,
+    "resource_3": 70,
+    "resource_5": 80,
+    "resource_20": 170
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Airlift",
+    "Attack Range",
+    "Center Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Airlift",
+    "Attack Range",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 6.5,
+      "type_4": 6.5,
+      "type_2": 5.5,
+      "type_3": 2.5,
+      "type_7": 5
+    },
+    "defense": {
+      "type_0": 2.2,
+      "type_4": 2.2
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {
+      "terrain_12": "+25%",
+      "terrain_13": "-25%",
+      "terrain_15": "-25%"
+    },
+    "defenseModifiers": {
+      "terrain_15": "-25%"
+    },
+    "speedValues": {
+      "terrain_10": 1.3,
+      "terrain_12": 0.43,
+      "terrain_13": 0.65,
+      "terrain_14": 0.65,
+      "terrain_21": 0.65,
+      "terrain_15": 0.43,
+      "terrain_16": 0.65,
+      "terrain_17": 1.3,
+      "terrain_19": 2.51,
+      "terrain_20": 1.3
+    },
+    "hitPoints": {
+      "terrain_10": 20,
+      "terrain_12": 20,
+      "terrain_13": 20,
+      "terrain_14": 20,
+      "terrain_21": 20,
+      "terrain_15": 20,
+      "terrain_16": 20,
+      "terrain_17": 20,
+      "terrain_19": 12,
+      "terrain_20": 12
+    },
+    "sightRange": {
+      "terrain_10": 25,
+      "terrain_12": 25,
+      "terrain_13": 25,
+      "terrain_14": 25,
+      "terrain_21": 25,
+      "terrain_15": 25,
+      "terrain_16": 25,
+      "terrain_17": 25,
+      "terrain_19": 25,
+      "terrain_20": 25
+    }
+  }
+}

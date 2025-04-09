@@ -1,0 +1,73 @@
+{
+  "basic": {
+    "name": "Ulyanovsk Class (Aircraft Carrier)",
+    "description": "Largest combat ship in the fleet. Serving as a seagoing airbase this vessel dramatically increases the nation's global power projection capability. Being a primary target, the carrier needs to be protected against any kind of threat at all times.",
+    "mobilizationTime": "2 days, 4 hours",
+    "requirements": [
+      "Naval Base Lvl. 5",
+      "Arms Industry Lvl. 1",
+      "Research: Ulyanovsk Class Lvl. 6"
+    ]
+  },
+  "costs": {
+    "resource_2": 4000,
+    "resource_3": 2000,
+    "resource_4": 1250,
+    "resource_6": 2000,
+    "resource_20": 6500
+  },
+  "upkeep": {
+    "resource_2": 220,
+    "resource_3": 120,
+    "resource_4": 100,
+    "resource_20": 600
+  },
+  "features": [
+    "Radar Signature",
+    "Cannot Conquer",
+    "Anti-Air",
+    "Radar Detection",
+    "Signature Unit",
+    "Rear Line",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Anti-Air",
+    "Radar Detection",
+    "Signature Unit",
+    "Rear Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_1": 5,
+      "type_8": 9,
+      "type_1003": 7,
+      "type_2": 3,
+      "type_5": 5
+    },
+    "defense": {
+      "type_1": 5,
+      "type_8": 9,
+      "type_1003": 7,
+      "type_2": 3,
+      "type_5": 5
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {
+      "terrain_19": 3.5,
+      "terrain_20": 1.75
+    },
+    "hitPoints": {
+      "terrain_19": 200,
+      "terrain_20": 200
+    },
+    "sightRange": {
+      "terrain_19": 40,
+      "terrain_20": 40
+    }
+  }
+}

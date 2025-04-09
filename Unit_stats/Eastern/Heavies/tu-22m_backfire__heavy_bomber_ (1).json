@@ -1,0 +1,61 @@
+{
+  "basic": {
+    "name": "Tu-22M Backfire (Heavy Bomber)",
+    "description": "Long-range heavy bomber, used to penetrate deep into enemy airspace and attack strategic ground targets.",
+    "mobilizationTime": "1 day, 5 hours",
+    "requirements": [
+      "Air Base Lvl. 3",
+      "Arms Industry Lvl. 1",
+      "Research: Increased Missile Hardpoints Lvl. 5"
+    ]
+  },
+  "costs": {
+    "resource_2": 1500,
+    "resource_3": 775,
+    "resource_6": 1100,
+    "resource_20": 4250
+  },
+  "upkeep": {
+    "resource_3": 60,
+    "resource_5": 65,
+    "resource_6": 50,
+    "resource_20": 180
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Storm Position",
+    "Launch Missile",
+    "Center Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Storm Position",
+    "Launch Missile",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 11,
+      "type_4": 4,
+      "type_2": 4,
+      "type_3": 8,
+      "type_7": 5
+    },
+    "defense": {},
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "basic": {
+    "name": "MiG-29 Fulcrum (Air Superiority Fighter)",
+    "description": "Fixed-wing combat aircraft with the primary role of establishing total air dominance, ensuring friendly ground units in the theatre of operations remain safe from air attacks.",
+    "mobilizationTime": "1 day, 3 hours",
+    "requirements": [
+      "Air Base Lvl. 1",
+      "Arms Industry Lvl. 1",
+      "Research: MiG-29 Fulcrum Lvl. 4"
+    ]
+  },
+  "costs": {
+    "resource_2": 1175,
+    "resource_3": 600,
+    "resource_6": 1100,
+    "resource_20": 4000
+  },
+  "upkeep": {
+    "resource_3": 50,
+    "resource_5": 55,
+    "resource_6": 50,
+    "resource_20": 150
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Launch Missile",
+    "Front Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Launch Missile",
+    "Front Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 3,
+      "type_4": 2.5,
+      "type_1": 13.5,
+      "type_8": 10,
+      "type_1004": 15,
+      "type_2": 1.5,
+      "type_7": 1.5
+    },
+    "defense": {
+      "type_1": 13.5,
+      "type_8": 10,
+      "type_1004": 15
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

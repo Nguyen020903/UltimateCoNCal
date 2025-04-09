@@ -1,0 +1,66 @@
+{
+  "basic": {
+    "name": "Ka-25 (ASW Helicopter)",
+    "description": "Specialized rotary-wing aircraft, equipped to detect and engage submarines and surface vessels with torpedoes and missiles. Evades Anti Air Missile detection by flying NOE.",
+    "mobilizationTime": "18 hours",
+    "requirements": [
+      "Air Base Lvl. 2",
+      "Arms Industry Lvl. 1",
+      "Research: Ka-25 Lvl. 1"
+    ]
+  },
+  "costs": {
+    "resource_2": 800,
+    "resource_3": 350,
+    "resource_6": 725,
+    "resource_20": 2650
+  },
+  "upkeep": {
+    "resource_3": 25,
+    "resource_5": 25,
+    "resource_6": 15,
+    "resource_20": 80
+  },
+  "features": [
+    "Radar Signature",
+    "Cannot Conquer",
+    "Rotary Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Sonar",
+    "Reveal Stealth",
+    "Center Line",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Rotary Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Sonar",
+    "Reveal Stealth",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 2,
+      "type_4": 1,
+      "type_8": 1.5,
+      "type_2": 2,
+      "type_5": 7.5,
+      "type_7": 1
+    },
+    "defense": {
+      "type_8": 1.5
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

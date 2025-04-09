@@ -1,109 +1,76 @@
-Conflict of Nations Calculator Suite
-A comprehensive web-based calculator suite built to assist Conflict of Nations (CoN) players in optimizing gameplay through detailed resource planning, unit production scheduling, and combat outcome analysis.
+# Conflict of Nations Calculator Suite
 
-Hosted at 👉 https://ultimateconcal.github.io
+A comprehensive toolkit for Conflict of Nations players to calculate resources, plan production, and simulate battles.
 
-🎮 About Conflict of Nations
-Conflict of Nations: Modern War is a large-scale, real-time strategy game set in the modern era. Players control a nation and must manage diplomacy, warfare, and economy over extended campaigns that can last weeks.
+## Features
 
-The game features dozens of land, air, and naval units, each with unique roles, stats, costs, and upgrade trees. Managing production efficiency and resource consumption is crucial to victory.
+### Resource Calculator
+Calculate the exact resource cost and production time for military units, buildings, and research.
 
-🔧 Suite Features
-🏭 Resource Calculator (RssCal)
-Real-time production tracking for Supplies, Components, Fuel, Electronics, Rare Materials, and Money.
+### Damage Calculator
+Simulate battles between different unit types with realistic combat modifiers:
+- Compare units across different doctrines
+- Account for terrain effects
+- View detailed combat statistics
+- Calculate casualties based on unit statistics
 
-Customizable by:
+### Production Planner
+Plan your military production across multiple game days:
+- Drag and drop units onto a calendar
+- Visualize resource consumption over time
+- Save and load production plans
+- Compare different doctrines and unit combinations
 
-City type (e.g., industrial, military)
+## Getting Started
 
-Infrastructure level
+Simply visit the [Conflict of Nations Calculator Suite](https://ultimateconcal.github.io) to access all calculators. No installation required - everything runs in your browser.
 
-Morale and population effects
+## Unit Categories
 
-Helps forecast resource generation and shortages over time.
+The calculators support all unit types across three doctrines:
+- Western (NATO)
+- Eastern (Former Warsaw Pact)
+- European (European Union)
 
-⚔️ Damage Calculator (DmgCal)
-Simulates unit vs. unit damage (including terrain bonuses and upgrades).
+Unit types include:
+- Infantry
+- Armored vehicles
+- Support units
+- Helicopters
+- Aircraft
+- Naval vessels
+- Submarines
 
-Supports ground, air, and naval unit types.
+## Technical Details
 
-Provides comparative combat analysis and hitpoint tracking.
+The Conflict of Nations Calculator Suite is built with:
+- HTML5
+- CSS3
+- JavaScript (ES6+)
 
-Helps assess the outcome of hypothetical battles.
+No external libraries or frameworks are used, ensuring fast loading times and compatibility with all modern browsers.
 
-📅 Production Planner
-Drag-and-drop interface to schedule unit production.
+## Browser Compatibility
 
-Calendar-like timeline to map out future builds.
+This tool works best on the latest versions of:
+- Chrome
+- Firefox
+- Safari
+- Edge
 
-Resource cost calculator with cumulative tracking.
+## Contribution
 
-Customizable game day simulation (e.g., "plan for next 10 in-game days").
+Contributions are welcome! If you'd like to contribute to the project:
+1. Report bugs or suggest features through GitHub issues
+2. Provide accurate unit data updates when game mechanics change
+3. Submit pull requests for code improvements
 
-Helps players optimize build order and avoid production bottlenecks.
+## License
 
-📦 Unit Categories (from Conflict of Nations)
-This project is designed to eventually support unit data in the following categories:
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-Unit Class	Subtypes Included
-Infantry	Motorized, Mechanized, Airborne, Special Forces
-Armor	Main Battle Tanks, Tank Destroyers, Infantry Fighting Vehicles
-Support	Mobile AA, Mobile Artillery, Radar Vehicles
-Air	Fighters, Strike Fighters, Bombers, AWACS
-Naval	Corvettes, Frigates, Destroyers, Submarines
-Elite Units	Elite Infantry, Elite Tanks, Elite Fighters
-Other	Officers, UAVs, Missile Systems, SAM Launchers
-Each unit typically has:
+## Acknowledgments
 
-Levels (1–6+)
-
-Production cost (per resource type)
-
-Upkeep cost (daily)
-
-Build time (in hours)
-
-Mobility (speed and terrain types)
-
-Attack/defense stats (vs ground, air, naval)
-
-Special attributes (e.g., stealth, radar)
-
-➡️ A detailed CSV or XLSX file with unit stats will be added to the repository soon.
-
-🚀 Getting Started
-Open the suite: https://ultimateconcal.github.io
-
-Choose a tool:
-
-Resource Calculator → plan and monitor your economy.
-
-Damage Calculator → test battle scenarios.
-
-Production Planner → build smarter, faster.
-
-⚙️ Tech Stack
-HTML5 + CSS3
-
-JavaScript (ES6+)
-
-No backend required (100% client-side)
-
-GitHub Pages for free hosting
-
-🤝 Contributing
-Want to help? Awesome!
-
-Fork the repo
-
-Create a branch (feature/your-feature)
-
-Commit and push your changes
-
-Submit a pull request (PR)
-
-📄 License
-MIT License. Free for personal and commercial use.
-
-🗣️ Feedback & Contact
-Found a bug? Got a suggestion? Open an issue on the GitHub repo
+- Data sourced from Conflict of Nations: World War 3 game
+- Developed by UltimateCoNCal team
+- Special thanks to the CoN player community for feedback and suggestions

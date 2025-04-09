@@ -1,0 +1,77 @@
+{
+  "basic": {
+    "name": "Sovremennyy Class (Destroyer)",
+    "description": "Mid-sized fleet escort vessel, protecting larger ships against both submarine and surface threats.",
+    "mobilizationTime": "1 day, 4 hours",
+    "requirements": [
+      "Naval Base Lvl. 3",
+      "Arms Industry Lvl. 1",
+      "Research: Sovremennyy Class Lvl. 4"
+    ]
+  },
+  "costs": {
+    "resource_2": 2750,
+    "resource_3": 825,
+    "resource_6": 1000,
+    "resource_20": 2350
+  },
+  "upkeep": {
+    "resource_2": 120,
+    "resource_3": 65,
+    "resource_5": 65,
+    "resource_20": 170
+  },
+  "features": [
+    "Radar Signature",
+    "Cannot Conquer",
+    "Attack Range",
+    "Radar Detection",
+    "Sonar",
+    "Reveal Stealth",
+    "Launch Missile",
+    "Front Line",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Attack Range",
+    "Radar Detection",
+    "Sonar",
+    "Reveal Stealth",
+    "Launch Missile",
+    "Front Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 3,
+      "type_4": 2.5,
+      "type_2": 10,
+      "type_5": 13,
+      "type_3": 1.5,
+      "type_7": 2.5
+    },
+    "defense": {
+      "type_1": 3.5,
+      "type_8": 2.5,
+      "type_1003": 1.7,
+      "type_2": 10,
+      "type_5": 13
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {
+      "terrain_19": 4.5,
+      "terrain_20": 2.25
+    },
+    "hitPoints": {
+      "terrain_19": 44,
+      "terrain_20": 44
+    },
+    "sightRange": {
+      "terrain_19": 40,
+      "terrain_20": 40
+    }
+  }
+}

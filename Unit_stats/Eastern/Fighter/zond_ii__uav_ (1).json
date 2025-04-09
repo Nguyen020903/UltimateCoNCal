@@ -1,0 +1,53 @@
+{
+  "basic": {
+    "name": "ZOND II (UAV)",
+    "description": "An unmanned aerial vehicle, which either flies autonomously or is piloted remotely. Generally used for reconnaissance and surveillance. Some drones are armed and even utilize stealth technology. \nIMPORTANT: Unit does not declare war when penetrating foreign airspace.",
+    "mobilizationTime": "13 hours",
+    "requirements": [
+      "Air Base Lvl. 1",
+      "Arms Industry Lvl. 1",
+      "Research: Fuel Optimization Measures Lvl. 2"
+    ]
+  },
+  "costs": {
+    "resource_1": 450,
+    "resource_3": 250,
+    "resource_6": 350,
+    "resource_20": 1500
+  },
+  "upkeep": {
+    "resource_3": 15,
+    "resource_5": 15,
+    "resource_6": 15,
+    "resource_20": 50
+  },
+  "features": [
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Scout",
+    "Reveal Stealth",
+    "Rear Line",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Scout",
+    "Reveal Stealth",
+    "Rear Line"
+  ],
+  "combatProperties": {
+    "attack": {},
+    "defense": {},
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

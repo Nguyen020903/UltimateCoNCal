@@ -1,0 +1,68 @@
+{
+  "basic": {
+    "name": "Yak-38 (Naval Strike Fighter)",
+    "description": "Carrier-based multi-role fighter with a focus on air-to-ground attack missions. Well equipped to counter air threats, the real value of the strike fighter is it's deep strike capability. Equipped to land on aircraft carriers.",
+    "mobilizationTime": "1 day",
+    "requirements": [
+      "Air Base Lvl. 3",
+      "Arms Industry Lvl. 1",
+      "Research: Yak-38 Lvl. 1"
+    ]
+  },
+  "costs": {
+    "resource_2": 1000,
+    "resource_3": 450,
+    "resource_6": 1050,
+    "resource_20": 3500
+  },
+  "upkeep": {
+    "resource_3": 35,
+    "resource_5": 35,
+    "resource_6": 30,
+    "resource_20": 150
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Center Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 5,
+      "type_4": 5,
+      "type_1": 3,
+      "type_8": 4,
+      "type_1004": 8,
+      "type_2": 5,
+      "type_3": 1,
+      "type_7": 2
+    },
+    "defense": {
+      "type_1": 3,
+      "type_8": 4,
+      "type_1004": 8
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

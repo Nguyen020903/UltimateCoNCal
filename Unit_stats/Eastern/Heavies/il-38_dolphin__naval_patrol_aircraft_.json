@@ -1,0 +1,58 @@
+{
+  "basic": {
+    "name": "Il-38 Dolphin (Naval Patrol Aircraft)",
+    "description": "Specialized fixed-wing aircraft, equipped to detect and engage submarines and surface vessels with torpedoes and guided missiles.",
+    "mobilizationTime": "21 hours",
+    "requirements": [
+      "Air Base Lvl. 3",
+      "Arms Industry Lvl. 1",
+      "Research: Il-38 Dolphin Lvl. 3"
+    ]
+  },
+  "costs": {
+    "resource_2": 1000,
+    "resource_3": 475,
+    "resource_6": 900,
+    "resource_20": 3000
+  },
+  "upkeep": {
+    "resource_3": 35,
+    "resource_5": 40,
+    "resource_6": 40,
+    "resource_20": 120
+  },
+  "features": [
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Sonar",
+    "Reveal Stealth",
+    "Rear Line",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Sonar",
+    "Reveal Stealth",
+    "Rear Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_2": 12,
+      "type_5": 6.5
+    },
+    "defense": {},
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

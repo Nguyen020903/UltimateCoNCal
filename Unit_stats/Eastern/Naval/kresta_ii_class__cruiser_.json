@@ -1,0 +1,78 @@
+{
+  "basic": {
+    "name": "Kresta II Class (Cruiser)",
+    "description": "Largest and most dangerous surface vessel in any fleet besides the aircraft carrier. Predominately used as a platform for cruise missiles, artillery and torpedoes.",
+    "mobilizationTime": "1 day, 6 hours",
+    "requirements": [
+      "Naval Base Lvl. 4",
+      "Arms Industry Lvl. 1",
+      "Research: Kresta II Class Lvl. 1"
+    ]
+  },
+  "costs": {
+    "resource_2": 3500,
+    "resource_3": 850,
+    "resource_6": 1200,
+    "resource_20": 2500
+  },
+  "upkeep": {
+    "resource_2": 130,
+    "resource_3": 50,
+    "resource_5": 50,
+    "resource_20": 175
+  },
+  "features": [
+    "Radar Signature",
+    "Cannot Conquer",
+    "Attack Range",
+    "Anti-Air",
+    "Radar Detection",
+    "Launch Missile",
+    "Center Line",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Attack Range",
+    "Anti-Air",
+    "Radar Detection",
+    "Launch Missile",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 3,
+      "type_4": 2,
+      "type_1": 2,
+      "type_8": 3,
+      "type_1003": 1,
+      "type_2": 10,
+      "type_5": 2,
+      "type_3": 1.5,
+      "type_7": 3
+    },
+    "defense": {
+      "type_1": 2,
+      "type_8": 3,
+      "type_1003": 1,
+      "type_2": 10,
+      "type_5": 2
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {
+      "terrain_19": 4.5,
+      "terrain_20": 2.25
+    },
+    "hitPoints": {
+      "terrain_19": 50,
+      "terrain_20": 50
+    },
+    "sightRange": {
+      "terrain_19": 40,
+      "terrain_20": 40
+    }
+  }
+}

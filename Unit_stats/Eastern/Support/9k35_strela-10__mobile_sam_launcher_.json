@@ -1,0 +1,92 @@
+{
+  "basic": {
+    "name": "9K35 Strela-10 (Mobile SAM Launcher)",
+    "description": "Medium-range, surface-to-air missile vehicle. Provides air cover to advancing units. Detects enemies with its radar, and engages aircraft and missiles. Does not engage low flying helicopters.",
+    "mobilizationTime": "17 hours",
+    "requirements": [
+      "Army Base Lvl. 3",
+      "Arms Industry Lvl. 1",
+      "Research: 9K35 Strela-10 Lvl. 1"
+    ]
+  },
+  "costs": {
+    "resource_1": 1250,
+    "resource_3": 350,
+    "resource_6": 500,
+    "resource_20": 1500
+  },
+  "upkeep": {
+    "resource_1": 60,
+    "resource_3": 25,
+    "resource_5": 25,
+    "resource_20": 80
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Anti-Air",
+    "Radar Detection",
+    "Rear Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Anti-Air",
+    "Radar Detection",
+    "Rear Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_1": 9.5,
+      "type_1003": 1
+    },
+    "defense": {
+      "type_1": 9.5,
+      "type_1003": 1
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {
+      "terrain_15": "-25%"
+    },
+    "speedValues": {
+      "terrain_10": 1.3,
+      "terrain_12": 0.43,
+      "terrain_13": 0.65,
+      "terrain_14": 0.65,
+      "terrain_21": 0.65,
+      "terrain_15": 0.43,
+      "terrain_16": 0.65,
+      "terrain_17": 1.3,
+      "terrain_19": 2.51,
+      "terrain_20": 1.3
+    },
+    "hitPoints": {
+      "terrain_10": 15,
+      "terrain_12": 15,
+      "terrain_13": 15,
+      "terrain_14": 15,
+      "terrain_21": 15,
+      "terrain_15": 15,
+      "terrain_16": 15,
+      "terrain_17": 15,
+      "terrain_19": 12,
+      "terrain_20": 12
+    },
+    "sightRange": {
+      "terrain_10": 25,
+      "terrain_12": 25,
+      "terrain_13": 25,
+      "terrain_14": 25,
+      "terrain_21": 25,
+      "terrain_15": 25,
+      "terrain_16": 25,
+      "terrain_17": 25,
+      "terrain_19": 25,
+      "terrain_20": 25
+    }
+  }
+}

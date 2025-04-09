@@ -1,0 +1,66 @@
+{
+  "basic": {
+    "name": "Ka-27 Helix (ASW Helicopter)",
+    "description": "Specialized rotary-wing aircraft, equipped to detect and engage submarines and surface vessels with torpedoes and missiles. Evades Anti Air Missile detection by flying NOE.",
+    "mobilizationTime": "1 day, 1 hour",
+    "requirements": [
+      "Air Base Lvl. 2",
+      "Arms Industry Lvl. 1",
+      "Research: Ka-27 Helix Lvl. 6"
+    ]
+  },
+  "costs": {
+    "resource_2": 1100,
+    "resource_3": 675,
+    "resource_6": 1000,
+    "resource_20": 3250
+  },
+  "upkeep": {
+    "resource_3": 50,
+    "resource_5": 60,
+    "resource_6": 45,
+    "resource_20": 150
+  },
+  "features": [
+    "Radar Signature",
+    "Cannot Conquer",
+    "Rotary Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Sonar",
+    "Reveal Stealth",
+    "Center Line",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Rotary Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Sonar",
+    "Reveal Stealth",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 3,
+      "type_4": 2,
+      "type_8": 2.5,
+      "type_2": 6.5,
+      "type_5": 15,
+      "type_7": 1
+    },
+    "defense": {
+      "type_8": 2.5
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

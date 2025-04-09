@@ -1,0 +1,66 @@
+{
+  "basic": {
+    "name": "Mi-28 Havoc (Attack Helicopter)",
+    "description": "Heavily armed rotary-wing attack aircraft, focussing on hard or heavily armored targets. Usually equipped with auto-cannons and guided anti-tank missiles. Evades Anti Air Missile detection by flying NOE.",
+    "mobilizationTime": "1 day, 1 hour",
+    "requirements": [
+      "Air Base Lvl. 2",
+      "Arms Industry Lvl. 1",
+      "Research: Streamlined Mobilization Lvl. 7"
+    ]
+  },
+  "costs": {
+    "resource_2": 1250,
+    "resource_3": 750,
+    "resource_6": 1100,
+    "resource_20": 3750
+  },
+  "upkeep": {
+    "resource_3": 70,
+    "resource_5": 70,
+    "resource_6": 55,
+    "resource_20": 190
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Rotary Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Front Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Rotary Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Front Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 5.1,
+      "type_4": 13,
+      "type_8": 8,
+      "type_1004": 2,
+      "type_2": 3.5,
+      "type_3": 0.1,
+      "type_7": 2
+    },
+    "defense": {
+      "type_8": 8,
+      "type_1004": 2
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

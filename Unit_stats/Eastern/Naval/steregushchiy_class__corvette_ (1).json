@@ -1,0 +1,77 @@
+{
+  "basic": {
+    "name": "Steregushchiy Class (Corvette)",
+    "description": "Smallest class of warship in a modern fleet. Often used as coastal or littoral combat vessel, defending shallow water areas against surface and submarine incursion.",
+    "mobilizationTime": "22 hours",
+    "requirements": [
+      "Naval Base Lvl. 2",
+      "Arms Industry Lvl. 1",
+      "Research: Engine Overhaul Lvl. 5"
+    ]
+  },
+  "costs": {
+    "resource_1": 1650,
+    "resource_3": 575,
+    "resource_6": 775,
+    "resource_20": 1750
+  },
+  "upkeep": {
+    "resource_1": 120,
+    "resource_3": 60,
+    "resource_5": 65,
+    "resource_20": 145
+  },
+  "features": [
+    "Radar Signature",
+    "Cannot Conquer",
+    "Attack Range",
+    "Radar Detection",
+    "Sonar",
+    "Reveal Stealth",
+    "Deploy Armament",
+    "Center Line",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Attack Range",
+    "Radar Detection",
+    "Sonar",
+    "Reveal Stealth",
+    "Deploy Armament",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 2,
+      "type_4": 1.5,
+      "type_2": 7,
+      "type_5": 5.5,
+      "type_3": 1,
+      "type_7": 2.5
+    },
+    "defense": {
+      "type_1": 1,
+      "type_8": 2,
+      "type_1004": 5.5,
+      "type_2": 7,
+      "type_5": 5.5
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {
+      "terrain_19": 2,
+      "terrain_20": 4
+    },
+    "hitPoints": {
+      "terrain_19": 26,
+      "terrain_20": 26
+    },
+    "sightRange": {
+      "terrain_19": 40,
+      "terrain_20": 40
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "basic": {
+    "name": "Kuznetsov Class (Aircraft Carrier)",
+    "description": "Largest combat ship in the fleet. Serving as a seagoing airbase this vessel dramatically increases the nation's global power projection capability. Being a primary target, the carrier needs to be protected against any kind of threat at all times.",
+    "mobilizationTime": "2 days, 2 hours",
+    "requirements": [
+      "Naval Base Lvl. 5",
+      "Arms Industry Lvl. 1",
+      "Research: Engine Overhaul Lvl. 5"
+    ]
+  },
+  "costs": {
+    "resource_2": 3675,
+    "resource_3": 1500,
+    "resource_4": 1000,
+    "resource_6": 1600,
+    "resource_20": 5000
+  },
+  "upkeep": {
+    "resource_2": 200,
+    "resource_3": 110,
+    "resource_4": 80,
+    "resource_20": 550
+  },
+  "features": [
+    "Radar Signature",
+    "Cannot Conquer",
+    "Anti-Air",
+    "Radar Detection",
+    "Signature Unit",
+    "Rear Line",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Anti-Air",
+    "Radar Detection",
+    "Signature Unit",
+    "Rear Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_1": 4.5,
+      "type_8": 8,
+      "type_1003": 5,
+      "type_2": 2,
+      "type_5": 3
+    },
+    "defense": {
+      "type_1": 4.5,
+      "type_8": 8,
+      "type_1003": 5,
+      "type_2": 2,
+      "type_5": 3
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {
+      "terrain_19": 3.5,
+      "terrain_20": 1.75
+    },
+    "hitPoints": {
+      "terrain_19": 180,
+      "terrain_20": 180
+    },
+    "sightRange": {
+      "terrain_19": 40,
+      "terrain_20": 40
+    }
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "basic": {
+    "name": "Su-24 Fencer (Strike Fighter)",
+    "description": "Fixed-wing multi-role combat aircraft with a focus on air-to-ground attack missions. Well equipped to counter air threats, the real value of the strike fighter is it's deep strike capability against both armored and soft targets.",
+    "mobilizationTime": "1 day, 1 hour",
+    "requirements": [
+      "Air Base Lvl. 2",
+      "Arms Industry Lvl. 1",
+      "Research: Reinforced Airframe Lvl. 2"
+    ]
+  },
+  "costs": {
+    "resource_2": 950,
+    "resource_3": 450,
+    "resource_6": 900,
+    "resource_20": 3000
+  },
+  "upkeep": {
+    "resource_3": 40,
+    "resource_5": 40,
+    "resource_6": 35,
+    "resource_20": 100
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Center Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 4.5,
+      "type_4": 4.5,
+      "type_1": 2,
+      "type_8": 3,
+      "type_1004": 7,
+      "type_2": 2,
+      "type_3": 1,
+      "type_7": 2
+    },
+    "defense": {
+      "type_1": 2,
+      "type_8": 3,
+      "type_1004": 7
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

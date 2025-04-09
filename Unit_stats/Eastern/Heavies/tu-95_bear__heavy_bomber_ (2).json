@@ -1,0 +1,59 @@
+{
+  "basic": {
+    "name": "Tu-95 Bear (Heavy Bomber)",
+    "description": "Long-range heavy bomber, used to penetrate deep into enemy airspace and attack strategic ground targets.",
+    "mobilizationTime": "1 day, 2 hours",
+    "requirements": [
+      "Air Base Lvl. 3",
+      "Arms Industry Lvl. 1",
+      "Research: Fuel Optimization Measures Lvl. 3"
+    ]
+  },
+  "costs": {
+    "resource_2": 1250,
+    "resource_3": 550,
+    "resource_6": 900,
+    "resource_20": 3500
+  },
+  "upkeep": {
+    "resource_3": 50,
+    "resource_5": 50,
+    "resource_6": 40,
+    "resource_20": 120
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Launch Missile",
+    "Center Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Launch Missile",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 8,
+      "type_4": 3,
+      "type_2": 3,
+      "type_3": 6,
+      "type_7": 5
+    },
+    "defense": {},
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

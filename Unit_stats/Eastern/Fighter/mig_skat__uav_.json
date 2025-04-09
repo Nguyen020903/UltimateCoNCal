@@ -1,0 +1,62 @@
+{
+  "basic": {
+    "name": "MIG SKAT (UAV)",
+    "description": "An unmanned aerial vehicle, which either flies autonomously or is piloted remotely. Generally used for reconnaissance and surveillance. Some drones are armed and even utilize stealth technology. \nIMPORTANT: Unit does not declare war when penetrating foreign airspace.",
+    "mobilizationTime": "20 hours",
+    "requirements": [
+      "Air Base Lvl. 1",
+      "Arms Industry Lvl. 1",
+      "Research: MIG SKAT Lvl. 6"
+    ]
+  },
+  "costs": {
+    "resource_1": 750,
+    "resource_3": 475,
+    "resource_4": 250,
+    "resource_6": 750,
+    "resource_20": 2500
+  },
+  "upkeep": {
+    "resource_3": 35,
+    "resource_5": 35,
+    "resource_6": 35,
+    "resource_20": 115
+  },
+  "features": [
+    "Cannot Conquer",
+    "Stealth Unit",
+    "Fixed Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Scout",
+    "Reveal Stealth",
+    "Launch Missile",
+    "Rear Line",
+    "Cannot Conquer",
+    "Stealth Unit",
+    "Fixed Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Scout",
+    "Reveal Stealth",
+    "Launch Missile",
+    "Rear Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 4,
+      "type_4": 6.5,
+      "type_7": 1
+    },
+    "defense": {},
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

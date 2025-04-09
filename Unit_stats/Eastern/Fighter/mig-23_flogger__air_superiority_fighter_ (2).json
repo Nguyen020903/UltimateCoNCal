@@ -1,0 +1,65 @@
+{
+  "basic": {
+    "name": "MiG-23 Flogger (Air Superiority Fighter)",
+    "description": "Fixed-wing combat aircraft with the primary role of establishing total air dominance, ensuring friendly ground units in the theatre of operations remain safe from air attacks.",
+    "mobilizationTime": "1 day, 1 hour",
+    "requirements": [
+      "Air Base Lvl. 1",
+      "Arms Industry Lvl. 1",
+      "Research: Engine Replacement Lvl. 3"
+    ]
+  },
+  "costs": {
+    "resource_2": 1000,
+    "resource_3": 425,
+    "resource_6": 950,
+    "resource_20": 3500
+  },
+  "upkeep": {
+    "resource_3": 45,
+    "resource_5": 45,
+    "resource_6": 45,
+    "resource_20": 110
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Front Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Front Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 2,
+      "type_4": 1.5,
+      "type_1": 10.5,
+      "type_8": 8.5,
+      "type_1004": 12,
+      "type_2": 1,
+      "type_7": 1
+    },
+    "defense": {
+      "type_1": 10.5,
+      "type_8": 8.5,
+      "type_1004": 12
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "basic": {
+    "name": "Su-57 Felon (Stealth Strike Fighter)",
+    "description": "Stealth technology multi-role combat aircraft with a focus on air-to-ground attack missions. Well equipped to counter air threats, the real value of the strike fighter is its deep strike capability. Invisible to most radar-equipped units.\n • Unit does not declare war when penetrating foreign airspace.",
+    "mobilizationTime": "1 day, 16 hours",
+    "requirements": [
+      "Air Base Lvl. 5",
+      "Secret Weapons Lab Lvl. 1",
+      "Arms Industry Lvl. 1",
+      "Research: Su-57 Felon"
+    ]
+  },
+  "costs": {
+    "resource_2": 1500,
+    "resource_3": 800,
+    "resource_4": 400,
+    "resource_6": 1450,
+    "resource_20": 6000
+  },
+  "upkeep": {
+    "resource_3": 70,
+    "resource_5": 75,
+    "resource_6": 75,
+    "resource_20": 265
+  },
+  "features": [
+    "Military Doctrine",
+    "Cannot Conquer",
+    "Stealth Unit",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Launch Missile",
+    "Rear Line",
+    "Military Doctrine",
+    "Cannot Conquer",
+    "Stealth Unit",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Launch Missile",
+    "Rear Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 11,
+      "type_4": 11,
+      "type_1": 7,
+      "type_8": 8.5,
+      "type_1004": 15,
+      "type_2": 5,
+      "type_3": 1.5,
+      "type_7": 4
+    },
+    "defense": {
+      "type_1": 7,
+      "type_8": 8.5,
+      "type_1004": 15
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

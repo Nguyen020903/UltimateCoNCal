@@ -1,0 +1,93 @@
+{
+  "basic": {
+    "name": "Advanced Mercenary (Mercenary)",
+    "description": "These disciplined veterans, drawn from various global armies, are hardened by extensive combat experience. They offer a skilled and reliable force, understanding their roles as capable but expendable assets in any military endeavor.",
+    "mobilizationTime": "8 hours",
+    "requirements": [
+      "Mercenary Outpost Lvl. 2",
+      "Research: Advanced Mercenary Lvl. 4"
+    ]
+  },
+  "costs": {
+    "resource_3": 1650,
+    "resource_20": 5000
+  },
+  "upkeep": {
+    "resource_3": 80,
+    "resource_20": 300
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Airlift",
+    "Front Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Airlift",
+    "Front Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 7.5,
+      "type_4": 2,
+      "type_3": 0.5,
+      "type_7": 4
+    },
+    "defense": {
+      "type_0": 3.8,
+      "type_4": 1,
+      "type_1": 0.4,
+      "type_8": 0.6
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {
+      "terrain_14": "+25%",
+      "terrain_21": "+25%"
+    },
+    "defenseModifiers": {
+      "terrain_10": "-25%",
+      "terrain_17": "-25%"
+    },
+    "speedValues": {
+      "terrain_10": 1,
+      "terrain_12": 0.33,
+      "terrain_13": 0.5,
+      "terrain_14": 0.5,
+      "terrain_21": 0.5,
+      "terrain_15": 0.33,
+      "terrain_16": 0.5,
+      "terrain_17": 1,
+      "terrain_19": 2.51,
+      "terrain_20": 1.3
+    },
+    "hitPoints": {
+      "terrain_10": 20,
+      "terrain_12": 20,
+      "terrain_13": 20,
+      "terrain_14": 20,
+      "terrain_21": 20,
+      "terrain_15": 20,
+      "terrain_16": 20,
+      "terrain_17": 20,
+      "terrain_19": 12,
+      "terrain_20": 12
+    },
+    "sightRange": {
+      "terrain_10": 25,
+      "terrain_12": 35,
+      "terrain_13": 25,
+      "terrain_14": 25,
+      "terrain_21": 25,
+      "terrain_15": 25,
+      "terrain_16": 25,
+      "terrain_17": 25,
+      "terrain_19": 25,
+      "terrain_20": 25
+    }
+  }
+}

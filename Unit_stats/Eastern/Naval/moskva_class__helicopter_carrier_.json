@@ -1,0 +1,66 @@
+{
+  "basic": {
+    "name": "Moskva Class (Helicopter Carrier)",
+    "description": "Light Flagship of a fleet. Often used as budget options compared to more expensive carriers, those ships increase significantly a nation ability to project power over the sea. As a ship dedicated to support and launching helicopters, it needs additional vessels to protect it.\n\nCannot stack with Aircraft Carrier.",
+    "mobilizationTime": "1 day, 2 hours",
+    "requirements": [
+      "Naval Base Lvl. 3",
+      "Arms Industry Lvl. 1",
+      "Research: Moskva Class Lvl. 1"
+    ]
+  },
+  "costs": {
+    "resource_2": 2000,
+    "resource_3": 650,
+    "resource_4": 250,
+    "resource_6": 1200,
+    "resource_20": 2500
+  },
+  "upkeep": {
+    "resource_2": 90,
+    "resource_3": 45,
+    "resource_5": 45,
+    "resource_20": 120
+  },
+  "features": [
+    "Radar Signature",
+    "Cannot Conquer",
+    "Radar Detection",
+    "Rear Line",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Radar Detection",
+    "Rear Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_2": 2,
+      "type_5": 2
+    },
+    "defense": {
+      "type_1": 2,
+      "type_8": 2,
+      "type_1003": 1.5,
+      "type_2": 2,
+      "type_5": 2
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {
+      "terrain_19": 3,
+      "terrain_20": 1.5
+    },
+    "hitPoints": {
+      "terrain_19": 30,
+      "terrain_20": 30
+    },
+    "sightRange": {
+      "terrain_19": 40,
+      "terrain_20": 40
+    }
+  }
+}

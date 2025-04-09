@@ -1,0 +1,61 @@
+{
+  "basic": {
+    "name": "Tu-PakDa (Stealth Bomber)",
+    "description": "Stealth technology long-range bomber, used to penetrate deep into enemy airspace and attack strategic ground targets. Invisible to most radar-equipped units. \n • Unit does not declare war when penetrating foreign airspace",
+    "mobilizationTime": "2 days",
+    "requirements": [
+      "Air Base Lvl. 5",
+      "Secret Weapons Lab Lvl. 1",
+      "Arms Industry Lvl. 1",
+      "Research: Tu-PakDa"
+    ]
+  },
+  "costs": {
+    "resource_2": 1750,
+    "resource_3": 900,
+    "resource_4": 575,
+    "resource_6": 1700,
+    "resource_20": 7500
+  },
+  "upkeep": {
+    "resource_3": 75,
+    "resource_5": 80,
+    "resource_6": 75,
+    "resource_20": 300
+  },
+  "features": [
+    "Military Doctrine",
+    "Cannot Conquer",
+    "Stealth Unit",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Launch Missile",
+    "Rear Line",
+    "Military Doctrine",
+    "Cannot Conquer",
+    "Stealth Unit",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Launch Missile",
+    "Rear Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 15,
+      "type_4": 7.5,
+      "type_2": 5,
+      "type_3": 10,
+      "type_7": 7
+    },
+    "defense": {},
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

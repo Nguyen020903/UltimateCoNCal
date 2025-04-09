@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="production-planner.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 <body>
     <header class="universal-header">
@@ -37,6 +38,28 @@
 
         <div class="unit-bank" style="min-height: 500px; min-width: 300px;">
             <h2>Available Units</h2>
+            <div class="unit-filters">
+                <div class="search-container">
+                    <input type="text" id="unitSearch" placeholder="Search units...">
+                    <button onclick="searchUnits()"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="filter-container">
+                    <label for="sortBy">Sort By:</label>
+                    <select id="sortBy" onchange="sortUnits()">
+                        <option value="name">Name</option>
+                        <option value="productionTime">Production Time</option>
+                        <option value="resources-manpower">Manpower</option>
+                        <option value="resources-supplies">Supplies</option>
+                        <option value="resources-fuel">Fuel</option>
+                        <option value="resources-components">Components</option>
+                        <option value="resources-rareMaterials">Rare Materials</option>
+                    </select>
+                    <select id="sortOrder" onchange="sortUnits()">
+                        <option value="ascending">Ascending</option>
+                        <option value="descending">Descending</option>
+                    </select>
+                </div>
+            </div>
             <!-- Units will be populated by JavaScript -->
         </div>
 
@@ -45,13 +68,32 @@
         </div>
 
         <div class="resource-summary">
-            <div class="resource-item">
-                <h3>Total Resources Required</h3>
-                <div id="totalResources"></div>
+            <div class="summary-tabs">
+                <button class="tab-button active" onclick="showTab('resources')">Resources</button>
+                <button class="tab-button" onclick="showTab('timeline')">Timeline</button>
+                <button class="tab-button" onclick="showTab('efficiency')">Efficiency Analysis</button>
             </div>
-            <div class="resource-item">
+            <div class="tab-content active" id="resources-tab">
+                <div id="totalResources"></div>
+                <button id="exportButton" class="action-button" onclick="exportProductionPlan()">Export as Image</button>
+            </div>
+            <div class="tab-content" id="timeline-tab">
                 <h3>Production Timeline</h3>
                 <div id="productionTimeline"></div>
+            </div>
+            <div class="tab-content" id="efficiency-tab">
+                <h3>Resource Efficiency Analysis</h3>
+                <div class="efficiency-controls">
+                    <label for="efficiencyResource">Analyze by Resource:</label>
+                    <select id="efficiencyResource" onchange="calculateEfficiency()">
+                        <option value="manpower">Manpower</option>
+                        <option value="supplies">Supplies</option>
+                        <option value="fuel">Fuel</option>
+                        <option value="components">Components</option>
+                        <option value="rareMaterials">Rare Materials</option>
+                    </select>
+                </div>
+                <div id="efficiencyAnalysis"></div>
             </div>
         </div>
     </div>
@@ -596,7 +638,8 @@
                         quantity: quantity,
                         level: level,
                         startDay: startDay,
-                        endDay: endDay
+                        endDay: endDay,
+                        category: getCategoryForUnit(unitData, document.getElementById('doctrine').value)
                     });
                 });
             });
@@ -607,6 +650,18 @@
             return timeline;
         }
 
+        // Helper function to identify unit category
+        function getCategoryForUnit(unitData, doctrine) {
+            const categories = ['infantry', 'armored', 'support', 'helicopters', 'fighters', 'heavies', 'naval', 'submarine'];
+            for (const category of categories) {
+                if (window.unitData[doctrine][category]) {
+                    const found = window.unitData[doctrine][category].find(unit => unit.id === unitData.id);
+                    if (found) return category;
+                }
+            }
+            return 'unknown';
+        }
+
         // Update resource summary
         function updateResourceSummary() {
             const productionPlan = getProductionPlan();
@@ -615,8 +670,9 @@
             document.getElementById('totalResources').innerHTML = formatResources(resourcesData);
             
             const timeline = generateProductionTimeline(productionPlan);
+            const totalGameDays = parseInt(document.getElementById('gameDays').value);
             
-            document.getElementById('productionTimeline').innerHTML = formatTimeline(timeline);
+            document.getElementById('productionTimeline').innerHTML = formatTimeline(timeline, totalGameDays);
         }
 
         function getProductionPlan() {
@@ -646,17 +702,87 @@
             return plan;
         }
 
-        function formatTimeline(timeline) {
+        function formatTimeline(timeline, totalGameDays) {
             if (timeline.length === 0) {
                 return '<p>No units in production</p>';
             }
             
-            return timeline.map(item => `
-                <div class="timeline-item">
-                    <p>${item.unit} (${item.quantity}x) - Level ${item.level}</p>
-                    <p>Days ${item.startDay}-${item.endDay}</p>
+            const categoryColors = {
+                'infantry': '#27ae60',
+                'armored': '#e74c3c',
+                'support': '#3498db',
+                'helicopters': '#f39c12',
+                'fighters': '#9b59b6',
+                'heavies': '#34495e',
+                'naval': '#2980b9',
+                'submarine': '#16a085',
+                'unknown': '#95a5a6'
+            };
+            
+            let html = `
+                <div class="timeline-header">
+                    <div class="timeline-labels">
+                        <div class="timeline-unit-label">Unit</div>
+                        <div class="timeline-day-labels">
+            `;
+            
+            // Add day labels
+            for (let i = 1; i <= totalGameDays; i++) {
+                html += `<div class="day-label">Day ${i}</div>`;
+            }
+            
+            html += `
+                        </div>
+                    </div>
                 </div>
-            `).join('');
+                <div class="timeline-body">
+            `;
+            
+            // Add timeline items
+            timeline.forEach((item, index) => {
+                const startPercent = ((item.startDay - 1) / totalGameDays) * 100;
+                const width = ((item.endDay - item.startDay + 1) / totalGameDays) * 100;
+                const backgroundColor = categoryColors[item.category] || categoryColors.unknown;
+                
+                html += `
+                    <div class="timeline-row">
+                        <div class="timeline-unit-info">
+                            <div class="timeline-unit-name">${item.unit} (${item.quantity}x) - Lvl ${item.level}</div>
+                        </div>
+                        <div class="timeline-chart">
+                            <div class="timeline-bar" style="left: ${startPercent}%; width: ${width}%; background-color: ${backgroundColor};">
+                                <span class="timeline-tooltip">Day ${item.startDay}-${item.endDay}: ${item.unit} (${item.quantity}x)</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += `
+                </div>
+                <div class="timeline-legend">
+                    <h4>Unit Types:</h4>
+                    <div class="legend-items">
+            `;
+            
+            // Add legend
+            for (const [category, color] of Object.entries(categoryColors)) {
+                if (category !== 'unknown') {
+                    html += `
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: ${color};"></div>
+                            <div class="legend-label">${category.charAt(0).toUpperCase() + category.slice(1)}</div>
+                        </div>
+                    `;
+                }
+            }
+            
+            html += `
+                    </div>
+                </div>
+            `;
+            
+            return html;
         }
 
         // Save and load functionality
@@ -771,10 +897,235 @@
             }
         }
 
+        // New functions for unit filtering and sorting
+        function searchUnits() {
+            const searchTerm = document.getElementById('unitSearch').value.toLowerCase();
+            const unitItems = document.querySelectorAll('.unit-bank .unit-card');
+            
+            unitItems.forEach(item => {
+                const unitName = item.querySelector('.unit-name').textContent.toLowerCase();
+                if (searchTerm === '' || unitName.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+        
+        function sortUnits() {
+            const sortBy = document.getElementById('sortBy').value;
+            const sortOrder = document.getElementById('sortOrder').value;
+            const unitBank = document.querySelector('.unit-bank');
+            const categories = Array.from(unitBank.children);
+            
+            categories.forEach(category => {
+                const unitItems = Array.from(category.querySelectorAll('.unit-card'));
+                
+                unitItems.sort((a, b) => {
+                    const unitDataA = JSON.parse(a.getAttribute('data-unit'));
+                    const unitDataB = JSON.parse(b.getAttribute('data-unit'));
+                    
+                    let valueA, valueB;
+                    
+                    if (sortBy === 'name') {
+                        valueA = unitDataA.name;
+                        valueB = unitDataB.name;
+                    } else if (sortBy === 'productionTime') {
+                        valueA = unitDataA.productionTime;
+                        valueB = unitDataB.productionTime;
+                    } else if (sortBy.startsWith('resources-')) {
+                        const resource = sortBy.split('-')[1];
+                        valueA = unitDataA.resources[resource];
+                        valueB = unitDataB.resources[resource];
+                    }
+                    
+                    if (sortOrder === 'ascending') {
+                        return valueA > valueB ? 1 : -1;
+                    } else {
+                        return valueA < valueB ? 1 : -1;
+                    }
+                });
+                
+                // Re-append sorted items
+                unitItems.forEach(item => {
+                    category.appendChild(item);
+                });
+            });
+        }
+        
+        // Add event listener for search input
+        document.getElementById('unitSearch').addEventListener('input', searchUnits);
+        
+        // Function to export production plan as an image
+        function exportProductionPlan() {
+            html2canvas(document.querySelector('.production-planner')).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'production-plan.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+
+        // Function to show/hide tabs
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show the selected tab
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+            
+            // Add active class to the clicked button
+            event.currentTarget.classList.add('active');
+            
+            // If efficiency tab is selected, calculate efficiency
+            if (tabName === 'efficiency') {
+                calculateEfficiency();
+            }
+        }
+
+        // Calculate unit efficiency
+        function calculateEfficiency() {
+            const resource = document.getElementById('efficiencyResource').value;
+            const doctrine = document.getElementById('doctrine').value;
+            
+            // Get all units from the selected doctrine
+            const allUnits = [];
+            Object.keys(window.unitData[doctrine]).forEach(category => {
+                window.unitData[doctrine][category].forEach(unit => {
+                    allUnits.push({
+                        ...unit,
+                        category
+                    });
+                });
+            });
+            
+            // Calculate efficiency scores
+            const efficiencyScores = allUnits.map(unit => {
+                let resourceCost = unit.resources[resource];
+                
+                // Avoid division by zero
+                if (resourceCost === 0) resourceCost = 1;
+                
+                // Calculate combat stats (example calculation - should be refined based on game mechanics)
+                const combatValue = calculateCombatValue(unit);
+                
+                return {
+                    unit: unit.name,
+                    category: unit.category,
+                    resourceCost,
+                    combatValue,
+                    efficiency: combatValue / resourceCost,
+                    productionTime: unit.productionTime
+                };
+            });
+            
+            // Sort by efficiency (highest first)
+            efficiencyScores.sort((a, b) => b.efficiency - a.efficiency);
+            
+            // Generate HTML
+            const html = `
+                <div class="efficiency-table">
+                    <div class="efficiency-header">
+                        <div class="efficiency-cell">Unit</div>
+                        <div class="efficiency-cell">Category</div>
+                        <div class="efficiency-cell">${capitalize(resource)} Cost</div>
+                        <div class="efficiency-cell">Combat Value</div>
+                        <div class="efficiency-cell">Efficiency</div>
+                        <div class="efficiency-cell">Production Time</div>
+                    </div>
+                    ${efficiencyScores.map(score => `
+                        <div class="efficiency-row">
+                            <div class="efficiency-cell">${score.unit}</div>
+                            <div class="efficiency-cell">${capitalize(score.category)}</div>
+                            <div class="efficiency-cell">${score.resourceCost}</div>
+                            <div class="efficiency-cell">${score.combatValue.toFixed(1)}</div>
+                            <div class="efficiency-cell">${score.efficiency.toFixed(3)}</div>
+                            <div class="efficiency-cell">${score.productionTime} days</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            document.getElementById('efficiencyAnalysis').innerHTML = html;
+        }
+
+        // Helper function to calculate combat value (simplified example)
+        function calculateCombatValue(unit) {
+            // This is a simplified example - in a real implementation, 
+            // this would use actual unit stats relevant to the game mechanics
+            
+            // Base value scaled by production time (more expensive units usually have higher combat value)
+            const baseValue = 
+                unit.resources.manpower * 0.01 + 
+                unit.resources.supplies * 0.02 + 
+                unit.resources.fuel * 0.03 + 
+                unit.resources.components * 0.05 + 
+                unit.resources.rareMaterials * 0.1;
+            
+            // Scale by production time (assuming longer production = stronger unit)
+            return baseValue * Math.sqrt(unit.productionTime);
+        }
+
+        // Helper function to capitalize first letter
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
         // Initialize the page
         document.addEventListener('DOMContentLoaded', () => {
+            // Create tab structure for resource summary
+            const resourceSummary = document.querySelector('.resource-summary');
+            resourceSummary.innerHTML = `
+                <h2>Resource Summary</h2>
+                <div class="summary-tabs">
+                    <button class="tab-button active" onclick="showTab('resources')">Resources</button>
+                    <button class="tab-button" onclick="showTab('timeline')">Timeline</button>
+                    <button class="tab-button" onclick="showTab('efficiency')">Efficiency Analysis</button>
+                </div>
+                <div class="tab-content active" id="resources-tab">
+                    <div id="totalResources"></div>
+                    <button id="exportButton" class="action-button" onclick="exportProductionPlan()">Export as Image</button>
+                </div>
+                <div class="tab-content" id="timeline-tab">
+                    <h3>Production Timeline</h3>
+                    <div id="productionTimeline"></div>
+                </div>
+                <div class="tab-content" id="efficiency-tab">
+                    <h3>Resource Efficiency Analysis</h3>
+                    <div class="efficiency-controls">
+                        <label for="efficiencyResource">Analyze by Resource:</label>
+                        <select id="efficiencyResource" onchange="calculateEfficiency()">
+                            <option value="manpower">Manpower</option>
+                            <option value="supplies">Supplies</option>
+                            <option value="fuel">Fuel</option>
+                            <option value="components">Components</option>
+                            <option value="rareMaterials">Rare Materials</option>
+                        </select>
+                    </div>
+                    <div id="efficiencyAnalysis"></div>
+                </div>
+            `;
+            
+            // Initialize the calendar and unit bank
             initializeCalendar(7);
             populateUnitBank('western');
+            
+            // Add search input event listener for real-time filtering
+            document.getElementById('unitSearch').addEventListener('keyup', function() {
+                searchUnits();
+            });
+            
+            // Load html2canvas for export functionality
+            const script = document.createElement('script');
+            script.src = 'https://html2canvas.hertzen.com/dist/html2canvas.min.js';
+            document.head.appendChild(script);
         });
     </script>
 </body>

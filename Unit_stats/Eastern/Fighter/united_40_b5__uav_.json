@@ -1,0 +1,59 @@
+{
+  "basic": {
+    "name": "United 40 B5 (UAV)",
+    "description": "An unmanned aerial vehicle, which either flies autonomously or is piloted remotely. Generally used for reconnaissance and surveillance. Some drones are armed and even utilize stealth technology. \nIMPORTANT: Unit does not declare war when penetrating foreign airspace.",
+    "mobilizationTime": "14 hours",
+    "requirements": [
+      "Air Base Lvl. 1",
+      "Arms Industry Lvl. 1",
+      "Research: United 40 B5 Lvl. 3"
+    ]
+  },
+  "costs": {
+    "resource_1": 650,
+    "resource_3": 350,
+    "resource_6": 450,
+    "resource_20": 2000
+  },
+  "upkeep": {
+    "resource_3": 20,
+    "resource_5": 20,
+    "resource_6": 20,
+    "resource_20": 80
+  },
+  "features": [
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Scout",
+    "Reveal Stealth",
+    "Launch Missile",
+    "Rear Line",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Scout",
+    "Reveal Stealth",
+    "Launch Missile",
+    "Rear Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 2,
+      "type_4": 4,
+      "type_7": 1
+    },
+    "defense": {},
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

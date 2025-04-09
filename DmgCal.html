@@ -115,58 +115,46 @@
 
         <div class="calculator-section battle-conditions">
             <h2>Battle Conditions</h2>
-            <div class="conditions-grid">
-                <div class="condition-group">
-                    <h3>Terrain</h3>
-                    <div class="radio-group">
-                        <label>
-                            <input type="radio" name="terrain" value="plains" checked>
-                            Plains
-                        </label>
-                        <label>
-                            <input type="radio" name="terrain" value="forest">
-                            Forest
-                        </label>
-                        <label>
-                            <input type="radio" name="terrain" value="mountains">
-                            Mountains
-                        </label>
-                        <label>
-                            <input type="radio" name="terrain" value="urban">
-                            Urban
-                        </label>
-                        <label>
-                            <input type="radio" name="terrain" value="desert">
-                            Desert
-                        </label>
-                        <label>
-                            <input type="radio" name="terrain" value="jungle">
-                            Jungle
-                        </label>
-                        <label>
-                            <input type="radio" name="terrain" value="water">
-                            Water
-                        </label>
+            
+            <div class="battle-terrain">
+                <div class="terrain-column">
+                    <h3>Attacker Terrain</h3>
+                    <div class="terrain-options">
+                        <label><input type="radio" name="attacker-terrain" value="open" checked> Open Ground</label>
+                        <label><input type="radio" name="attacker-terrain" value="urban"> Urban</label>
+                        <label><input type="radio" name="attacker-terrain" value="forest"> Forest</label>
+                        <label><input type="radio" name="attacker-terrain" value="mountain"> Mountain</label>
+                        <label><input type="radio" name="attacker-terrain" value="water"> Water</label>
+                        <label><input type="radio" name="attacker-terrain" value="air"> Air</label>
+                    </div>
+                    <div class="terrain-modifier">
+                        Terrain Modifier: <span id="attacker-terrain-mod">x1.0</span>
                     </div>
                 </div>
-                <div class="condition-group">
-                    <h3>Special Conditions</h3>
-                    <div class="checkbox-group">
-                        <label>
-                            <input type="checkbox" id="entrenchment">
-                            Entrenchment (-25% damage received)
-                        </label>
-                        <label>
-                            <input type="checkbox" id="officerBoost">
-                            Officer Boost
-                        </label>
+                
+                <div class="terrain-column">
+                    <h3>Defender Terrain</h3>
+                    <div class="terrain-options">
+                        <label><input type="radio" name="defender-terrain" value="open" checked> Open Ground</label>
+                        <label><input type="radio" name="defender-terrain" value="urban"> Urban</label>
+                        <label><input type="radio" name="defender-terrain" value="forest"> Forest</label>
+                        <label><input type="radio" name="defender-terrain" value="mountain"> Mountain</label>
+                        <label><input type="radio" name="defender-terrain" value="water"> Water</label>
+                        <label><input type="radio" name="defender-terrain" value="air"> Air</label>
+                    </div>
+                    <div class="terrain-modifier">
+                        Terrain Modifier: <span id="defender-terrain-mod">x1.0</span>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="calculate-button">
-            <button id="calculateBtn">Calculate Battle Outcome</button>
+            
+            <div id="terrain-error" class="error-message" style="display: none;">
+                Warning: Some units are not compatible with the selected terrain.
+            </div>
+            
+            <div class="calculate-button">
+                <button id="calculate-battle" onclick="simulateBattle()">Calculate Battle Outcome</button>
+            </div>
         </div>
 
         <div class="calculator-section battle-outcome" id="battle-outcome">

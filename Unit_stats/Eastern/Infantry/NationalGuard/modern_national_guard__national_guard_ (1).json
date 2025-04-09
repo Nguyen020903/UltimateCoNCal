@@ -1,0 +1,96 @@
+{
+  "basic": {
+    "name": "Modern National Guard (National Guard)",
+    "description": "Local Paramilitary Militia. Quickly called upon in times of military threat to the homeland. Capable of rapidly responding to threats in friendly territory, but are slower than other units in enemy territory.",
+    "mobilizationTime": "9 hours",
+    "requirements": [
+      "Recruiting Office Lvl. 1",
+      "Research: Streamlined Mobilization Lvl. 7"
+    ]
+  },
+  "costs": {
+    "resource_1": 600,
+    "resource_2": 450,
+    "resource_3": 850,
+    "resource_20": 1050
+  },
+  "upkeep": {
+    "resource_1": 60,
+    "resource_3": 85,
+    "resource_5": 50,
+    "resource_20": 80
+  },
+  "features": [
+    "Radar Signature",
+    "Conquer Territory",
+    "Airlift",
+    "Deploy Armament",
+    "Center Line",
+    "Radar Signature",
+    "Conquer Territory",
+    "Airlift",
+    "Deploy Armament",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 4,
+      "type_4": 2.5,
+      "type_3": 0.1,
+      "type_7": 1
+    },
+    "defense": {
+      "type_0": 6,
+      "type_4": 3.8,
+      "type_1": 1.5,
+      "type_8": 1.5
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {
+      "terrain_10": "+25%",
+      "terrain_13": "+25%",
+      "terrain_14": "+50%",
+      "terrain_21": "+50%"
+    },
+    "speedValues": {
+      "terrain_10": 1.8,
+      "terrain_12": 0.59,
+      "terrain_13": 0.9,
+      "terrain_14": 0.9,
+      "terrain_21": 0.9,
+      "terrain_15": 0.59,
+      "terrain_16": 0.9,
+      "terrain_17": 1.8,
+      "terrain_19": 2.51,
+      "terrain_20": 1.3
+    },
+    "hitPoints": {
+      "terrain_10": 24,
+      "terrain_12": 24,
+      "terrain_13": 24,
+      "terrain_14": 24,
+      "terrain_21": 24,
+      "terrain_15": 24,
+      "terrain_16": 24,
+      "terrain_17": 24,
+      "terrain_19": 12,
+      "terrain_20": 12
+    },
+    "sightRange": {
+      "terrain_10": 25,
+      "terrain_12": 35,
+      "terrain_13": 25,
+      "terrain_14": 25,
+      "terrain_21": 25,
+      "terrain_15": 25,
+      "terrain_16": 25,
+      "terrain_17": 25,
+      "terrain_19": 25,
+      "terrain_20": 25
+    }
+  }
+}

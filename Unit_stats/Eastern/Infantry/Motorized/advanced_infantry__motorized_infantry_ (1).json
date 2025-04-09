@@ -1,0 +1,102 @@
+{
+  "basic": {
+    "name": "Advanced Infantry (Motorized Infantry)",
+    "description": "Motorized Infantry transported by light vehicles. Its primary role is to hold strategic targets, such as towns or cities.",
+    "mobilizationTime": "22 hours",
+    "requirements": [
+      "Army Base Lvl. 1",
+      "Research: Engine Upgrade II Lvl. 5"
+    ]
+  },
+  "costs": {
+    "resource_1": 750,
+    "resource_2": 550,
+    "resource_3": 1000,
+    "resource_20": 1250
+  },
+  "upkeep": {
+    "resource_1": 60,
+    "resource_3": 50,
+    "resource_5": 40,
+    "resource_20": 80
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Conquer Territory",
+    "Airlift",
+    "Deploy Armament",
+    "Rear Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Conquer Territory",
+    "Airlift",
+    "Deploy Armament",
+    "Rear Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 5,
+      "type_4": 3.5,
+      "type_3": 0.2,
+      "type_7": 2
+    },
+    "defense": {
+      "type_0": 6.3,
+      "type_4": 4.4,
+      "type_1": 1.3,
+      "type_8": 1.9
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {
+      "terrain_12": "-25%",
+      "terrain_15": "-25%",
+      "terrain_16": "-25%"
+    },
+    "defenseModifiers": {
+      "terrain_13": "+25%",
+      "terrain_14": "+25%",
+      "terrain_21": "+25%",
+      "terrain_16": "-25%"
+    },
+    "speedValues": {
+      "terrain_10": 1.5,
+      "terrain_12": 0.49,
+      "terrain_13": 0.75,
+      "terrain_14": 0.75,
+      "terrain_21": 0.75,
+      "terrain_15": 0.49,
+      "terrain_16": 0.75,
+      "terrain_17": 1.5,
+      "terrain_19": 2.51,
+      "terrain_20": 1.3
+    },
+    "hitPoints": {
+      "terrain_10": 20,
+      "terrain_12": 20,
+      "terrain_13": 20,
+      "terrain_14": 20,
+      "terrain_21": 20,
+      "terrain_15": 20,
+      "terrain_16": 20,
+      "terrain_17": 20,
+      "terrain_19": 12,
+      "terrain_20": 12
+    },
+    "sightRange": {
+      "terrain_10": 25,
+      "terrain_12": 35,
+      "terrain_13": 25,
+      "terrain_14": 25,
+      "terrain_21": 25,
+      "terrain_15": 25,
+      "terrain_16": 25,
+      "terrain_17": 25,
+      "terrain_19": 25,
+      "terrain_20": 25
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "basic": {
+    "name": "Slava Class (Cruiser)",
+    "description": "Largest and most dangerous surface vessel in any fleet besides the aircraft carrier. Predominately used as a platform for cruise missiles, artillery and torpedoes.",
+    "mobilizationTime": "1 day, 12 hours",
+    "requirements": [
+      "Naval Base Lvl. 4",
+      "Arms Industry Lvl. 1",
+      "Research: Slava Class Lvl. 5"
+    ]
+  },
+  "costs": {
+    "resource_2": 4500,
+    "resource_3": 1350,
+    "resource_6": 1700,
+    "resource_20": 4000
+  },
+  "upkeep": {
+    "resource_2": 200,
+    "resource_3": 90,
+    "resource_5": 90,
+    "resource_20": 300
+  },
+  "features": [
+    "Radar Signature",
+    "Cannot Conquer",
+    "Attack Range",
+    "Anti-Air",
+    "Radar Detection",
+    "Launch Missile",
+    "Center Line",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Attack Range",
+    "Anti-Air",
+    "Radar Detection",
+    "Launch Missile",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 5,
+      "type_4": 4,
+      "type_1": 4,
+      "type_8": 5.5,
+      "type_1003": 2.5,
+      "type_2": 20,
+      "type_5": 5,
+      "type_3": 2.5,
+      "type_7": 4
+    },
+    "defense": {
+      "type_1": 4,
+      "type_8": 5.5,
+      "type_1003": 2.5,
+      "type_2": 20,
+      "type_5": 5
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {
+      "terrain_19": 4.5,
+      "terrain_20": 2.25
+    },
+    "hitPoints": {
+      "terrain_19": 75,
+      "terrain_20": 75
+    },
+    "sightRange": {
+      "terrain_19": 40,
+      "terrain_20": 40
+    }
+  }
+}

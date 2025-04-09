@@ -1,0 +1,111 @@
+{
+  "basic": {
+    "name": "2K22 Tunguska (Mobile Anti-Air Vehicle)",
+    "description": "Motorized point defense anti-aircraft system, protecting advancing forces from immediate air threats. Small and mobile, these units are feared by any low flying ground attacker, especially helicopters.",
+    "mobilizationTime": "21 hours",
+    "requirements": [
+      "Army Base Lvl. 1",
+      "Arms Industry Lvl. 1",
+      "Research: 2K22 Tunguska Lvl. 6"
+    ]
+  },
+  "costs": {
+    "resource_1": 1150,
+    "resource_2": 1400,
+    "resource_3": 725,
+    "resource_20": 1750
+  },
+  "upkeep": {
+    "resource_1": 75,
+    "resource_3": 60,
+    "resource_5": 60,
+    "resource_20": 100
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Airlift",
+    "Anti-Air",
+    "Air Assault",
+    "Center Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Airlift",
+    "Anti-Air",
+    "Air Assault",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 5,
+      "type_4": 2,
+      "type_1": 6,
+      "type_8": 8,
+      "type_1004": 8,
+      "type_1003": 2,
+      "type_3": 0.3,
+      "type_7": 2
+    },
+    "defense": {
+      "type_0": 5,
+      "type_4": 2,
+      "type_1": 6,
+      "type_8": 8,
+      "type_1004": 8,
+      "type_1003": 2
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {
+      "terrain_12": "-25%",
+      "terrain_13": "-25%",
+      "terrain_15": "-25%",
+      "terrain_16": "-25%"
+    },
+    "defenseModifiers": {
+      "terrain_13": "-25%",
+      "terrain_15": "-25%",
+      "terrain_16": "-25%"
+    },
+    "speedValues": {
+      "terrain_10": 1.5,
+      "terrain_12": 0.49,
+      "terrain_13": 0.75,
+      "terrain_14": 0.75,
+      "terrain_21": 0.75,
+      "terrain_15": 0.49,
+      "terrain_16": 0.75,
+      "terrain_17": 1.5,
+      "terrain_19": 2.51,
+      "terrain_20": 1.3
+    },
+    "hitPoints": {
+      "terrain_10": 31,
+      "terrain_12": 31,
+      "terrain_13": 31,
+      "terrain_14": 31,
+      "terrain_21": 31,
+      "terrain_15": 31,
+      "terrain_16": 31,
+      "terrain_17": 31,
+      "terrain_19": 12,
+      "terrain_20": 12
+    },
+    "sightRange": {
+      "terrain_10": 26,
+      "terrain_12": 26,
+      "terrain_13": 26,
+      "terrain_14": 26,
+      "terrain_21": 26,
+      "terrain_15": 26,
+      "terrain_16": 26,
+      "terrain_17": 26,
+      "terrain_19": 25,
+      "terrain_20": 25
+    }
+  }
+}

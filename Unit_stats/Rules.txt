@@ -1,0 +1,65 @@
+terrain rules:
+1 = in flight (air unit only)
+0 = on the ground (Air unit only)
+10 = open ground
+12 = mountains
+13 = forest
+14 = urban
+21 = suburban
+15 = jungle
+16 = tundra
+17 = desert
+19 = high sea
+20 = coastal water
+
+attack and defense type: 
+0 = soft target (infantry, support vehicles)
+4 = hard target (armored vehicles, bunkers)
+1 = fixed wing target (aircraft, planes)
+8 = rotary wing target (helicopters)
+1004 = drones (UAVs)
+1003 = missiles (cruise missiles, ballistic missiles)
+2 = surface vessel (naval ships)
+5 = submarine
+3 = building (structures, facilities)
+7 = population (civilians)
+
+
+resource rules:
+1 = supply
+2 = component
+5 = fuel
+6 = electronic
+4 = rare material 
+3 = manpower
+20 = money 
+
+
+unit level and tier (infantry only)
+basic < advanced < modern 
+file name that contain number means + 1 level 
+for example basic = level 1
+            basic(1) = level 2
+            advanced = level 3
+            advanced(1) = level 4
+            advanced(2) = level 5
+            modern = level 6
+
+notes: not all units have the same number of levels
+
+doctrine effects:
+Eastern - focuses on quantity and cost-effectiveness
+Western - focuses on quality and technology
+European - balanced approach with territorial focus
+
+stack mechanics:
+- Units can be stacked in the same province
+- Stack limit of 5 units per stack
+- Overstacking penalty applies when units exceed stack limit
+- Stack composition should consider complementary units (anti-air with ground forces)
+
+special conditions:
+- Entrenchment: Defensive bonus increases over time for stationary units
+- Officer boost: Officers provide combat bonuses to nearby units
+- Terrain effects: Different unit types perform better in specific terrains
+- Weather and time of day can affect combat performance

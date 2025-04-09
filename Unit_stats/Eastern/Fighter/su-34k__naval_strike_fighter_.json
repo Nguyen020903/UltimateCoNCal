@@ -1,0 +1,70 @@
+{
+  "basic": {
+    "name": "Su-34K (Naval Strike Fighter)",
+    "description": "Carrier-based multi-role fighter with a focus on air-to-ground attack missions. Well equipped to counter air threats, the real value of the strike fighter is it's deep strike capability. Equipped to land on aircraft carriers.",
+    "mobilizationTime": "1 day, 7 hours",
+    "requirements": [
+      "Air Base Lvl. 3",
+      "Arms Industry Lvl. 1",
+      "Research: Su-34K Lvl. 3"
+    ]
+  },
+  "costs": {
+    "resource_2": 1500,
+    "resource_3": 850,
+    "resource_6": 1300,
+    "resource_20": 5250
+  },
+  "upkeep": {
+    "resource_3": 75,
+    "resource_5": 75,
+    "resource_6": 60,
+    "resource_20": 200
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Launch Missile",
+    "Center Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Launch Missile",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 9,
+      "type_4": 9,
+      "type_1": 6,
+      "type_8": 7,
+      "type_1004": 15,
+      "type_2": 9,
+      "type_3": 2,
+      "type_7": 4
+    },
+    "defense": {
+      "type_1": 6,
+      "type_8": 7,
+      "type_1004": 15
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

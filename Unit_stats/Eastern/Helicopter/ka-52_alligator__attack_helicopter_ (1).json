@@ -1,0 +1,66 @@
+{
+  "basic": {
+    "name": "Ka-52 Alligator (Attack Helicopter)",
+    "description": "Heavily armed rotary-wing attack aircraft, focussing on hard or heavily armored targets. Usually equipped with auto-cannons and guided anti-tank missiles. Evades Anti Air Missile detection by flying NOE.",
+    "mobilizationTime": "1 day, 3 hours",
+    "requirements": [
+      "Air Base Lvl. 2",
+      "Arms Industry Lvl. 1",
+      "Research: Fuel Optimization Measures Lvl. 4"
+    ]
+  },
+  "costs": {
+    "resource_2": 1050,
+    "resource_3": 575,
+    "resource_6": 950,
+    "resource_20": 3500
+  },
+  "upkeep": {
+    "resource_3": 50,
+    "resource_5": 50,
+    "resource_6": 40,
+    "resource_20": 150
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Rotary Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Front Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Rotary Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Front Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 3.5,
+      "type_4": 10,
+      "type_8": 6,
+      "type_1004": 1,
+      "type_2": 2,
+      "type_3": 0.1,
+      "type_7": 2
+    },
+    "defense": {
+      "type_8": 6,
+      "type_1004": 1
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

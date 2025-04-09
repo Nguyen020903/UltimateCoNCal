@@ -1,0 +1,60 @@
+{
+  "basic": {
+    "name": "A-40 Albatros (Naval Patrol Aircraft)",
+    "description": "Specialized fixed-wing aircraft, equipped to detect and engage submarines and surface vessels with torpedoes and guided missiles.",
+    "mobilizationTime": "1 day",
+    "requirements": [
+      "Air Base Lvl. 3",
+      "Arms Industry Lvl. 1",
+      "Research: A-40 Albatros Lvl. 5"
+    ]
+  },
+  "costs": {
+    "resource_2": 1200,
+    "resource_3": 650,
+    "resource_6": 950,
+    "resource_20": 3500
+  },
+  "upkeep": {
+    "resource_3": 50,
+    "resource_5": 55,
+    "resource_6": 55,
+    "resource_20": 145
+  },
+  "features": [
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Sonar",
+    "Reveal Stealth",
+    "Launch Missile",
+    "Rear Line",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Sonar",
+    "Reveal Stealth",
+    "Launch Missile",
+    "Rear Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_2": 14,
+      "type_5": 8
+    },
+    "defense": {},
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

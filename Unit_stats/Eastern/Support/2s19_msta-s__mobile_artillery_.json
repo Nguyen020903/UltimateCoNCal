@@ -1,0 +1,99 @@
+{
+  "basic": {
+    "name": "2S19 Msta-S (Mobile Artillery)",
+    "description": "Mobile armored artillery vehicle, providing heavy indirect long-range fire support to any frontline unit. Due to its strength this artillery is the goto for any armored task force.",
+    "mobilizationTime": "1 day",
+    "requirements": [
+      "Army Base Lvl. 3",
+      "Arms Industry Lvl. 1",
+      "Research: 2S19 Msta-S Lvl. 4"
+    ]
+  },
+  "costs": {
+    "resource_2": 1800,
+    "resource_3": 700,
+    "resource_6": 650,
+    "resource_20": 1850
+  },
+  "upkeep": {
+    "resource_1": 95,
+    "resource_3": 45,
+    "resource_5": 55,
+    "resource_20": 130
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Airlift",
+    "Attack Range",
+    "Center Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Airlift",
+    "Attack Range",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 2,
+      "type_4": 6,
+      "type_2": 2,
+      "type_3": 1.5,
+      "type_7": 3.5
+    },
+    "defense": {
+      "type_0": 1.3,
+      "type_4": 4
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {
+      "terrain_12": "+25%",
+      "terrain_13": "-25%",
+      "terrain_15": "-25%"
+    },
+    "defenseModifiers": {
+      "terrain_15": "-25%"
+    },
+    "speedValues": {
+      "terrain_10": 1.3,
+      "terrain_12": 0.43,
+      "terrain_13": 0.65,
+      "terrain_14": 0.65,
+      "terrain_21": 0.65,
+      "terrain_15": 0.43,
+      "terrain_16": 0.65,
+      "terrain_17": 1.3,
+      "terrain_19": 2.51,
+      "terrain_20": 1.3
+    },
+    "hitPoints": {
+      "terrain_10": 32,
+      "terrain_12": 32,
+      "terrain_13": 32,
+      "terrain_14": 32,
+      "terrain_21": 32,
+      "terrain_15": 32,
+      "terrain_16": 32,
+      "terrain_17": 32,
+      "terrain_19": 12,
+      "terrain_20": 12
+    },
+    "sightRange": {
+      "terrain_10": 25,
+      "terrain_12": 25,
+      "terrain_13": 25,
+      "terrain_14": 25,
+      "terrain_21": 25,
+      "terrain_15": 25,
+      "terrain_16": 25,
+      "terrain_17": 25,
+      "terrain_19": 25,
+      "terrain_20": 25
+    }
+  }
+}

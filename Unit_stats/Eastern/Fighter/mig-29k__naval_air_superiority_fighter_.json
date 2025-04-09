@@ -1,0 +1,69 @@
+{
+  "basic": {
+    "name": "MiG-29K (Naval Air Superiority Fighter)",
+    "description": "Carrier-based fighter airplane with the primary role of establishing total air dominance, ensuring friendly naval units in the theatre of operations remain safe from air attacks. Equipped to land on aircraft carriers.",
+    "mobilizationTime": "1 day, 6 hours",
+    "requirements": [
+      "Air Base Lvl. 2",
+      "Arms Industry Lvl. 1",
+      "Research: MiG-29K Lvl. 3"
+    ]
+  },
+  "costs": {
+    "resource_2": 1500,
+    "resource_3": 825,
+    "resource_6": 1350,
+    "resource_20": 4500
+  },
+  "upkeep": {
+    "resource_3": 75,
+    "resource_5": 75,
+    "resource_6": 65,
+    "resource_20": 175
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Launch Missile",
+    "Front Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Launch Missile",
+    "Front Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 4,
+      "type_4": 3.5,
+      "type_1": 18,
+      "type_8": 15,
+      "type_1004": 20,
+      "type_2": 3.5,
+      "type_7": 2
+    },
+    "defense": {
+      "type_1": 18,
+      "type_8": 15,
+      "type_1004": 20
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

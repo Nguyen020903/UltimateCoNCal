@@ -1,0 +1,107 @@
+{
+  "basic": {
+    "name": "ZSU-57-2  (Mobile Anti-Air Vehicle)",
+    "description": "Motorized point defense anti-aircraft system, protecting advancing forces from immediate air threats. Small and mobile, these units are feared by any low flying ground attacker, especially helicopters.",
+    "mobilizationTime": "18 hours",
+    "requirements": [
+      "Army Base Lvl. 1",
+      "Arms Industry Lvl. 1",
+      "Research: Engine Upgrade Lvl. 3"
+    ]
+  },
+  "costs": {
+    "resource_1": 900,
+    "resource_2": 1150,
+    "resource_3": 400,
+    "resource_20": 1000
+  },
+  "upkeep": {
+    "resource_1": 50,
+    "resource_3": 35,
+    "resource_5": 35,
+    "resource_20": 80
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Anti-Air",
+    "Center Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Anti-Air",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 1.6,
+      "type_4": 1,
+      "type_1": 3,
+      "type_8": 3.5,
+      "type_1004": 5,
+      "type_1003": 0.6,
+      "type_3": 0.2,
+      "type_7": 2
+    },
+    "defense": {
+      "type_0": 2.6,
+      "type_4": 1.7,
+      "type_1": 5,
+      "type_8": 5.8,
+      "type_1004": 8.3,
+      "type_1003": 1
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {
+      "terrain_12": "-25%",
+      "terrain_13": "-25%",
+      "terrain_15": "-25%",
+      "terrain_16": "-25%"
+    },
+    "defenseModifiers": {
+      "terrain_13": "-25%",
+      "terrain_15": "-25%",
+      "terrain_16": "-25%"
+    },
+    "speedValues": {
+      "terrain_10": 1.5,
+      "terrain_12": 0.49,
+      "terrain_13": 0.75,
+      "terrain_14": 0.75,
+      "terrain_21": 0.75,
+      "terrain_15": 0.49,
+      "terrain_16": 0.75,
+      "terrain_17": 1.5,
+      "terrain_19": 2.51,
+      "terrain_20": 1.3
+    },
+    "hitPoints": {
+      "terrain_10": 27,
+      "terrain_12": 27,
+      "terrain_13": 27,
+      "terrain_14": 27,
+      "terrain_21": 27,
+      "terrain_15": 27,
+      "terrain_16": 27,
+      "terrain_17": 27,
+      "terrain_19": 12,
+      "terrain_20": 12
+    },
+    "sightRange": {
+      "terrain_10": 26,
+      "terrain_12": 26,
+      "terrain_13": 26,
+      "terrain_14": 26,
+      "terrain_21": 26,
+      "terrain_15": 26,
+      "terrain_16": 26,
+      "terrain_17": 26,
+      "terrain_19": 25,
+      "terrain_20": 25
+    }
+  }
+}

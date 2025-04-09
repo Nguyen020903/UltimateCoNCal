@@ -1,0 +1,69 @@
+{
+  "basic": {
+    "name": "Su-47 Berkut (Stealth Air Superiority Fighter)",
+    "description": "Stealth technology combat aircraft with the primary role of establishing total air dominance, ensuring friendly ground units in the theatre of operations remain safe from air attacks. Invisible to most radar-equipped units.\n • Unit does not declare war when penetrating foreign airspace.",
+    "mobilizationTime": "1 day, 12 hours",
+    "requirements": [
+      "Air Base Lvl. 5",
+      "Secret Weapons Lab Lvl. 1",
+      "Arms Industry Lvl. 1",
+      "Research: Su-47 Berkut"
+    ]
+  },
+  "costs": {
+    "resource_2": 1500,
+    "resource_3": 550,
+    "resource_4": 450,
+    "resource_6": 1600,
+    "resource_20": 7000
+  },
+  "upkeep": {
+    "resource_3": 70,
+    "resource_5": 70,
+    "resource_6": 75,
+    "resource_20": 260
+  },
+  "features": [
+    "Military Doctrine",
+    "Cannot Conquer",
+    "Stealth Unit",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Reveal Stealth",
+    "Launch Missile",
+    "Center Line",
+    "Military Doctrine",
+    "Cannot Conquer",
+    "Stealth Unit",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Reveal Stealth",
+    "Launch Missile",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 4,
+      "type_4": 3.5,
+      "type_1": 21,
+      "type_8": 15,
+      "type_1004": 25,
+      "type_2": 2.5,
+      "type_7": 2
+    },
+    "defense": {
+      "type_1": 21,
+      "type_8": 15,
+      "type_1004": 25
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

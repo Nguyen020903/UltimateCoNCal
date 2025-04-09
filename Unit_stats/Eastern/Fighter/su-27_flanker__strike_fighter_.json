@@ -1,0 +1,68 @@
+{
+  "basic": {
+    "name": "Su-27 Flanker (Strike Fighter)",
+    "description": "Fixed-wing multi-role combat aircraft with a focus on air-to-ground attack missions. Well equipped to counter air threats, the real value of the strike fighter is it's deep strike capability against both armored and soft targets.",
+    "mobilizationTime": "1 day, 4 hours",
+    "requirements": [
+      "Air Base Lvl. 2",
+      "Arms Industry Lvl. 1",
+      "Research: Su-27 Flanker Lvl. 4"
+    ]
+  },
+  "costs": {
+    "resource_2": 1150,
+    "resource_3": 625,
+    "resource_6": 1000,
+    "resource_20": 3500
+  },
+  "upkeep": {
+    "resource_3": 55,
+    "resource_5": 55,
+    "resource_6": 45,
+    "resource_20": 160
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Launch Missile",
+    "Center Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Launch Missile",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 6,
+      "type_4": 6,
+      "type_1": 4.5,
+      "type_8": 5,
+      "type_1004": 10,
+      "type_2": 3,
+      "type_3": 1.5,
+      "type_7": 3
+    },
+    "defense": {
+      "type_1": 4.5,
+      "type_8": 5,
+      "type_1004": 10
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

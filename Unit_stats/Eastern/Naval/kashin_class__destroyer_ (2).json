@@ -1,0 +1,75 @@
+{
+  "basic": {
+    "name": "Kashin Class (Destroyer)",
+    "description": "Mid-sized fleet escort vessel, protecting larger ships against both submarine and surface threats.",
+    "mobilizationTime": "1 day, 2 hours",
+    "requirements": [
+      "Naval Base Lvl. 3",
+      "Arms Industry Lvl. 1",
+      "Research: Air Defense Upgrade  Lvl. 3"
+    ]
+  },
+  "costs": {
+    "resource_2": 2500,
+    "resource_3": 650,
+    "resource_6": 900,
+    "resource_20": 1950
+  },
+  "upkeep": {
+    "resource_2": 110,
+    "resource_3": 55,
+    "resource_5": 55,
+    "resource_20": 140
+  },
+  "features": [
+    "Radar Signature",
+    "Cannot Conquer",
+    "Attack Range",
+    "Radar Detection",
+    "Sonar",
+    "Reveal Stealth",
+    "Front Line",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Attack Range",
+    "Radar Detection",
+    "Sonar",
+    "Reveal Stealth",
+    "Front Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 2.5,
+      "type_4": 2,
+      "type_2": 9,
+      "type_5": 10,
+      "type_3": 1,
+      "type_7": 2
+    },
+    "defense": {
+      "type_1": 3.5,
+      "type_8": 2,
+      "type_1003": 1.5,
+      "type_2": 9,
+      "type_5": 10
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {
+      "terrain_19": 4.5,
+      "terrain_20": 2.25
+    },
+    "hitPoints": {
+      "terrain_19": 42,
+      "terrain_20": 42
+    },
+    "sightRange": {
+      "terrain_19": 40,
+      "terrain_20": 40
+    }
+  }
+}

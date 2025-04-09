@@ -1,0 +1,63 @@
+{
+  "basic": {
+    "name": "Mi-8 TVK (Helicopter Gunship)",
+    "description": "Medium armed rotary-wing combat aircraft, focussing on soft or lightly armored targets. Usually equipped with heavy machine guns and missile pods. Evades Anti Air Missile detection by flying NOE.",
+    "mobilizationTime": "1 day",
+    "requirements": [
+      "Air Base Lvl. 1",
+      "Arms Industry Lvl. 1",
+      "Research: Engine Upgrade Lvl. 3"
+    ]
+  },
+  "costs": {
+    "resource_1": 850,
+    "resource_3": 350,
+    "resource_6": 700,
+    "resource_20": 2750
+  },
+  "upkeep": {
+    "resource_3": 35,
+    "resource_5": 35,
+    "resource_6": 35,
+    "resource_20": 90
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Rotary Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Front Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Rotary Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Front Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 8,
+      "type_4": 2.5,
+      "type_8": 2,
+      "type_1004": 2,
+      "type_2": 1,
+      "type_7": 1.5
+    },
+    "defense": {
+      "type_8": 2,
+      "type_1004": 2
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

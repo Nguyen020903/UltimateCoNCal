@@ -1,0 +1,55 @@
+{
+  "basic": {
+    "name": "A-100 (AWACS)",
+    "description": "Airborne early-warning and control aircraft providing long-range, all-weather radar surveillance. Equipped with powerful sensors these planes can often spot distant enemy airplane, helicopter and armored ground unit movement.",
+    "mobilizationTime": "1 day, 3 hours",
+    "requirements": [
+      "Air Base Lvl. 4",
+      "Arms Industry Lvl. 1",
+      "Research: A-100 Lvl. 6"
+    ]
+  },
+  "costs": {
+    "resource_2": 1000,
+    "resource_3": 750,
+    "resource_6": 1250,
+    "resource_20": 3750
+  },
+  "upkeep": {
+    "resource_3": 55,
+    "resource_5": 70,
+    "resource_6": 55,
+    "resource_20": 155
+  },
+  "features": [
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Scout",
+    "Reveal Stealth",
+    "Rear Line",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Scout",
+    "Reveal Stealth",
+    "Rear Line"
+  ],
+  "combatProperties": {
+    "attack": {},
+    "defense": {},
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

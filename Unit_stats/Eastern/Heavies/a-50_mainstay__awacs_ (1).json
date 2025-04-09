@@ -1,0 +1,55 @@
+{
+  "basic": {
+    "name": "A-50 Mainstay (AWACS)",
+    "description": "Airborne early-warning and control aircraft providing long-range, all-weather radar surveillance. Equipped with powerful sensors these planes can often spot distant enemy airplane, helicopter and armored ground unit movement.",
+    "mobilizationTime": "1 day, 1 hour",
+    "requirements": [
+      "Air Base Lvl. 4",
+      "Arms Industry Lvl. 1",
+      "Research: Stealth Locating System Lvl. 5"
+    ]
+  },
+  "costs": {
+    "resource_2": 850,
+    "resource_3": 575,
+    "resource_6": 950,
+    "resource_20": 3000
+  },
+  "upkeep": {
+    "resource_3": 45,
+    "resource_5": 55,
+    "resource_6": 45,
+    "resource_20": 140
+  },
+  "features": [
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Scout",
+    "Reveal Stealth",
+    "Rear Line",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Scout",
+    "Reveal Stealth",
+    "Rear Line"
+  ],
+  "combatProperties": {
+    "attack": {},
+    "defense": {},
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

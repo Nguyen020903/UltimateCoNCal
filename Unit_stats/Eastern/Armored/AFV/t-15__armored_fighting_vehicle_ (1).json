@@ -1,0 +1,108 @@
+{
+  "basic": {
+    "name": "T-15 (Armored Fighting Vehicle)",
+    "description": "Fighting Vehicles designed to lead an armored offensive across any terrain imaginable. Well armored and armed, these versatile and highly mobile units are the mainstay of any modern ground force.",
+    "mobilizationTime": "1 day, 5 hours",
+    "requirements": [
+      "Army Base Lvl. 2",
+      "Arms Industry Lvl. 1",
+      "Research: Urban Survival Kit Lvl. 7"
+    ]
+  },
+  "costs": {
+    "resource_2": 2100,
+    "resource_3": 1100,
+    "resource_6": 850,
+    "resource_20": 2500
+  },
+  "upkeep": {
+    "resource_2": 100,
+    "resource_3": 70,
+    "resource_5": 70,
+    "resource_20": 180
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Airlift",
+    "NBC Protection",
+    "Deploy Armament",
+    "Front Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Airlift",
+    "NBC Protection",
+    "Deploy Armament",
+    "Front Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 11,
+      "type_4": 7,
+      "type_3": 0.4,
+      "type_7": 3
+    },
+    "defense": {
+      "type_0": 11,
+      "type_4": 7,
+      "type_1": 3,
+      "type_8": 3
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {
+      "terrain_14": "+25%",
+      "terrain_21": "+25%",
+      "terrain_15": "-25%",
+      "terrain_16": "+25%",
+      "terrain_17": "+50%"
+    },
+    "defenseModifiers": {
+      "terrain_13": "+25%",
+      "terrain_14": "+25%",
+      "terrain_21": "+25%",
+      "terrain_16": "+25%",
+      "terrain_17": "+25%"
+    },
+    "speedValues": {
+      "terrain_10": 1.5,
+      "terrain_12": 0.49,
+      "terrain_13": 0.75,
+      "terrain_14": 0.75,
+      "terrain_21": 0.75,
+      "terrain_15": 0.49,
+      "terrain_16": 0.75,
+      "terrain_17": 1.5,
+      "terrain_19": 2.51,
+      "terrain_20": 1.3
+    },
+    "hitPoints": {
+      "terrain_10": 37,
+      "terrain_12": 37,
+      "terrain_13": 37,
+      "terrain_14": 37,
+      "terrain_21": 37,
+      "terrain_15": 37,
+      "terrain_16": 37,
+      "terrain_17": 37,
+      "terrain_19": 12,
+      "terrain_20": 12
+    },
+    "sightRange": {
+      "terrain_10": 25,
+      "terrain_12": 25,
+      "terrain_13": 25,
+      "terrain_14": 25,
+      "terrain_21": 25,
+      "terrain_15": 25,
+      "terrain_16": 25,
+      "terrain_17": 25,
+      "terrain_19": 25,
+      "terrain_20": 25
+    }
+  }
+}

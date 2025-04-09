@@ -1,0 +1,69 @@
+{
+  "basic": {
+    "name": "Su-33 Flanker D (Naval Air Superiority Fighter)",
+    "description": "Carrier-based fighter airplane with the primary role of establishing total air dominance, ensuring friendly naval units in the theatre of operations remain safe from air attacks. Equipped to land on aircraft carriers.",
+    "mobilizationTime": "1 day, 3 hours",
+    "requirements": [
+      "Air Base Lvl. 2",
+      "Arms Industry Lvl. 1",
+      "Research: Su-33 Flanker D Lvl. 2"
+    ]
+  },
+  "costs": {
+    "resource_2": 1250,
+    "resource_3": 625,
+    "resource_6": 1200,
+    "resource_20": 4000
+  },
+  "upkeep": {
+    "resource_3": 55,
+    "resource_5": 55,
+    "resource_6": 50,
+    "resource_20": 150
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Launch Missile",
+    "Front Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Launch Missile",
+    "Front Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 3,
+      "type_4": 2.5,
+      "type_1": 14,
+      "type_8": 11,
+      "type_1004": 15,
+      "type_2": 2.5,
+      "type_7": 1.5
+    },
+    "defense": {
+      "type_1": 14,
+      "type_8": 11,
+      "type_1004": 15
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

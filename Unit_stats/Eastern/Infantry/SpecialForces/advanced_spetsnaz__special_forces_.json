@@ -1,0 +1,113 @@
+{
+  "basic": {
+    "name": "Advanced Spetsnaz (Special Forces)",
+    "description": "Special forces infantry trained in rugged terrain and counter-insurgency missions. These elite warriors are the first on the ground and will not wait to occupy territory - instead moving on to their next kill.\n- Radar Signature Size: NONE",
+    "mobilizationTime": "1 day, 2 hours",
+    "requirements": [
+      "Army Base Lvl. 3",
+      "Air Base Lvl. 1",
+      "Recruiting Office Lvl. 1",
+      "Research: Advanced Spetsnaz Lvl. 3"
+    ]
+  },
+  "costs": {
+    "resource_2": 1350,
+    "resource_3": 1250,
+    "resource_6": 650,
+    "resource_20": 2250
+  },
+  "upkeep": {
+    "resource_1": 90,
+    "resource_3": 65,
+    "resource_5": 50,
+    "resource_20": 105
+  },
+  "features": [
+    "Military Doctrine",
+    "Cannot Conquer",
+    "Stealth Unit",
+    "Airlift",
+    "Scout",
+    "Reveal Stealth",
+    "Storm Position",
+    "NBC Protection",
+    "Deploy Armament",
+    "Air Assault",
+    "Rear Line",
+    "Military Doctrine",
+    "Cannot Conquer",
+    "Stealth Unit",
+    "Airlift",
+    "Scout",
+    "Reveal Stealth",
+    "Storm Position",
+    "NBC Protection",
+    "Deploy Armament",
+    "Air Assault",
+    "Rear Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 11,
+      "type_4": 6,
+      "type_3": 0.2,
+      "type_7": 2
+    },
+    "defense": {
+      "type_0": 7.3,
+      "type_4": 4,
+      "type_1": 1.7,
+      "type_8": 2.7
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {
+      "terrain_12": "+50%",
+      "terrain_13": "+50%",
+      "terrain_15": "+50%"
+    },
+    "defenseModifiers": {
+      "terrain_12": "+25%",
+      "terrain_13": "+25%",
+      "terrain_15": "+25%"
+    },
+    "speedValues": {
+      "terrain_10": 1.5,
+      "terrain_12": 0.75,
+      "terrain_13": 0.75,
+      "terrain_14": 0.75,
+      "terrain_21": 0.75,
+      "terrain_15": 0.75,
+      "terrain_16": 0.75,
+      "terrain_17": 1.5,
+      "terrain_19": 2.51,
+      "terrain_20": 1.3
+    },
+    "hitPoints": {
+      "terrain_10": 20,
+      "terrain_12": 20,
+      "terrain_13": 20,
+      "terrain_14": 20,
+      "terrain_21": 20,
+      "terrain_15": 20,
+      "terrain_16": 20,
+      "terrain_17": 20,
+      "terrain_19": 12,
+      "terrain_20": 12
+    },
+    "sightRange": {
+      "terrain_10": 40,
+      "terrain_12": 50,
+      "terrain_13": 40,
+      "terrain_14": 40,
+      "terrain_21": 40,
+      "terrain_15": 40,
+      "terrain_16": 40,
+      "terrain_17": 40,
+      "terrain_19": 25,
+      "terrain_20": 25
+    }
+  }
+}

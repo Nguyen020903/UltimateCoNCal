@@ -1,0 +1,76 @@
+{
+  "basic": {
+    "name": "Krivak Class (Frigate)",
+    "description": "Agile fleet escort vessel, very effective at creating a solid anti-air envelope around friendly surface units.",
+    "mobilizationTime": "1 day",
+    "requirements": [
+      "Naval Base Lvl. 2",
+      "Arms Industry Lvl. 1",
+      "Research: Krivak Class Lvl. 1"
+    ]
+  },
+  "costs": {
+    "resource_2": 2000,
+    "resource_3": 750,
+    "resource_6": 1100,
+    "resource_20": 1750
+  },
+  "upkeep": {
+    "resource_2": 90,
+    "resource_3": 45,
+    "resource_5": 45,
+    "resource_20": 110
+  },
+  "features": [
+    "Radar Signature",
+    "Cannot Conquer",
+    "Attack Range",
+    "Anti-Air",
+    "Radar Detection",
+    "Center Line",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Attack Range",
+    "Anti-Air",
+    "Radar Detection",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 2,
+      "type_4": 1.5,
+      "type_1": 6,
+      "type_8": 1,
+      "type_1003": 2.5,
+      "type_2": 6,
+      "type_5": 3,
+      "type_3": 1,
+      "type_7": 2
+    },
+    "defense": {
+      "type_1": 6,
+      "type_8": 1,
+      "type_1003": 2.5,
+      "type_2": 6,
+      "type_5": 3
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {
+      "terrain_19": 3.5,
+      "terrain_20": 1.75
+    },
+    "hitPoints": {
+      "terrain_19": 28,
+      "terrain_20": 28
+    },
+    "sightRange": {
+      "terrain_19": 40,
+      "terrain_20": 40
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "basic": {
+    "name": "Albatros Class (Corvette)",
+    "description": "Smallest class of warship in a modern fleet. Often used as coastal or littoral combat vessel, defending shallow water areas against surface and submarine incursion.",
+    "mobilizationTime": "20 hours",
+    "requirements": [
+      "Naval Base Lvl. 2",
+      "Arms Industry Lvl. 1",
+      "Research: Streamlined Mobilization Lvl. 3"
+    ]
+  },
+  "costs": {
+    "resource_1": 1500,
+    "resource_3": 400,
+    "resource_6": 650,
+    "resource_20": 1250
+  },
+  "upkeep": {
+    "resource_1": 100,
+    "resource_3": 50,
+    "resource_5": 50,
+    "resource_20": 115
+  },
+  "features": [
+    "Radar Signature",
+    "Cannot Conquer",
+    "Attack Range",
+    "Radar Detection",
+    "Sonar",
+    "Center Line",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Attack Range",
+    "Radar Detection",
+    "Sonar",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 1.5,
+      "type_4": 1,
+      "type_2": 6,
+      "type_5": 4.5,
+      "type_3": 0.5,
+      "type_7": 2
+    },
+    "defense": {
+      "type_1": 1,
+      "type_8": 1.5,
+      "type_1004": 3.5,
+      "type_2": 6,
+      "type_5": 4.5
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {
+      "terrain_19": 1.75,
+      "terrain_20": 3.5
+    },
+    "hitPoints": {
+      "terrain_19": 23,
+      "terrain_20": 23
+    },
+    "sightRange": {
+      "terrain_19": 40,
+      "terrain_20": 40
+    }
+  }
+}

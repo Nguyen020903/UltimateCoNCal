@@ -1,0 +1,64 @@
+{
+  "basic": {
+    "name": "Ka-50 Black Shark (Attack Helicopter)",
+    "description": "Heavily armed rotary-wing attack aircraft, focussing on hard or heavily armored targets. Usually equipped with auto-cannons and guided anti-tank missiles. Evades Anti Air Missile detection by flying NOE.",
+    "mobilizationTime": "23 hours",
+    "requirements": [
+      "Air Base Lvl. 2",
+      "Arms Industry Lvl. 1",
+      "Research: Ka-50 Black Shark Lvl. 1"
+    ]
+  },
+  "costs": {
+    "resource_2": 900,
+    "resource_3": 400,
+    "resource_6": 750,
+    "resource_20": 3000
+  },
+  "upkeep": {
+    "resource_3": 30,
+    "resource_5": 30,
+    "resource_6": 25,
+    "resource_20": 90
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Rotary Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Front Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Rotary Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Front Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 2.5,
+      "type_4": 7,
+      "type_8": 4,
+      "type_2": 1.5,
+      "type_3": 0.1,
+      "type_7": 2
+    },
+    "defense": {
+      "type_8": 4
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

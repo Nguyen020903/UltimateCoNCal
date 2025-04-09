@@ -1,0 +1,67 @@
+{
+  "basic": {
+    "name": "Yak-141 (Naval Air Superiority Fighter)",
+    "description": "Carrier-based fighter airplane with the primary role of establishing total air dominance, ensuring friendly naval units in the theatre of operations remain safe from air attacks. Equipped to land on aircraft carriers.",
+    "mobilizationTime": "23 hours",
+    "requirements": [
+      "Air Base Lvl. 2",
+      "Arms Industry Lvl. 1",
+      "Research: Yak-141 Lvl. 1"
+    ]
+  },
+  "costs": {
+    "resource_2": 1100,
+    "resource_3": 425,
+    "resource_6": 1000,
+    "resource_20": 3750
+  },
+  "upkeep": {
+    "resource_3": 35,
+    "resource_5": 35,
+    "resource_6": 35,
+    "resource_20": 140
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Front Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Front Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 2,
+      "type_4": 1.5,
+      "type_1": 10,
+      "type_8": 8,
+      "type_1004": 10,
+      "type_2": 1.5,
+      "type_7": 1
+    },
+    "defense": {
+      "type_1": 10,
+      "type_8": 8,
+      "type_1004": 10
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

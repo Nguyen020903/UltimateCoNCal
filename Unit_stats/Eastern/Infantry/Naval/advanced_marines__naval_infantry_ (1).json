@@ -1,0 +1,109 @@
+{
+  "basic": {
+    "name": "Advanced Marines (Naval Infantry)",
+    "description": "Heavy infantry ready to deploy via land or sea in response to a local crisis or flashpoint. Trained in amphibious landings and urban warfare these soldiers bring the fight to the enemy.",
+    "mobilizationTime": "1 day, 2 hours",
+    "requirements": [
+      "Army Base Lvl. 2",
+      "Naval Base Lvl. 2",
+      "Recruiting Office Lvl. 1",
+      "Research: NBC Protection Lvl. 5"
+    ]
+  },
+  "costs": {
+    "resource_1": 850,
+    "resource_2": 800,
+    "resource_3": 1250,
+    "resource_20": 1750
+  },
+  "upkeep": {
+    "resource_1": 80,
+    "resource_3": 65,
+    "resource_5": 45,
+    "resource_20": 100
+  },
+  "features": [
+    "Radar Signature",
+    "Conquer Territory",
+    "Airlift",
+    "Amphibious",
+    "NBC Protection",
+    "Deploy Armament",
+    "Center Line",
+    "Radar Signature",
+    "Conquer Territory",
+    "Airlift",
+    "Amphibious",
+    "NBC Protection",
+    "Deploy Armament",
+    "Center Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 8,
+      "type_4": 4,
+      "type_3": 0.2,
+      "type_7": 2
+    },
+    "defense": {
+      "type_0": 4.6,
+      "type_4": 2.3,
+      "type_1": 1.5,
+      "type_8": 1.2
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {
+      "terrain_12": "-50%",
+      "terrain_14": "+50%",
+      "terrain_21": "+50%",
+      "terrain_15": "-25%",
+      "terrain_16": "-50%"
+    },
+    "defenseModifiers": {
+      "terrain_12": "-25%",
+      "terrain_13": "+25%",
+      "terrain_14": "+25%",
+      "terrain_21": "+25%",
+      "terrain_16": "-50%"
+    },
+    "speedValues": {
+      "terrain_10": 1.5,
+      "terrain_12": 0.49,
+      "terrain_13": 0.75,
+      "terrain_14": 0.75,
+      "terrain_21": 0.75,
+      "terrain_15": 0.49,
+      "terrain_16": 0.75,
+      "terrain_17": 1.5,
+      "terrain_19": 2.51,
+      "terrain_20": 1.3
+    },
+    "hitPoints": {
+      "terrain_10": 25,
+      "terrain_12": 25,
+      "terrain_13": 25,
+      "terrain_14": 25,
+      "terrain_21": 25,
+      "terrain_15": 25,
+      "terrain_16": 25,
+      "terrain_17": 25,
+      "terrain_19": 12,
+      "terrain_20": 12
+    },
+    "sightRange": {
+      "terrain_10": 25,
+      "terrain_12": 35,
+      "terrain_13": 25,
+      "terrain_14": 25,
+      "terrain_21": 25,
+      "terrain_15": 25,
+      "terrain_16": 25,
+      "terrain_17": 25,
+      "terrain_19": 25,
+      "terrain_20": 25
+    }
+  }
+}

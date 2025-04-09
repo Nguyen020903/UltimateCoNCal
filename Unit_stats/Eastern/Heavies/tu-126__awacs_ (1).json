@@ -1,0 +1,51 @@
+{
+  "basic": {
+    "name": "Tu-126 (AWACS)",
+    "description": "Airborne early-warning and control aircraft providing long-range, all-weather radar surveillance. Equipped with powerful sensors these planes can often spot distant enemy airplane, helicopter and armored ground unit movement.",
+    "mobilizationTime": "21 hours",
+    "requirements": [
+      "Air Base Lvl. 4",
+      "Arms Industry Lvl. 1",
+      "Research: Reinforced Airframe Lvl. 2"
+    ]
+  },
+  "costs": {
+    "resource_2": 750,
+    "resource_3": 400,
+    "resource_6": 700,
+    "resource_20": 2500
+  },
+  "upkeep": {
+    "resource_3": 30,
+    "resource_5": 30,
+    "resource_6": 30,
+    "resource_20": 80
+  },
+  "features": [
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Rear Line",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Rear Line"
+  ],
+  "combatProperties": {
+    "attack": {},
+    "defense": {},
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

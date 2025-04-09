@@ -1,0 +1,67 @@
+{
+  "basic": {
+    "name": "MiG-35 Super Fulcrum (Air Superiority Fighter)",
+    "description": "Fixed-wing combat aircraft with the primary role of establishing total air dominance, ensuring friendly ground units in the theatre of operations remain safe from air attacks.",
+    "mobilizationTime": "1 day, 2 hours",
+    "requirements": [
+      "Air Base Lvl. 1",
+      "Arms Industry Lvl. 1",
+      "Research: Streamlined Mobilization Lvl. 7"
+    ]
+  },
+  "costs": {
+    "resource_2": 1400,
+    "resource_3": 800,
+    "resource_6": 1250,
+    "resource_20": 5000
+  },
+  "upkeep": {
+    "resource_3": 70,
+    "resource_5": 80,
+    "resource_6": 65,
+    "resource_20": 190
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Launch Missile",
+    "Front Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Fixed Wing Aircraft",
+    "Combat Radius",
+    "Radar Detection",
+    "Launch Missile",
+    "Front Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 4,
+      "type_4": 3.5,
+      "type_1": 18,
+      "type_8": 15,
+      "type_1004": 21,
+      "type_2": 2.5,
+      "type_7": 2
+    },
+    "defense": {
+      "type_1": 18,
+      "type_8": 15,
+      "type_1004": 21
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

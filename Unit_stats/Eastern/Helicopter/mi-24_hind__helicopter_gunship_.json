@@ -1,0 +1,63 @@
+{
+  "basic": {
+    "name": "Mi-24 Hind (Helicopter Gunship)",
+    "description": "Medium armed rotary-wing combat aircraft, focussing on soft or lightly armored targets. Usually equipped with heavy machine guns and missile pods. Evades Anti Air Missile detection by flying NOE.",
+    "mobilizationTime": "1 day, 2 hours",
+    "requirements": [
+      "Air Base Lvl. 1",
+      "Arms Industry Lvl. 1",
+      "Research: Mi-24 Hind Lvl. 4"
+    ]
+  },
+  "costs": {
+    "resource_1": 1000,
+    "resource_3": 500,
+    "resource_6": 900,
+    "resource_20": 3000
+  },
+  "upkeep": {
+    "resource_3": 45,
+    "resource_5": 45,
+    "resource_6": 40,
+    "resource_20": 125
+  },
+  "features": [
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Rotary Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Front Line",
+    "Military Doctrine",
+    "Radar Signature",
+    "Cannot Conquer",
+    "Rotary Wing Aircraft",
+    "Carrier-Based Aircraft",
+    "Combat Radius",
+    "Front Line"
+  ],
+  "combatProperties": {
+    "attack": {
+      "type_0": 9,
+      "type_4": 3,
+      "type_8": 3.5,
+      "type_1004": 4,
+      "type_2": 1.5,
+      "type_7": 1.5
+    },
+    "defense": {
+      "type_8": 3.5,
+      "type_1004": 4
+    },
+    "attackRange": {},
+    "radarRange": {}
+  },
+  "terrain": {
+    "attackModifiers": {},
+    "defenseModifiers": {},
+    "speedValues": {},
+    "hitPoints": {},
+    "sightRange": {}
+  }
+}

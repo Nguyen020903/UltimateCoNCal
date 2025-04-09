@@ -109,65 +109,86 @@ header p {
 }
 
 .battle-conditions {
-    background-color: white;
+    background-color: var(--secondary-bg);
     border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    grid-column: span 2;
-}
-
-.battle-conditions h2 {
-    margin-top: 0;
-    color: #2c3e50;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 10px;
+    padding: 15px;
     margin-bottom: 20px;
 }
 
-.conditions-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+.battle-terrain {
+    display: flex;
+    justify-content: space-between;
     gap: 20px;
-}
-
-.condition-group {
     margin-bottom: 15px;
 }
 
-.condition-group h3 {
+.terrain-column {
+    flex: 1;
+    background-color: var(--primary-bg);
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.terrain-column h3 {
+    color: var(--accent-color);
     margin-top: 0;
-    font-size: 1rem;
-    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.terrain-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
     margin-bottom: 10px;
 }
 
-.radio-option {
-    margin-bottom: 8px;
+.terrain-options label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 
-.radio-option label {
-    margin-left: 5px;
-    cursor: pointer;
+.terrain-options input[type="radio"] {
+    margin-right: 5px;
+}
+
+.terrain-modifier {
+    text-align: center;
+    font-weight: bold;
+    color: var(--text-color);
+    margin-top: 10px;
+}
+
+.error-message {
+    background-color: rgba(255, 87, 87, 0.2);
+    color: #ff5757;
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: bold;
 }
 
 .calculate-button {
     text-align: center;
-    margin: 30px 0;
+    margin-top: 15px;
 }
 
-.calculate-button button {
-    background-color: #2c3e50;
+#calculate-battle {
+    background-color: var(--accent-color);
     color: white;
     border: none;
-    padding: 12px 40px;
+    padding: 10px 20px;
+    border-radius: 6px;
     font-size: 1rem;
-    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.2s;
 }
 
-.calculate-button button:hover {
-    background-color: #1a2633;
+#calculate-battle:hover {
+    background-color: var(--accent-hover);
 }
 
 #battle-outcome {
@@ -452,4 +473,71 @@ header p {
     .stack-details {
         flex-direction: column;
     }
+}
+
+/* Terrain selection styles */
+.terrain-selection {
+    margin-bottom: 20px;
+}
+
+.radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.radio-group input[type="radio"] {
+    display: none;
+}
+
+.radio-group label {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: var(--secondary-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.radio-group input[type="radio"]:checked + label {
+    background-color: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+}
+
+.radio-group label:hover {
+    background-color: var(--hover-color);
+}
+
+.calculate-btn-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+#calculateBtn {
+    padding: 12px 24px;
+    font-size: 16px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#calculateBtn:hover {
+    background-color: var(--hover-color);
+}
+
+/* Modifier display styles */
+.positive-modifier {
+    color: green;
+}
+
+.negative-modifier {
+    color: red;
 }
