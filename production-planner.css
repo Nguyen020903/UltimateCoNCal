@@ -181,6 +181,7 @@ body {
     width: 100%;
     margin-top: 10px;
     font-size: 14px;
+    color: #333;
 }
 
 .unit-details.collapsed {
@@ -192,12 +193,13 @@ body {
     padding: 8px;
     background-color: #f1f2f6;
     border-radius: 4px;
+    color: #333;
 }
 
 .resource-header {
     font-weight: 600;
     margin: 6px 0;
-    color: #34495e;
+    color: #2c3e50;
     border-bottom: 1px solid #ddd;
     padding-bottom: 3px;
 }
@@ -290,6 +292,7 @@ body {
     font-size: 18px;
     padding: 2px 6px;
     border-radius: 4px;
+    color: #555;
 }
 
 .menu-toggle:hover {
@@ -320,10 +323,13 @@ body {
     text-align: left;
     padding: 8px 12px;
     cursor: pointer;
+    color: #333;
+    font-weight: 500;
 }
 
 .action-menu button:hover {
     background-color: #f0f0f0;
+    color: #2980b9;
 }
 
 .resource-summary {
@@ -366,7 +372,7 @@ body {
 
 .resource-label {
     font-weight: 600;
-    color: #7f8c8d;
+    color: #555;
 }
 
 .resource-value {
