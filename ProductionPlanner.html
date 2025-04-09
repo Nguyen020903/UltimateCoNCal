@@ -35,12 +35,12 @@
             </div>
         </div>
 
-        <div class="unit-bank">
+        <div class="unit-bank" style="min-height: 500px; min-width: 300px;">
             <h2>Available Units</h2>
             <!-- Units will be populated by JavaScript -->
         </div>
 
-        <div class="calendar-container" id="calendar">
+        <div class="calendar-container" id="calendar" style="min-height: 500px;">
             <!-- Calendar days will be populated by JavaScript -->
         </div>
 
@@ -68,6 +68,7 @@
                 dayElement.className = 'calendar-day';
                 dayElement.setAttribute('data-day', i);
                 dayElement.innerHTML = `<h3>Day ${i}</h3>`;
+                dayElement.style.minHeight = '150px'; // Add minimum height
                 
                 // Add drag and drop event listeners
                 dayElement.addEventListener('dragover', handleDragOver);
@@ -453,6 +454,14 @@
                 rareMaterials: 0
             };
             
+            const totalUpkeep = {
+                manpower: 0,
+                supplies: 0,
+                fuel: 0,
+                components: 0,
+                rareMaterials: 0
+            };
+            
             productionPlan.forEach(day => {
                 day.units.forEach(unit => {
                     const unitData = unit.unitData;
@@ -463,42 +472,75 @@
                     const levelMultiplier = level || 1;
                     const multiplier = 1 + (levelMultiplier - 1) * 0.25; // 25% increase per level
                     
+                    // Calculate production resources
                     totalResources.manpower += Math.round(unitData.resources.manpower * multiplier) * quantity;
                     totalResources.supplies += Math.round(unitData.resources.supplies * multiplier) * quantity;
                     totalResources.fuel += Math.round(unitData.resources.fuel * multiplier) * quantity;
                     totalResources.components += Math.round(unitData.resources.components * multiplier) * quantity;
                     totalResources.rareMaterials += Math.round(unitData.resources.rareMaterials * multiplier) * quantity;
+                    
+                    // Calculate upkeep
+                    totalUpkeep.manpower += Math.round(unitData.upkeep.manpower * multiplier) * quantity;
+                    totalUpkeep.supplies += Math.round(unitData.upkeep.supplies * multiplier) * quantity;
+                    totalUpkeep.fuel += Math.round(unitData.upkeep.fuel * multiplier) * quantity;
+                    totalUpkeep.components += Math.round(unitData.upkeep.components * multiplier) * quantity;
+                    totalUpkeep.rareMaterials += Math.round(unitData.upkeep.rareMaterials * multiplier) * quantity;
                 });
             });
             
-            return totalResources;
+            return { totalResources, totalUpkeep };
         }
 
         // Format resources for display
-        function formatResources(resources) {
+        function formatResources(resourcesData) {
+            const { totalResources, totalUpkeep } = resourcesData;
             return `
                 <div class="resource-list">
                     <div class="resource-section">
                         <h4>Production Resources</h4>
                         <div class="resource-item">
                             <span class="resource-label">Manpower:</span>
-                            <span class="resource-value">${resources.manpower}</span>
+                            <span class="resource-value">${totalResources.manpower}</span>
                         </div>
                         <div class="resource-item">
                             <span class="resource-label">Supplies:</span>
-                            <span class="resource-value">${resources.supplies}</span>
+                            <span class="resource-value">${totalResources.supplies}</span>
                         </div>
                         <div class="resource-item">
                             <span class="resource-label">Fuel:</span>
-                            <span class="resource-value">${resources.fuel}</span>
+                            <span class="resource-value">${totalResources.fuel}</span>
                         </div>
                         <div class="resource-item">
                             <span class="resource-label">Components:</span>
-                            <span class="resource-value">${resources.components}</span>
+                            <span class="resource-value">${totalResources.components}</span>
                         </div>
                         <div class="resource-item">
                             <span class="resource-label">Rare Materials:</span>
-                            <span class="resource-value">${resources.rareMaterials}</span>
+                            <span class="resource-value">${totalResources.rareMaterials}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="resource-section">
+                        <h4>Daily Upkeep</h4>
+                        <div class="resource-item">
+                            <span class="resource-label">Manpower:</span>
+                            <span class="resource-value">${totalUpkeep.manpower}</span>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-label">Supplies:</span>
+                            <span class="resource-value">${totalUpkeep.supplies}</span>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-label">Fuel:</span>
+                            <span class="resource-value">${totalUpkeep.fuel}</span>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-label">Components:</span>
+                            <span class="resource-value">${totalUpkeep.components}</span>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-label">Rare Materials:</span>
+                            <span class="resource-value">${totalUpkeep.rareMaterials}</span>
                         </div>
                     </div>
                 </div>
@@ -536,9 +578,9 @@
         // Update resource summary
         function updateResourceSummary() {
             const productionPlan = getProductionPlan();
-            const totalResources = calculateTotalResources(productionPlan);
+            const resourcesData = calculateTotalResources(productionPlan);
             
-            document.getElementById('totalResources').innerHTML = formatResources(totalResources);
+            document.getElementById('totalResources').innerHTML = formatResources(resourcesData);
             
             const timeline = generateProductionTimeline(productionPlan);
             
