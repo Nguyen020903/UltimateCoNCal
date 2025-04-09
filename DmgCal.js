@@ -528,7 +528,7 @@ const doctrines = {
     constructor(id, name, type, attack, defense, hp, speed, baseRange) {
         this.id = id;
         this.name = name;
-        this.type = type;
+        this.type = type || 'infantry'; // Default to infantry if no type provided
         this.attack = attack;
         this.defense = defense;
         this.hp = hp;
@@ -597,20 +597,19 @@ const doctrines = {
             const terrainKey = Object.keys(terrainMapping).find(key => 
                 terrainMapping[key] === terrain);
             
-            // Try to get the mapped terrain value from JSON data
-            const mappedTerrain = terrain in this.attackModifiers ? terrain : 
-                (terrainKey && terrainMapping[terrainKey] in this.attackModifiers ? terrainMapping[terrainKey] : null);
-            
-            if (mappedTerrain) {
+            if (terrainKey && this.attackModifiers[terrainKey] !== undefined) {
                 return {
-                    attack: this.attackModifiers[mappedTerrain] || 0,
-                    defense: this.defenseModifiers[mappedTerrain] || 0
+                    attack: this.attackModifiers[terrainKey] || 0,
+                    defense: this.defenseModifiers[terrainKey] || 0
                 };
             }
         }
         
+        // Ensure type is a string and convert to lowercase
+        const unitType = (this.type || '').toLowerCase();
+        
         // Fallback to hardcoded terrain modifiers
-        switch (this.type.toLowerCase()) {
+        switch (unitType) {
             case 'infantry':
                 switch (terrain) {
                     case 'forest':
