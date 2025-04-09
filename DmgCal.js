@@ -2140,74 +2140,51 @@ const doctrines = {
 
   // Function to update terrain modifiers display
   function updateTerrainModifiers() {
-    // Get the selected terrain values
-    const attackerTerrain = document.getElementById('attackerTerrain').value;
-    const defenderTerrain = document.getElementById('defenderTerrain').value;
+    // Get the terrain modifier display element
+    const terrainModifierEl = document.getElementById('terrain-modifier');
     
-    // Get the attacker and defender units
-    const attackerUnit = createUnitFromSelection('attacker');
-    const defenderUnit = createUnitFromSelection('defender');
+    // Get selected terrain values
+    const attackerTerrain = document.querySelector('input[name="attacker-terrain"]:checked').value;
+    const defenderTerrain = document.querySelector('input[name="defender-terrain"]:checked').value;
     
-    if (!attackerUnit || !defenderUnit) {
-        return; // No valid units selected
-    }
+    // Initialize counters
+    let totalAttackerMod = 0;
+    let totalDefenderMod = 0;
+    let attackerUnitCount = 0;
+    let defenderUnitCount = 0;
     
-    // Get the terrain modifier display elements
-    const attackerTerrainModifierElem = document.getElementById('attackerTerrainModifier');
-    const defenderTerrainModifierElem = document.getElementById('defenderTerrainModifier');
+    // Calculate attacker modifiers
+    attackerComp.units.forEach(item => {
+        const mod = item.unit.getStatModifier(attackerTerrain);
+        totalAttackerMod += mod.attack * item.quantity;
+        attackerUnitCount += item.quantity;
+    });
     
-    // Calculate terrain modifiers for attacker and defender
-    let attackerTerrainModifier = 1.0;
-    let defenderTerrainModifier = 1.0;
+    // Calculate defender modifiers
+    defenderComp.units.forEach(item => {
+        const mod = item.unit.getStatModifier(defenderTerrain);
+        totalDefenderMod += mod.defense * item.quantity;
+        defenderUnitCount += item.quantity;
+    });
     
-    // Use getStatModifier method if available
-    if (typeof attackerUnit.getStatModifier === 'function') {
-        attackerTerrainModifier = attackerUnit.getStatModifier(attackerTerrain, 'attack');
-    } else {
-        // Fallback to lookup table
-        attackerTerrainModifier = getTerrainModifier(attackerUnit.type, attackerTerrain, 'attack');
-    }
-    
-    if (typeof defenderUnit.getStatModifier === 'function') {
-        defenderTerrainModifier = defenderUnit.getStatModifier(defenderTerrain, 'defense');
-    } else {
-        // Fallback to lookup table
-        defenderTerrainModifier = getTerrainModifier(defenderUnit.type, defenderTerrain, 'defense');
-    }
+    // Calculate averages
+    const avgAttackerMod = (attackerUnitCount > 0) ? (totalAttackerMod / attackerUnitCount).toFixed(2) : "1.00";
+    const avgDefenderMod = (defenderUnitCount > 0) ? (totalDefenderMod / defenderUnitCount).toFixed(2) : "1.00";
     
     // Update the display
-    if (attackerTerrainModifierElem) {
-        attackerTerrainModifierElem.textContent = (attackerTerrainModifier >= 1.0 ? '+' : '') + 
-            ((attackerTerrainModifier - 1.0) * 100).toFixed(0) + '%';
-            
-        // Update color based on modifier value
-        if (attackerTerrainModifier > 1.0) {
-            attackerTerrainModifierElem.classList.add('positive-modifier');
-            attackerTerrainModifierElem.classList.remove('negative-modifier');
-        } else if (attackerTerrainModifier < 1.0) {
-            attackerTerrainModifierElem.classList.add('negative-modifier');
-            attackerTerrainModifierElem.classList.remove('positive-modifier');
-        } else {
-            attackerTerrainModifierElem.classList.remove('positive-modifier');
-            attackerTerrainModifierElem.classList.remove('negative-modifier');
-        }
+    if (terrainModifierEl) {
+        terrainModifierEl.textContent = `A: ${avgAttackerMod} / D: ${avgDefenderMod}`;
     }
     
-    if (defenderTerrainModifierElem) {
-        defenderTerrainModifierElem.textContent = (defenderTerrainModifier >= 1.0 ? '+' : '') + 
-            ((defenderTerrainModifier - 1.0) * 100).toFixed(0) + '%';
-            
-        // Update color based on modifier value
-        if (defenderTerrainModifier > 1.0) {
-            defenderTerrainModifierElem.classList.add('positive-modifier');
-            defenderTerrainModifierElem.classList.remove('negative-modifier');
-        } else if (defenderTerrainModifier < 1.0) {
-            defenderTerrainModifierElem.classList.add('negative-modifier');
-            defenderTerrainModifierElem.classList.remove('positive-modifier');
-        } else {
-            defenderTerrainModifierElem.classList.remove('positive-modifier');
-            defenderTerrainModifierElem.classList.remove('negative-modifier');
-        }
+    // Update individual terrain modifiers
+    const attackerTerrainMod = document.getElementById('attacker-terrain-mod');
+    const defenderTerrainMod = document.getElementById('defender-terrain-mod');
+    
+    if (attackerTerrainMod) {
+        attackerTerrainMod.textContent = `x${avgAttackerMod}`;
+    }
+    if (defenderTerrainMod) {
+        defenderTerrainMod.textContent = `x${avgDefenderMod}`;
     }
 }
 
