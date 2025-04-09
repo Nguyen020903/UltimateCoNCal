@@ -321,7 +321,7 @@ const doctrines = {
     }
   
     // Add units to the composition
-    addUnit(unit, count) {
+    addUnit(unit, count = 1) {
       this.units.push({ unit, count });
     }
   
@@ -335,6 +335,47 @@ const doctrines = {
         }
       });
       return totalStats;
+    }
+    
+    // Calculate total power for the composition (for battle calculation)
+    calculateTotalPower(terrain, isAttacker) {
+      let totalPower = 0;
+      
+      this.units.forEach(({ unit, count }) => {
+        const stats = unit.getEffectiveStats(terrain);
+        
+        // For ranged units attacking, only consider attack stat
+        if (unit.isRanged && isAttacker) {
+          totalPower += stats.attack * count;
+        } else {
+          // For non-ranged units or defending units, consider both stats
+          if (isAttacker) {
+            totalPower += stats.attack * count;
+          } else {
+            totalPower += stats.defense * count;
+          }
+        }
+      });
+      
+      // Apply overstacking penalty if applicable
+      if (this.isOverstacked()) {
+        totalPower *= 0.7; // 30% reduction
+      }
+      
+      return totalPower;
+    }
+    
+    // Check if the stack is overloaded
+    isOverstacked() {
+      const groundUnits = this.units.filter(item => 
+        ['infantry', 'armored', 'support'].includes(item.unit.type)
+      ).reduce((total, item) => total + item.count, 0);
+      
+      const airNavalUnits = this.units.filter(item => 
+        ['fighter', 'heavy', 'naval', 'submarine', 'helicopter', 'air'].includes(item.unit.type)
+      ).reduce((total, item) => total + item.count, 0);
+      
+      return (groundUnits > 10) || (airNavalUnits > 5);
     }
   }
   
@@ -1077,12 +1118,12 @@ const doctrines = {
       
       if (outcome === 'attacker-advantage') {
           // Attacker wins - defender suffers heavy losses
-          const casualtyRate = Math.min(0.9, Math.max(0.2, 1 - (defenderComp.calculateTotalPower() / attackerComp.calculateTotalPower())));
+          const casualtyRate = Math.min(0.9, Math.max(0.2, 1 - (defenderComp.calculateTotalPower(document.querySelector('input[name="terrain"]:checked').value, false) / attackerComp.calculateTotalPower(document.querySelector('input[name="terrain"]:checked').value, true))));
           defenderLosses = Math.ceil(defenderUnitCount * casualtyRate);
           attackerLosses = Math.ceil(attackerUnitCount * (casualtyRate / 3));
       } else if (outcome === 'defender-advantage') {
           // Defender wins - attacker suffers heavy losses
-          const casualtyRate = Math.min(0.9, Math.max(0.2, 1 - (attackerComp.calculateTotalPower() / defenderComp.calculateTotalPower())));
+          const casualtyRate = Math.min(0.9, Math.max(0.2, 1 - (attackerComp.calculateTotalPower(document.querySelector('input[name="terrain"]:checked').value, true) / defenderComp.calculateTotalPower(document.querySelector('input[name="terrain"]:checked').value, false))));
           attackerLosses = Math.ceil(attackerUnitCount * casualtyRate);
           defenderLosses = Math.ceil(defenderUnitCount * (casualtyRate / 3));
       } else {
@@ -1109,6 +1150,50 @@ const doctrines = {
               <p>Defender: ${defenderCasualties} unit(s) (${Math.round(defenderCasualties/totalDefenderUnits*100)}%)</p>
           </div>
       `;
+  }
+
+  // Function to update terrain modifiers display
+  function updateTerrainModifiers() {
+      const terrain = document.querySelector('input[name="terrain"]:checked').value;
+      const terrainModifierEl = document.getElementById('terrain-modifier');
+      
+      if (!terrainModifierEl) return;
+      
+      // If both stacks are empty, show default terrain modifiers
+      if (attackerStack.length === 0 || defenderStack.length === 0) {
+          // Use the terrain modifiers object directly
+          const attackMod = terrainModifiers[terrain].attackMod.toFixed(2);
+          const defenseMod = terrainModifiers[terrain].defenseMod.toFixed(2);
+          terrainModifierEl.textContent = `A: ${attackMod} / D: ${defenseMod}`;
+          return;
+      }
+      
+      // Calculate average modifiers for attacker and defender stacks
+      let totalAttackerMod = 0;
+      let totalDefenderMod = 0;
+      let attackerUnitCount = 0;
+      let defenderUnitCount = 0;
+      
+      // Process attacker stack
+      attackerStack.forEach(item => {
+          const mod = item.unit.getStatModifier(terrain);
+          totalAttackerMod += mod.attack * item.quantity;
+          attackerUnitCount += item.quantity;
+      });
+      
+      // Process defender stack
+      defenderStack.forEach(item => {
+          const mod = item.unit.getStatModifier(terrain);
+          totalDefenderMod += mod.defense * item.quantity;
+          defenderUnitCount += item.quantity;
+      });
+      
+      // Calculate averages
+      const avgAttackerMod = (attackerUnitCount > 0) ? (totalAttackerMod / attackerUnitCount).toFixed(2) : "1.00";
+      const avgDefenderMod = (defenderUnitCount > 0) ? (totalDefenderMod / defenderUnitCount).toFixed(2) : "1.00";
+      
+      // Update the display
+      terrainModifierEl.textContent = `A: ${avgAttackerMod} / D: ${avgDefenderMod}`;
   }
 
   // Initialize page when DOM is loaded
