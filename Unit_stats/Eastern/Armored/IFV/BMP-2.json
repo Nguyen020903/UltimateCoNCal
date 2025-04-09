@@ -1,0 +1,48 @@
+{
+    "name": "BMP-2",
+    "type": "IFV",
+    "doctrine": "Eastern",
+    "baseStats": {
+        "hp": 10,
+        "speed": 60,
+        "sightRange": 2,
+        "attackValues": {
+            "soft": 4.5,
+            "hard": 3.0,
+            "air": 2.0,
+            "naval": 0
+        },
+        "defenseValues": {
+            "ground": 3.5,
+            "air": 2.0,
+            "naval": 0
+        }
+    },
+    "terrainModifiers": {
+        "attack": {
+            "open": 1.0,
+            "urban": 0.8,
+            "forest": 0.7,
+            "mountain": 0.6,
+            "desert": 0.9
+        },
+        "defense": {
+            "open": 0.8,
+            "urban": 1.2,
+            "forest": 1.1,
+            "mountain": 0.9,
+            "desert": 0.8
+        }
+    },
+    "mobilizationTime": "8 hours",
+    "resources": {
+        "supplies": 80,
+        "manpower": 4,
+        "components": 2
+    },
+    "upkeep": {
+        "supplies": 2,
+        "manpower": 0,
+        "components": 0
+    }
+} 

@@ -1,0 +1,48 @@
+{
+    "name": "T-72",
+    "type": "MBT",
+    "doctrine": "Eastern",
+    "baseStats": {
+        "hp": 15,
+        "speed": 50,
+        "sightRange": 2,
+        "attackValues": {
+            "soft": 6.0,
+            "hard": 8.0,
+            "air": 0,
+            "naval": 0
+        },
+        "defenseValues": {
+            "ground": 7.0,
+            "air": 1.0,
+            "naval": 0
+        }
+    },
+    "terrainModifiers": {
+        "attack": {
+            "open": 1.2,
+            "urban": 0.7,
+            "forest": 0.6,
+            "mountain": 0.5,
+            "desert": 1.0
+        },
+        "defense": {
+            "open": 0.9,
+            "urban": 1.1,
+            "forest": 1.0,
+            "mountain": 0.8,
+            "desert": 0.9
+        }
+    },
+    "mobilizationTime": "12 hours",
+    "resources": {
+        "supplies": 120,
+        "manpower": 3,
+        "components": 4
+    },
+    "upkeep": {
+        "supplies": 3,
+        "manpower": 0,
+        "components": 0
+    }
+} 

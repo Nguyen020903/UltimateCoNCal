@@ -1445,121 +1445,193 @@ const doctrines = {
     return null;
   }
 
+  // Define the available unit types for each doctrine
+  const doctrineUnitTypes = {
+      'Eastern': [
+          'Infantry',
+          'Armored',
+          'Support',
+          'Helicopter',
+          'Fighters',
+          'Heavies',
+          'Naval',
+          'Submarine'
+      ],
+      'Western': [
+          'Infantry',
+          'Armored',
+          'Support',
+          'Helicopter',
+          'Fighters',
+          'Heavies',
+          'Naval',
+          'Submarine'
+      ],
+      'European': [
+          'Infantry',
+          'Armored',
+          'Support',
+          'Helicopter',
+          'Fighters',
+          'Heavies',
+          'Naval',
+          'Submarine'
+      ]
+  };
+
   // Helper function to populate unit type options based on selected doctrine
   function populateUnitTypes(doctrineSelectId, unitTypeSelectId) {
       const doctrineSelect = document.getElementById(doctrineSelectId);
       const unitTypeSelect = document.getElementById(unitTypeSelectId);
-      const doctrine = doctrineSelect.value.toLowerCase(); // Convert to lowercase to match unitData keys
+      const doctrine = doctrineSelect.value;
 
       // Clear existing options
       unitTypeSelect.innerHTML = '<option value="">Select Unit Type</option>';
 
       // Add unit type options
-      if (unitData[doctrine]) {
-          Object.keys(unitData[doctrine]).forEach(unitType => {
+      if (doctrineUnitTypes[doctrine]) {
+          doctrineUnitTypes[doctrine].forEach(unitType => {
               const option = document.createElement('option');
               option.value = unitType;
-              // Capitalize the first letter of each unit type
-              option.textContent = unitType.charAt(0).toUpperCase() + unitType.slice(1);
+              option.textContent = unitType;
               unitTypeSelect.appendChild(option);
           });
-      } else {
-          console.error(`No unit data found for doctrine: ${doctrine}`);
       }
   }
 
-  // Helper function to populate unit options based on selected doctrine and unit type
-  function populateUnits(doctrineSelectId, unitTypeSelectId, unitSelectId) {
+  // Helper function to populate units based on selected doctrine and unit type
+  async function populateUnits(doctrineSelectId, unitTypeSelectId, unitSelectId) {
       const doctrineSelect = document.getElementById(doctrineSelectId);
       const unitTypeSelect = document.getElementById(unitTypeSelectId);
       const unitSelect = document.getElementById(unitSelectId);
       
-      const doctrine = doctrineSelect.value.toLowerCase(); // Convert to lowercase to match unitData keys
+      const doctrine = doctrineSelect.value;
       const unitType = unitTypeSelect.value;
 
       // Clear existing options
       unitSelect.innerHTML = '<option value="">Select Unit</option>';
 
-      // Add unit options
-      if (doctrine && unitType && unitData[doctrine] && unitData[doctrine][unitType]) {
-          const units = unitData[doctrine][unitType];
-          
-          // Units are stored as an object with unit IDs as keys
-          Object.values(units).forEach(unit => {
-              const option = document.createElement('option');
-              option.value = unit.id;
-              option.textContent = unit.name;
-              unitSelect.appendChild(option);
-          });
-      } else {
-          console.error(`No units found for doctrine: ${doctrine}, unit type: ${unitType}`);
+      if (!doctrine || !unitType) return;
+
+      try {
+          // For now, let's add some example units based on what we know exists
+          if (doctrine === 'Eastern' && unitType === 'Armored') {
+              const units = [
+                  { name: 'T-72', type: 'MBT' },
+                  { name: 'BTR-80', type: 'AFV' }
+              ];
+              
+              units.forEach(unit => {
+                  const option = document.createElement('option');
+                  option.value = unit.name;
+                  option.textContent = `${unit.name} (${unit.type})`;
+                  unitSelect.appendChild(option);
+              });
+          }
+          // Add more conditions for other doctrines and unit types as we create them
+      } catch (error) {
+          console.error(`Error loading units for ${doctrine}/${unitType}:`, error);
+      }
+  }
+
+  // Function to load unit data from JSON file
+  async function loadUnitData(doctrine, unitType, unitName) {
+      try {
+          // For now, return hardcoded data for known units
+          if (doctrine === 'Eastern' && unitType === 'Armored') {
+              if (unitName === 'T-72') {
+                  return {
+                      name: 'T-72',
+                      type: 'MBT',
+                      hp: 15,
+                      speed: 50,
+                      sightRange: 2,
+                      attackValues: {
+                          soft: 6.0,
+                          hard: 8.0,
+                          air: 0,
+                          naval: 0
+                      },
+                      defenseValues: {
+                          ground: 7.0,
+                          air: 1.0,
+                          naval: 0
+                      }
+                  };
+              } else if (unitName === 'BTR-80') {
+                  return {
+                      name: 'BTR-80',
+                      type: 'AFV',
+                      hp: 8,
+                      speed: 70,
+                      sightRange: 2,
+                      attackValues: {
+                          soft: 3.5,
+                          hard: 1.5,
+                          air: 1.0,
+                          naval: 0
+                      },
+                      defenseValues: {
+                          ground: 2.5,
+                          air: 1.0,
+                          naval: 0
+                      }
+                  };
+              }
+          }
+          return null;
+      } catch (error) {
+          console.error(`Error loading unit data for ${unitName}:`, error);
+          return null;
       }
   }
 
   // Function to update unit stats display
-  function updateUnitStats(doctrineSelectId, unitTypeSelectId, unitSelectId, unitStatsId) {
-      const doctrineSelect = document.getElementById(doctrineSelectId);
-      const unitTypeSelect = document.getElementById(unitTypeSelectId);
-      const unitSelect = document.getElementById(unitSelectId);
-      const unitStats = document.getElementById(unitStatsId);
-      
-      if (!doctrineSelect || !unitTypeSelect || !unitSelect || !unitStats) {
-          console.error("Missing DOM elements in updateUnitStats");
-          return;
-      }
-      
-      const doctrine = doctrineSelect.value.toLowerCase();
-      const unitType = unitTypeSelect.value;
-      const unitId = unitSelect.value;
+  function updateUnitStats(side, unitData) {
+      const unitStatsDiv = document.getElementById(`${side}UnitStats`);
+      if (!unitStatsDiv || !unitData) return;
 
-      // Clear existing stats
-      unitStats.innerHTML = '';
+      let statsHtml = `
+          <h3>Unit Statistics</h3>
+          <div class="stat-row">
+              <span class="stat-label">Name:</span>
+              <span class="stat-value">${unitData.name}</span>
+          </div>
+          <div class="stat-row">
+              <span class="stat-label">Type:</span>
+              <span class="stat-value">${unitData.type}</span>
+          </div>
+          <div class="stat-row">
+              <span class="stat-label">HP:</span>
+              <span class="stat-value">${unitData.hp}</span>
+          </div>
+          <div class="stat-row">
+              <span class="stat-label">Speed:</span>
+              <span class="stat-value">${unitData.speed} km/h</span>
+          </div>
+          <div class="stat-row">
+              <span class="stat-label">Sight Range:</span>
+              <span class="stat-value">${unitData.sightRange} tiles</span>
+          </div>
+          <h4>Attack Values</h4>
+          ${Object.entries(unitData.attackValues)
+              .map(([key, value]) => `
+                  <div class="stat-row">
+                      <span class="stat-label">${key.charAt(0).toUpperCase() + key.slice(1)}:</span>
+                      <span class="stat-value">${value}</span>
+                  </div>
+              `).join('')}
+          <h4>Defense Values</h4>
+          ${Object.entries(unitData.defenseValues)
+              .map(([key, value]) => `
+                  <div class="stat-row">
+                      <span class="stat-label">${key.charAt(0).toUpperCase() + key.slice(1)}:</span>
+                      <span class="stat-value">${value}</span>
+                  </div>
+              `).join('')}
+      `;
 
-      // Display unit stats if all required values are present and valid
-      if (doctrine && unitType && unitId && 
-          unitData[doctrine] && 
-          unitData[doctrine][unitType]) {
-          
-          // Find the unit by ID in the unit type collection
-          const unit = Object.values(unitData[doctrine][unitType]).find(u => u.id === unitId);
-          
-          if (unit) {
-              // Create stats rows for each attribute
-              const attributes = [
-                  { label: 'Type', value: unitType.charAt(0).toUpperCase() + unitType.slice(1) },
-                  { label: 'Attack', value: unit.attack },
-                  { label: 'Defense', value: unit.defense },
-                  { label: 'HP', value: unit.hp },
-                  { label: 'Speed', value: unit.speed + ' km/h' },
-                  { label: 'Range', value: unit.range + ' tiles' }
-              ];
-
-              // Add special attack values if they exist (for future expansion)
-              if (unit.air_attack) attributes.push({ label: 'Air Attack', value: unit.air_attack });
-              if (unit.armor_attack) attributes.push({ label: 'Armor Attack', value: unit.armor_attack });
-              if (unit.naval_attack) attributes.push({ label: 'Naval Attack', value: unit.naval_attack });
-
-              // Create HTML for each stat row
-              attributes.forEach(attr => {
-                  const statRow = document.createElement('div');
-                  statRow.className = 'stat-row';
-                  
-                  const statLabel = document.createElement('span');
-                  statLabel.className = 'stat-label';
-                  statLabel.textContent = attr.label + ':';
-                  
-                  const statValue = document.createElement('span');
-                  statValue.className = 'stat-value';
-                  statValue.textContent = attr.value;
-                  
-                  statRow.appendChild(statLabel);
-                  statRow.appendChild(statValue);
-                  unitStats.appendChild(statRow);
-              });
-          } else {
-              console.error(`Unit with ID ${unitId} not found in ${doctrine}/${unitType}`);
-          }
-      }
+      unitStatsDiv.innerHTML = statsHtml;
   }
 
   // Function to calculate unit power based on quantity and stats

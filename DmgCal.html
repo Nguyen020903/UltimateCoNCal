@@ -249,14 +249,12 @@
             // Add event listeners for doctrine changes
             attackerDoctrine.addEventListener('change', function() {
                 populateUnitTypes('attackerDoctrine', 'attackerUnitType');
-                // Clear unit dropdown when doctrine changes
-                attackerUnit.innerHTML = '';
+                attackerUnit.innerHTML = '<option value="">Select Unit</option>';
             });
             
             defenderDoctrine.addEventListener('change', function() {
                 populateUnitTypes('defenderDoctrine', 'defenderUnitType');
-                // Clear unit dropdown when doctrine changes
-                defenderUnit.innerHTML = '';
+                defenderUnit.innerHTML = '<option value="">Select Unit</option>';
             });
             
             // Add event listeners for unit type changes
@@ -273,12 +271,28 @@
             populateUnitTypes('defenderDoctrine', 'defenderUnitType');
             
             // Update unit stats when a unit is selected
-            attackerUnit.addEventListener('change', function() {
-                updateUnitStats('attackerDoctrine', 'attackerUnitType', 'attackerUnit', 'attackerUnitStats');
+            attackerUnit.addEventListener('change', async function() {
+                const doctrine = attackerDoctrine.value;
+                const unitType = attackerUnitType.value;
+                const unitName = attackerUnit.value;
+                if (doctrine && unitType && unitName) {
+                    const unitData = await loadUnitData(doctrine, unitType, unitName);
+                    if (unitData) {
+                        updateUnitStats('attacker', unitData);
+                    }
+                }
             });
             
-            defenderUnit.addEventListener('change', function() {
-                updateUnitStats('defenderDoctrine', 'defenderUnitType', 'defenderUnit', 'defenderUnitStats');
+            defenderUnit.addEventListener('change', async function() {
+                const doctrine = defenderDoctrine.value;
+                const unitType = defenderUnitType.value;
+                const unitName = defenderUnit.value;
+                if (doctrine && unitType && unitName) {
+                    const unitData = await loadUnitData(doctrine, unitType, unitName);
+                    if (unitData) {
+                        updateUnitStats('defender', unitData);
+                    }
+                }
             });
         });
     </script>

@@ -1,0 +1,48 @@
+{
+    "name": "BTR-80",
+    "type": "AFV",
+    "doctrine": "Eastern",
+    "baseStats": {
+        "hp": 8,
+        "speed": 70,
+        "sightRange": 2,
+        "attackValues": {
+            "soft": 3.5,
+            "hard": 1.5,
+            "air": 1.0,
+            "naval": 0
+        },
+        "defenseValues": {
+            "ground": 2.5,
+            "air": 1.0,
+            "naval": 0
+        }
+    },
+    "terrainModifiers": {
+        "attack": {
+            "open": 1.1,
+            "urban": 0.9,
+            "forest": 0.8,
+            "mountain": 0.6,
+            "desert": 1.0
+        },
+        "defense": {
+            "open": 0.8,
+            "urban": 1.2,
+            "forest": 1.0,
+            "mountain": 0.9,
+            "desert": 0.9
+        }
+    },
+    "mobilizationTime": "6 hours",
+    "resources": {
+        "supplies": 60,
+        "manpower": 3,
+        "components": 2
+    },
+    "upkeep": {
+        "supplies": 1,
+        "manpower": 0,
+        "components": 0
+    }
+} 
