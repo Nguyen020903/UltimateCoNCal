@@ -95,41 +95,17 @@
                             <input type="radio" name="terrain" value="urban">
                             Urban
                         </label>
-                    </div>
-                </div>
-
-                <div class="condition-group">
-                    <h3>Weather</h3>
-                    <div class="radio-group">
                         <label>
-                            <input type="radio" name="weather" value="clear" checked>
-                            Clear
+                            <input type="radio" name="terrain" value="desert">
+                            Desert
                         </label>
                         <label>
-                            <input type="radio" name="weather" value="rain">
-                            Rain
+                            <input type="radio" name="terrain" value="jungle">
+                            Jungle
                         </label>
                         <label>
-                            <input type="radio" name="weather" value="snow">
-                            Snow
-                        </label>
-                        <label>
-                            <input type="radio" name="weather" value="sandstorm">
-                            Sandstorm
-                        </label>
-                    </div>
-                </div>
-
-                <div class="condition-group">
-                    <h3>Time of Day</h3>
-                    <div class="radio-group">
-                        <label>
-                            <input type="radio" name="time" value="day" checked>
-                            Day
-                        </label>
-                        <label>
-                            <input type="radio" name="time" value="night">
-                            Night
+                            <input type="radio" name="terrain" value="water">
+                            Water
                         </label>
                     </div>
                 </div>
@@ -137,13 +113,13 @@
         </div>
 
         <div class="calculate-button">
-            <button id="calculate-button">Calculate Battle Outcome</button>
+            <button id="calculateBtn">Calculate Battle Outcome</button>
         </div>
 
-        <div class="calculator-section battle-outcome">
+        <div class="calculator-section battle-outcome" id="battle-outcome">
             <div class="outcome-header">
-                <h3>Battle Outcome</h3>
-                <div id="outcomeHeader"></div>
+                <h2>Battle Outcome</h2>
+                <div id="outcomeHeader" class="outcome-header"></div>
                 <div id="outcomeText"></div>
             </div>
             <div class="outcome-details">
@@ -160,20 +136,40 @@
                 <div class="modifiers">
                     <div class="modifier-row">
                         <span class="modifier-label">Terrain Modifier:</span>
-                        <span class="modifier-value" id="terrain-modifier">100%</span>
-                    </div>
-                    <div class="modifier-row">
-                        <span class="modifier-label">Weather Modifier:</span>
-                        <span class="modifier-value" id="weather-modifier">100%</span>
-                    </div>
-                    <div class="modifier-row">
-                        <span class="modifier-label">Time Modifier:</span>
-                        <span class="modifier-value" id="time-modifier">100%</span>
+                        <span class="modifier-value" id="terrain-modifier">A: 1.00 / D: 1.00</span>
                     </div>
                 </div>
             </div>
-            <div id="battle-outcome"></div>
         </div>
+        
+        <div class="calculator-section damage-explanation">
+            <h2>Damage Calculation System</h2>
+            <div class="explanation-content">
+                <h3>How Damage Is Calculated</h3>
+                <ol>
+                    <li><strong>Unit Weight</strong>: Each unit has a weight value that determines how much damage it absorbs in a stack.</li>
+                    <li><strong>Armor Type</strong>: Units are classified as "soft" (infantry) or "hard" (vehicles, armor) and take damage accordingly.</li>
+                    <li><strong>RNG Factor</strong>: A random factor (80-120%) is applied to final damage.</li>
+                    <li><strong>Overkill Rules</strong>: Units can only take ~33% of their HP in damage unless specific conditions are met.</li>
+                    <li><strong>HP Scaling</strong>: Units deal less damage as their HP decreases.</li>
+                    <li><strong>Ranged Combat</strong>: Artillery and naval units attack without receiving return damage.</li>
+                </ol>
+                
+                <h3>Terrain Effects</h3>
+                <ul>
+                    <li><strong>Urban/Forest</strong>: Infantry units get attack and defense bonuses.</li>
+                    <li><strong>Mountains</strong>: Armored vehicles suffer penalties.</li>
+                    <li><strong>Water</strong>: Only naval units can operate effectively.</li>
+                </ul>
+                
+                <h3>Stack Effects</h3>
+                <ul>
+                    <li><strong>Overstacking</strong>: Exceeding 10 ground units or 5 air/naval units reduces effectiveness.</li>
+                    <li><strong>Mixed Units</strong>: Combining different unit types can maximize combat effectiveness.</li>
+                </ul>
+            </div>
+        </div>
+
     </div>
 
     <script src="DmgCal.js"></script>

@@ -34,40 +34,164 @@ const doctrines = {
   
   // Unit Class Definition
   class Unit {
-    constructor(name, type, baseStats, terrainModifiers) {
-      this.name = name; // Unit name
-      this.type = type; // infantry, tank, aircraft, etc.
-      this.baseStats = { ...baseStats }; // { atk, def, speed, hp, sight }
-      this.terrainModifiers = { ...terrainModifiers }; // { plains, forest, mountains, etc. }
-      this.upgradeLevel = 0; // Tracks upgrades
+    constructor(id, name, type, attack, defense, hp, speed, baseRange) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.attack = attack;
+        this.defense = defense;
+        this.hp = hp;
+        this.speed = speed;
+        this.baseRange = baseRange;
+        this.level = 1;
+        this.doctrine = null;
+        
+        // Added properties for damage calculation
+        this.weight = unitWeights[id] || 5; // Default weight 5 if not defined
+        this.classification = unitClassification[id] || 'hard'; // Default hard if not defined
+        this.isRanged = rangedUnits.includes(id);
+        this.currentHP = hp;
+        this.maxHP = hp;
     }
-  
-    // Apply an upgrade to boost stats
-    upgrade() {
-      this.upgradeLevel++;
-      for (const stat in this.baseStats) {
-        this.baseStats[stat] *= 1.1; // 10% improvement per upgrade
-      }
+
+    setDoctrine(doctrine) {
+        this.doctrine = doctrine;
+        return this;
     }
-  
-    // Calculate effective stats based on terrain and doctrine
-    getEffectiveStats(terrain, doctrine) {
-      const terrainModifier = this.terrainModifiers[terrain] || 0;
-      const doctrineEffects = doctrines[doctrine]?.[this.name] || { flat: {}, percent: {} };
-      const effectiveStats = {};
-  
-      for (const stat in this.baseStats) {
-        const baseStat = this.baseStats[stat];
-        const flatModifier = doctrineEffects.flat[stat] || 0;
-        const percentModifier = (doctrineEffects.percent[stat] || 0) / 100;
-        const terrainEffect = baseStat * (terrainModifier / 100);
-  
-        // Final stat = baseStat + terrain effect + flat modifier + percentage-based modifier
-        effectiveStats[stat] =
-          baseStat + terrainEffect + flatModifier + baseStat * percentModifier;
-      }
-  
-      return effectiveStats;
+
+    upgrade(level) {
+        this.level = level;
+        return this;
+    }
+
+    clone() {
+        const clonedUnit = new Unit(
+            this.id,
+            this.name,
+            this.type,
+            this.attack,
+            this.defense,
+            this.hp,
+            this.speed,
+            this.baseRange
+        );
+        clonedUnit.level = this.level;
+        clonedUnit.doctrine = this.doctrine;
+        clonedUnit.weight = this.weight;
+        clonedUnit.classification = this.classification;
+        clonedUnit.isRanged = this.isRanged;
+        clonedUnit.currentHP = this.currentHP;
+        clonedUnit.maxHP = this.maxHP;
+        return clonedUnit;
+    }
+
+    getStatModifier(terrain) {
+        // Default modifiers
+        let attackMod = 1.0;
+        let defenseMod = 1.0;
+
+        // Terrain modifiers
+        if (terrain) {
+            // Apply terrain modifiers based on unit type
+            switch (terrain) {
+                case 'forest':
+                    if (this.type === 'infantry') {
+                        attackMod *= 1.15;
+                        defenseMod *= 1.25;
+                    } else if (this.type === 'armored') {
+                        attackMod *= 0.85;
+                        defenseMod *= 0.85;
+                    }
+                    break;
+                case 'mountains':
+                    if (this.type === 'infantry') {
+                        attackMod *= 1.1;
+                        defenseMod *= 1.2;
+                    } else if (this.type === 'armored') {
+                        attackMod *= 0.7;
+                        defenseMod *= 0.75;
+                    } else if (this.type === 'support') {
+                        attackMod *= 0.85;
+                        defenseMod *= 0.9;
+                    }
+                    break;
+                case 'urban':
+                    if (this.type === 'infantry') {
+                        attackMod *= 1.2;
+                        defenseMod *= 1.3;
+                    } else if (this.type === 'armored') {
+                        attackMod *= 0.9;
+                        defenseMod *= 0.85;
+                    }
+                    break;
+                case 'desert':
+                    // Desert has minimal effect
+                    break;
+                case 'jungle':
+                    if (this.type === 'infantry') {
+                        attackMod *= 1.1;
+                        defenseMod *= 1.2;
+                    } else if (this.type === 'armored') {
+                        attackMod *= 0.8;
+                        defenseMod *= 0.75;
+                    } else if (this.type === 'support') {
+                        attackMod *= 0.9;
+                        defenseMod *= 0.85;
+                    }
+                    break;
+                case 'water':
+                    if (this.type === 'naval' || this.type === 'submarine') {
+                        // Naval units operate normally on water
+                    } else {
+                        // Non-naval units can't fight on water
+                        attackMod *= 0;
+                        defenseMod *= 0;
+                    }
+                    break;
+                case 'plains':
+                default:
+                    // Plains is the base terrain
+                    break;
+            }
+        }
+
+        // Apply doctrine modifiers if applicable
+        if (this.doctrine) {
+            const doctrineModifiers = doctrines[this.doctrine];
+            if (doctrineModifiers) {
+                // Flat modifiers
+                const flatMods = doctrineModifiers.flatModifiers[this.type] || {};
+                if (flatMods.attack) attackMod += flatMods.attack;
+                if (flatMods.defense) defenseMod += flatMods.defense;
+
+                // Percentage modifiers
+                const percentMods = doctrineModifiers.percentageModifiers[this.type] || {};
+                if (percentMods.attack) attackMod *= (1 + percentMods.attack);
+                if (percentMods.defense) defenseMod *= (1 + percentMods.defense);
+            }
+        }
+
+        return {
+            attack: attackMod,
+            defense: defenseMod
+        };
+    }
+
+    getEffectiveStats(terrain) {
+        const modifiers = this.getStatModifier(terrain);
+        const levelMultiplier = 1 + (this.level - 1) * 0.05; // 5% increase per level
+        const hpScaling = this.currentHP / this.maxHP; // HP-based damage scaling
+
+        return {
+            attack: this.attack * modifiers.attack * levelMultiplier * hpScaling,
+            defense: this.defense * modifiers.defense * levelMultiplier,
+            hp: this.currentHP,
+            speed: this.speed,
+            range: this.baseRange,
+            weight: this.weight,
+            classification: this.classification,
+            isRanged: this.isRanged
+        };
     }
   }
   
@@ -104,7 +228,7 @@ const doctrines = {
     calculateTotalStats(terrain) {
       const totalStats = { atk: 0, def: 0, speed: 0, hp: 0, sight: 0 };
       this.units.forEach(({ unit, count }) => {
-        const effectiveStats = unit.getEffectiveStats(terrain, this.doctrine);
+        const effectiveStats = unit.getEffectiveStats(terrain);
         for (const stat in effectiveStats) {
           totalStats[stat] += effectiveStats[stat] * count;
         }
@@ -311,27 +435,13 @@ const doctrines = {
   
   // Terrain modifiers
   const terrainModifiers = {
-      urban: { attackMod: 0.75, defenseMod: 1.5 },
       plains: { attackMod: 1.0, defenseMod: 1.0 },
       forest: { attackMod: 0.8, defenseMod: 1.3 },
-      desert: { attackMod: 1.1, defenseMod: 0.9 },
       mountains: { attackMod: 0.7, defenseMod: 1.8 },
+      urban: { attackMod: 0.75, defenseMod: 1.5 },
+      desert: { attackMod: 1.1, defenseMod: 0.9 },
       jungle: { attackMod: 0.6, defenseMod: 1.6 },
       water: { attackMod: 1.0, defenseMod: 1.0 }
-  };
-  
-  // Weather modifiers
-  const weatherModifiers = {
-      clear: { attackMod: 1.0, defenseMod: 1.0 },
-      rain: { attackMod: 0.9, defenseMod: 1.1 },
-      snow: { attackMod: 0.8, defenseMod: 1.2 },
-      sandstorm: { attackMod: 0.7, defenseMod: 1.3 }
-  };
-  
-  // Time of day modifiers
-  const timeModifiers = {
-      day: { attackMod: 1.0, defenseMod: 1.0 },
-      night: { attackMod: 0.8, defenseMod: 1.1 }
   };
   
   // Helper function to populate unit type options based on selected doctrine
@@ -382,51 +492,58 @@ const doctrines = {
       const unitSelect = document.getElementById(unitSelectId);
       const unitStats = document.getElementById(unitStatsId);
       
+      if (!doctrineSelect || !unitTypeSelect || !unitSelect || !unitStats) {
+          console.error("Missing DOM elements in updateUnitStats");
+          return;
+      }
+      
       const doctrine = doctrineSelect.value;
       const unitType = unitTypeSelect.value;
-      const unitId = unitSelect.value;
+      const unitKey = unitSelect.value;
 
       // Clear existing stats
       unitStats.innerHTML = '';
 
       // Display unit stats
-      if (doctrine && unitType && unitId) {
-          const unit = unitData[doctrine][unitType].find(u => u.id === unitId);
+      if (doctrine && unitType && unitKey && 
+          unitData[doctrine] && 
+          unitData[doctrine][unitType] && 
+          unitData[doctrine][unitType][unitKey]) {
           
-          if (unit) {
-              // Create stats rows for each attribute
-              const attributes = [
-                  { label: 'Type', value: unitType.charAt(0).toUpperCase() + unitType.slice(1) },
-                  { label: 'Attack', value: unit.attack },
-                  { label: 'Defense', value: unit.defense },
-                  { label: 'HP', value: unit.hp },
-                  { label: 'Speed', value: unit.speed + ' km/h' },
-                  { label: 'Range', value: unit.range + ' tiles' }
-              ];
+          const unit = unitData[doctrine][unitType][unitKey];
+          
+          // Create stats rows for each attribute
+          const attributes = [
+              { label: 'Type', value: unitType.charAt(0).toUpperCase() + unitType.slice(1) },
+              { label: 'Attack', value: unit.attack },
+              { label: 'Defense', value: unit.defense },
+              { label: 'HP', value: unit.hp },
+              { label: 'Speed', value: unit.speed + ' km/h' },
+              { label: 'Range', value: unit.range + ' tiles' }
+          ];
 
-              // Add special attack values if they exist
-              if (unit.air_attack) attributes.push({ label: 'Air Attack', value: unit.air_attack });
-              if (unit.armor_attack) attributes.push({ label: 'Armor Attack', value: unit.armor_attack });
-              if (unit.naval_attack) attributes.push({ label: 'Naval Attack', value: unit.naval_attack });
+          // Add special attack values if they exist
+          if (unit.air_attack) attributes.push({ label: 'Air Attack', value: unit.air_attack });
+          if (unit.armor_attack) attributes.push({ label: 'Armor Attack', value: unit.armor_attack });
+          if (unit.naval_attack) attributes.push({ label: 'Naval Attack', value: unit.naval_attack });
 
-              // Create HTML for each stat row
-              attributes.forEach(attr => {
-                  const statRow = document.createElement('div');
-                  statRow.className = 'stat-row';
-                  
-                  const statLabel = document.createElement('span');
-                  statLabel.className = 'stat-label';
-                  statLabel.textContent = attr.label + ':';
-                  
-                  const statValue = document.createElement('span');
-                  statValue.className = 'stat-value';
-                  statValue.textContent = attr.value;
-                  
-                  statRow.appendChild(statLabel);
-                  statRow.appendChild(statValue);
-                  unitStats.appendChild(statRow);
-              });
-          }
+          // Create HTML for each stat row
+          attributes.forEach(attr => {
+              const statRow = document.createElement('div');
+              statRow.className = 'stat-row';
+              
+              const statLabel = document.createElement('span');
+              statLabel.className = 'stat-label';
+              statLabel.textContent = attr.label + ':';
+              
+              const statValue = document.createElement('span');
+              statValue.className = 'stat-value';
+              statValue.textContent = attr.value;
+              
+              statRow.appendChild(statLabel);
+              statRow.appendChild(statValue);
+              unitStats.appendChild(statRow);
+          });
       }
   }
 
@@ -437,48 +554,61 @@ const doctrines = {
       const unitSelect = document.getElementById(unitId);
       const quantityInput = document.getElementById(quantityId);
       
+      if (!doctrineSelect || !unitTypeSelect || !unitSelect || !quantityInput) {
+          console.error("Missing DOM elements in calculateUnitPower");
+          return 0;
+      }
+      
       const doctrine = doctrineSelect.value;
       const unitType = unitTypeSelect.value;
-      const unitId = unitSelect.value;
+      const selectedUnitId = unitSelect.value;
       const quantity = parseInt(quantityInput.value) || 0;
       
       let power = 0;
       
-      if (doctrine && unitType && unitId && quantity > 0) {
-          const unit = unitData[doctrine][unitType].find(u => u.id === unitId);
-          
-          if (unit) {
-              // Use attack value for attacker, defense for defender
-              const statValue = isAttacker ? unit.attack : unit.defense;
-              power = statValue * quantity;
+      if (doctrine && unitType && selectedUnitId && quantity > 0) {
+          if (unitData[doctrine] && unitData[doctrine][unitType]) {
+              const unit = unitData[doctrine][unitType][selectedUnitId];
+              if (unit) {
+                  // Use attack value for attacker, defense for defender
+                  const statValue = isAttacker ? unit.attack : unit.defense;
+                  power = statValue * quantity;
+              }
           }
       }
       
       return power;
   }
-
+  
   // Function to calculate total power with modifiers
-  function calculateTotalPower(basePower, terrain, weather, timeOfDay, isAttacker) {
+  function calculateTotalPower(basePower, terrain, isAttacker) {
       const terrainMod = isAttacker ? terrainModifiers[terrain].attackMod : terrainModifiers[terrain].defenseMod;
-      const weatherMod = isAttacker ? weatherModifiers[weather].attackMod : weatherModifiers[weather].defenseMod;
-      const timeMod = isAttacker ? timeModifiers[timeOfDay].attackMod : timeModifiers[timeOfDay].defenseMod;
-      
-      return basePower * terrainMod * weatherMod * timeMod;
+      return basePower * terrainMod;
   }
 
   // Function to update unit options based on doctrine
   function updateUnitOptions(side) {
       // Get the doctrine value
-      const doctrine = document.getElementById(`${side}Doctrine`).value;
+      const doctrine = document.getElementById(`${side}Doctrine`);
+      
+      if (!doctrine) {
+          console.error(`Missing doctrine element for side: ${side}`);
+          return;
+      }
       
       // Get the unit type select element
       const unitTypeSelect = document.getElementById(`${side}UnitType`);
+      
+      if (!unitTypeSelect) {
+          console.error(`Missing unitTypeSelect element for side: ${side}`);
+          return;
+      }
       
       // Clear existing options
       unitTypeSelect.innerHTML = '<option value="">Select Unit Type</option>';
       
       // Add unit type options from the unitData structure
-      Object.keys(unitData[doctrine]).forEach(unitType => {
+      Object.keys(unitData[doctrine.value]).forEach(unitType => {
           const option = document.createElement('option');
           option.value = unitType;
           // Capitalize the first letter of each unit type
@@ -487,41 +617,58 @@ const doctrines = {
       });
       
       // Clear unit selection since unit type has changed
-      document.getElementById(`${side}Unit`).innerHTML = '<option value="">Select Unit</option>';
+      const unitSelect = document.getElementById(`${side}Unit`);
+      if (unitSelect) {
+          unitSelect.innerHTML = '<option value="">Select Unit</option>';
+      }
       
       // Clear unit stats
-      document.getElementById(`${side}UnitStats`).innerHTML = '';
+      const unitStats = document.getElementById(`${side}UnitStats`);
+      if (unitStats) {
+          unitStats.innerHTML = '';
+      }
   }
   
   // Function to handle unit type selection and update units
   function updateUnits(side) {
       // Get the selected doctrine and unit type
-      const doctrine = document.getElementById(`${side}Doctrine`).value;
-      const unitType = document.getElementById(`${side}UnitType`).value;
-      
-      // Get the unit select element
+      const doctrine = document.getElementById(`${side}Doctrine`);
+      const unitType = document.getElementById(`${side}UnitType`);
       const unitSelect = document.getElementById(`${side}Unit`);
+      
+      if (!doctrine || !unitType || !unitSelect) {
+          console.error(`Missing DOM elements in updateUnits for side: ${side}`);
+          return;
+      }
+      
+      const doctrineValue = doctrine.value;
+      const unitTypeValue = unitType.value;
       
       // Clear existing options
       unitSelect.innerHTML = '<option value="">Select Unit</option>';
       
       // If a unit type is selected, add the corresponding units
-      if (unitType && unitData[doctrine] && unitData[doctrine][unitType]) {
+      if (doctrineValue && unitTypeValue && unitData[doctrineValue] && unitData[doctrineValue][unitTypeValue]) {
           // Get the unit object for this doctrine and unit type
-          const unitTypeObj = unitData[doctrine][unitType];
+          const unitTypeObj = unitData[doctrineValue][unitTypeValue];
           
           // Iterate through each unit and add as an option
-          Object.keys(unitTypeObj).forEach(key => {
-              const unit = unitTypeObj[key];
-              const option = document.createElement('option');
-              option.value = unit.id;
-              option.textContent = unit.name;
-              unitSelect.appendChild(option);
-          });
+          for (const key in unitTypeObj) {
+              if (unitTypeObj.hasOwnProperty(key)) {
+                  const unit = unitTypeObj[key];
+                  const option = document.createElement('option');
+                  option.value = key; // Using the key as the value
+                  option.textContent = unit.name;
+                  unitSelect.appendChild(option);
+              }
+          }
       }
       
       // Clear unit stats
-      document.getElementById(`${side}UnitStats`).innerHTML = '';
+      const unitStats = document.getElementById(`${side}UnitStats`);
+      if (unitStats) {
+          unitStats.innerHTML = '';
+      }
   }
 
   // Helper functions to get modifiers based on conditions
@@ -529,136 +676,189 @@ const doctrines = {
       // Default to the standard attack modifier if no specific type modifiers
       return terrainModifiers[terrain].attackMod;
   }
-  
-  function getWeatherModifier(weather, attackerType, defenderType) {
-      // Default to the standard weather modifier if no specific type modifiers
-      return weatherModifiers[weather].attackMod;
-  }
-  
-  function getTimeModifier(timeOfDay, attackerType, defenderType) {
-      // Default to the standard time modifier if no specific type modifiers
-      return timeModifiers[timeOfDay].attackMod;
-  }
 
   // Function to update battle outcome
   function updateBattleOutcome() {
-      // Get selected terrain, weather, and time of day
+      const attackerUnit = getSelectedUnit('attacker');
+      const defenderUnit = getSelectedUnit('defender');
+      
+      if (!attackerUnit || !defenderUnit) {
+          alert('Please select both attacker and defender units');
+          return;
+      }
+      
+      const attackerQty = parseInt(document.getElementById('attackerQuantity').value) || 1;
+      const defenderQty = parseInt(document.getElementById('defenderQuantity').value) || 1;
+      
       const terrain = document.querySelector('input[name="terrain"]:checked').value;
-      const weather = document.querySelector('input[name="weather"]:checked').value;
-      const timeOfDay = document.querySelector('input[name="time"]:checked').value;
       
-      // Calculate base power for attacker and defender
-      const attackerBasePower = calculateUnitPower('attackerDoctrine', 'attackerUnitType', 'attackerUnit', 'attackerQuantity', true);
-      const defenderBasePower = calculateUnitPower('defenderDoctrine', 'defenderUnitType', 'defenderUnit', 'defenderQuantity', false);
+      const attackerStats = attackerUnit.getEffectiveStats(terrain);
+      const defenderStats = defenderUnit.getEffectiveStats(terrain);
       
-      // Apply modifiers
-      const totalAttackerPower = calculateTotalPower(attackerBasePower, terrain, weather, timeOfDay, true);
-      const totalDefenderPower = calculateTotalPower(defenderBasePower, terrain, weather, timeOfDay, false);
+      const attackerPower = calculateUnitPower('attackerDoctrine', 'attackerUnitType', 'attackerUnit', 'attackerQuantity', true);
+      const defenderPower = calculateUnitPower('defenderDoctrine', 'defenderUnitType', 'defenderUnit', 'defenderQuantity', false);
       
-      // Update power values in the UI
-      document.getElementById('attacker-power').textContent = totalAttackerPower.toFixed(1);
-      document.getElementById('defender-power').textContent = totalDefenderPower.toFixed(1);
+      // Update the power display
+      document.getElementById('attacker-power').textContent = attackerPower.toFixed(2);
+      document.getElementById('defender-power').textContent = defenderPower.toFixed(2);
       
-      // Update modifiers in the UI
-      document.getElementById('terrain-modifier').textContent = 
-          `A: ${terrainModifiers[terrain].attackMod.toFixed(2)} / D: ${terrainModifiers[terrain].defenseMod.toFixed(2)}`;
+      // Update modifiers
+      updateTerrainModifiers();
       
-      document.getElementById('weather-modifier').textContent = 
-          `A: ${weatherModifiers[weather].attackMod.toFixed(2)} / D: ${weatherModifiers[weather].defenseMod.toFixed(2)}`;
-      
-      document.getElementById('time-modifier').textContent = 
-          `A: ${timeModifiers[timeOfDay].attackMod.toFixed(2)} / D: ${timeModifiers[timeOfDay].defenseMod.toFixed(2)}`;
-      
-      // Determine outcome
+      // Calculate outcome
+      const powerRatio = attackerPower / defenderPower;
       const outcomeHeader = document.getElementById('outcomeHeader');
       const outcomeText = document.getElementById('outcomeText');
       
-      if (totalAttackerPower > totalDefenderPower) {
-          outcomeHeader.textContent = 'Victory for Attacker';
-          outcomeHeader.className = 'outcome-header victory';
-          outcomeText.textContent = `The attacker has a ${((totalAttackerPower / totalDefenderPower) * 100 - 100).toFixed(1)}% power advantage.`;
-      } else if (totalDefenderPower > totalAttackerPower) {
-          outcomeHeader.textContent = 'Victory for Defender';
-          outcomeHeader.className = 'outcome-header defeat';
-          outcomeText.textContent = `The defender has a ${((totalDefenderPower / totalAttackerPower) * 100 - 100).toFixed(1)}% power advantage.`;
-      } else {
-          outcomeHeader.textContent = 'Stalemate';
-          outcomeHeader.className = 'outcome-header stalemate';
-          outcomeText.textContent = 'The forces are evenly matched.';
-      }
-  }
-
-  // Function to initialize event listeners
-  function initializeCalculator() {
-      // Doctrine change events
-      document.getElementById('attackerDoctrine').addEventListener('change', function() {
-          updateUnitOptions('attacker');
-      });
+      // Clear previous classes
+      outcomeHeader.className = 'outcome-header';
       
-      document.getElementById('defenderDoctrine').addEventListener('change', function() {
-          updateUnitOptions('defender');
-      });
-      
-      // Unit type change events
-      document.getElementById('attackerUnitType').addEventListener('change', function() {
-          updateUnits('attacker');
-      });
-      
-      document.getElementById('defenderUnitType').addEventListener('change', function() {
-          updateUnits('defender');
-      });
-      
-      // Unit selection change events
-      document.getElementById('attackerUnit').addEventListener('change', function() {
-          updateUnitStats('attackerDoctrine', 'attackerUnitType', 'attackerUnit', 'attackerUnitStats');
-      });
-      
-      document.getElementById('defenderUnit').addEventListener('change', function() {
-          updateUnitStats('defenderDoctrine', 'defenderUnitType', 'defenderUnit', 'defenderUnitStats');
-      });
-      
-      // Quantity change events
-      document.getElementById('attackerQuantity').addEventListener('input', updateBattleOutcome);
-      document.getElementById('defenderQuantity').addEventListener('input', updateBattleOutcome);
-      
-      // Battle condition change events
-      document.querySelectorAll('input[name="terrain"], input[name="weather"], input[name="time"]').forEach(input => {
-          input.addEventListener('change', updateBattleOutcome);
-      });
-      
-      // Add calculate button event listener if it exists
-      const calculateButton = document.getElementById('calculate-button');
-      if (calculateButton) {
-          calculateButton.addEventListener('click', calculateBattle);
-      }
-      
-      // Initialize unit options for both sides
-      updateUnitOptions('attacker');
-      updateUnitOptions('defender');
-  }
-
-  // Initialize the calculator when the DOM is loaded
-  document.addEventListener('DOMContentLoaded', function() {
-      initializeCalculator();
-  });
-
-  // Function to calculate battle outcome when button is clicked
-  function calculateBattle() {
-      // Just call updateBattleOutcome which already has all the logic
-      updateBattleOutcome();
-      
-      // Show a more detailed view in the battle-outcome div
-      const battleOutcomeElement = document.getElementById('battle-outcome');
-      if (battleOutcomeElement) {
-          const attackerUnit = document.getElementById('attackerUnit').options[document.getElementById('attackerUnit').selectedIndex].text;
-          const defenderUnit = document.getElementById('defenderUnit').options[document.getElementById('defenderUnit').selectedIndex].text;
-          const attackerPower = document.getElementById('attacker-power').textContent;
-          const defenderPower = document.getElementById('defender-power').textContent;
+      if (powerRatio > 1.5) {
+          outcomeHeader.classList.add('attacker-advantage');
+          outcomeHeader.textContent = 'Attacker Victory';
+          const casualtyRate = Math.min(0.9, Math.max(0.2, 1 - (defenderPower / attackerPower)));
+          const defenderLosses = Math.ceil(defenderQty * casualtyRate);
+          const attackerLosses = Math.ceil(attackerQty * (casualtyRate / 3));
           
-          battleOutcomeElement.innerHTML = `
-              <h3>Battle Analysis</h3>
-              <p>${attackerUnit} (Power: ${attackerPower}) vs ${defenderUnit} (Power: ${defenderPower})</p>
-              <p>For a more detailed analysis, please check the power comparison above.</p>
+          outcomeText.innerHTML = `
+              <div class="casualties">
+                  <p>Estimated casualties:</p>
+                  <p>Attacker: ${attackerLosses} unit(s)</p>
+                  <p>Defender: ${defenderLosses} unit(s)</p>
+              </div>
+          `;
+      } else if (powerRatio < 0.67) {
+          outcomeHeader.classList.add('defender-advantage');
+          outcomeHeader.textContent = 'Defender Victory';
+          const casualtyRate = Math.min(0.9, Math.max(0.2, 1 - (attackerPower / defenderPower)));
+          const attackerLosses = Math.ceil(attackerQty * casualtyRate);
+          const defenderLosses = Math.ceil(defenderQty * (casualtyRate / 3));
+          
+          outcomeText.innerHTML = `
+              <div class="casualties">
+                  <p>Estimated casualties:</p>
+                  <p>Attacker: ${attackerLosses} unit(s)</p>
+                  <p>Defender: ${defenderLosses} unit(s)</p>
+              </div>
+          `;
+      } else {
+          outcomeHeader.classList.add('balanced');
+          outcomeHeader.textContent = 'Balanced Battle';
+          const casualtyRate = Math.min(0.6, Math.max(0.3, 0.45));
+          const attackerLosses = Math.ceil(attackerQty * casualtyRate);
+          const defenderLosses = Math.ceil(defenderQty * casualtyRate);
+          
+          outcomeText.innerHTML = `
+              <div class="casualties">
+                  <p>Estimated casualties:</p>
+                  <p>Attacker: ${attackerLosses} unit(s)</p>
+                  <p>Defender: ${defenderLosses} unit(s)</p>
+              </div>
           `;
       }
+      
+      // Display the outcome section
+      document.getElementById('battle-outcome').style.display = 'block';
   }
+
+  // Function to handle the Calculate button click
+  function calculateBattle() {
+      const battleOutcomeElement = document.getElementById('battle-outcome');
+      const attackerUnitSelect = document.getElementById('attackerUnit');
+      const defenderUnitSelect = document.getElementById('defenderUnit');
+      
+      // Check if units are selected
+      if (!attackerUnitSelect || !attackerUnitSelect.value || 
+          !defenderUnitSelect || !defenderUnitSelect.value) {
+          alert("Please select both attacker and defender units");
+          return;
+      }
+      
+      // Show the battle outcome section
+      battleOutcomeElement.style.display = 'block';
+      
+      // Update all calculations
+      updateBattleOutcome();
+      
+      // Scroll to battle outcome
+      battleOutcomeElement.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // Initialize page when DOM is loaded
+  document.addEventListener('DOMContentLoaded', function() {
+      // Initialize terrain radio buttons
+      const defaultTerrain = document.querySelector('input[name="terrain"][value="plains"]');
+      if (defaultTerrain) {
+          defaultTerrain.checked = true;
+      }
+      
+      // Set up event listeners for attacker side
+      const attackerDoctrine = document.getElementById('attackerDoctrine');
+      if (attackerDoctrine) {
+          attackerDoctrine.addEventListener('change', function() {
+              updateUnitOptions('attacker');
+          });
+      }
+      
+      const attackerUnitType = document.getElementById('attackerUnitType');
+      if (attackerUnitType) {
+          attackerUnitType.addEventListener('change', function() {
+              updateUnits('attacker');
+          });
+      }
+      
+      const attackerUnit = document.getElementById('attackerUnit');
+      if (attackerUnit) {
+          attackerUnit.addEventListener('change', function() {
+              updateUnitStats('attackerDoctrine', 'attackerUnitType', 'attackerUnit', 'attackerUnitStats');
+          });
+      }
+      
+      // Set up event listeners for defender side
+      const defenderDoctrine = document.getElementById('defenderDoctrine');
+      if (defenderDoctrine) {
+          defenderDoctrine.addEventListener('change', function() {
+              updateUnitOptions('defender');
+          });
+      }
+      
+      const defenderUnitType = document.getElementById('defenderUnitType');
+      if (defenderUnitType) {
+          defenderUnitType.addEventListener('change', function() {
+              updateUnits('defender');
+          });
+      }
+      
+      const defenderUnit = document.getElementById('defenderUnit');
+      if (defenderUnit) {
+          defenderUnit.addEventListener('change', function() {
+              updateUnitStats('defenderDoctrine', 'defenderUnitType', 'defenderUnit', 'defenderUnitStats');
+          });
+      }
+      
+      // Set up Calculate button
+      const calculateBtn = document.getElementById('calculateBtn');
+      if (calculateBtn) {
+          calculateBtn.addEventListener('click', calculateBattle);
+      }
+      
+      // Set up terrain radio buttons
+      const terrainRadios = document.querySelectorAll('input[name="terrain"]');
+      terrainRadios.forEach(radio => {
+          radio.addEventListener('change', function() {
+              if (document.getElementById('battle-outcome').style.display === 'block') {
+                  updateBattleOutcome();
+              }
+          });
+      });
+      
+      // Hide battle outcome initially
+      const battleOutcome = document.getElementById('battle-outcome');
+      if (battleOutcome) {
+          battleOutcome.style.display = 'none';
+      }
+      
+      // Initialize unit options
+      updateUnitOptions('attacker');
+      updateUnitOptions('defender');
+  });
