@@ -287,15 +287,44 @@
                     </div>
                 </div>
                 <div class="unit-actions">
-                    <button onclick="toggleUnitDetails(this.parentElement.parentElement)">Details</button>
-                    <button onclick="editUnitQuantity(this.parentElement.parentElement)">Edit</button>
-                    <button onclick="this.parentElement.parentElement.remove(); updateResourceSummary()">Remove</button>
+                    <button class="menu-toggle" onclick="toggleActionMenu(this)">⋮</button>
+                    <div class="action-menu collapsed">
+                        <button onclick="toggleUnitDetails(this.parentElement.parentElement.parentElement)">Details</button>
+                        <button onclick="editUnitQuantity(this.parentElement.parentElement.parentElement)">Edit</button>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove(); updateResourceSummary()">Remove</button>
+                    </div>
                 </div>
             `;
             
             dayElement.appendChild(unitCard);
             dialog.remove();
             updateResourceSummary();
+        }
+
+        function toggleActionMenu(button) {
+            const actionMenu = button.nextElementSibling;
+            actionMenu.classList.toggle('collapsed');
+            
+            // Close any other open menus
+            const allMenus = document.querySelectorAll('.action-menu:not(.collapsed)');
+            allMenus.forEach(menu => {
+                if (menu !== actionMenu) {
+                    menu.classList.add('collapsed');
+                }
+            });
+            
+            // Add a click outside listener to close the menu
+            if (!actionMenu.classList.contains('collapsed')) {
+                setTimeout(() => {
+                    const closeMenu = (e) => {
+                        if (!actionMenu.contains(e.target) && e.target !== button) {
+                            actionMenu.classList.add('collapsed');
+                            document.removeEventListener('click', closeMenu);
+                        }
+                    };
+                    document.addEventListener('click', closeMenu);
+                }, 0);
+            }
         }
 
         function toggleUnitDetails(unitCard) {
@@ -636,9 +665,12 @@
                                 </div>
                             </div>
                             <div class="unit-actions">
-                                <button onclick="toggleUnitDetails(this.parentElement.parentElement)">Details</button>
-                                <button onclick="editUnitQuantity(this.parentElement.parentElement)">Edit</button>
-                                <button onclick="this.parentElement.parentElement.remove(); updateResourceSummary()">Remove</button>
+                                <button class="menu-toggle" onclick="toggleActionMenu(this)">⋮</button>
+                                <div class="action-menu collapsed">
+                                    <button onclick="toggleUnitDetails(this.parentElement.parentElement.parentElement)">Details</button>
+                                    <button onclick="editUnitQuantity(this.parentElement.parentElement.parentElement)">Edit</button>
+                                    <button onclick="this.parentElement.parentElement.parentElement.remove(); updateResourceSummary()">Remove</button>
+                                </div>
                             </div>
                         `;
                         
