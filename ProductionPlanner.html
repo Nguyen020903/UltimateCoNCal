@@ -207,6 +207,7 @@
             // Create dialog container
             const dialog = document.createElement('div');
             dialog.className = 'quantity-dialog';
+            dialog.setAttribute('data-day', dayElement.getAttribute('data-day'));
             
             // Create dialog content
             dialog.innerHTML = `
@@ -223,14 +224,23 @@
                         <input type="number" id="quantity" value="1" min="1" max="100">
                     </div>
                     <div class="dialog-buttons">
-                        <button onclick="addUnitToDay(this.parentElement.parentElement.parentElement, ${JSON.stringify(unitData)}, ${level})">Add</button>
-                        <button onclick="this.parentElement.parentElement.parentElement.remove()">Cancel</button>
+                        <button class="add-btn">Add</button>
+                        <button class="cancel-btn">Cancel</button>
                     </div>
                 </div>
             `;
             
             // Add dialog to the page
             document.body.appendChild(dialog);
+            
+            // Add event listeners for buttons
+            dialog.querySelector('.add-btn').addEventListener('click', function() {
+                addUnitToDay(dialog, unitData, level);
+            });
+            
+            dialog.querySelector('.cancel-btn').addEventListener('click', function() {
+                dialog.remove();
+            });
             
             // Focus on the quantity input
             setTimeout(() => {
@@ -240,8 +250,8 @@
 
         function addUnitToDay(dialog, unitData, level) {
             const quantity = parseInt(document.getElementById('quantity').value);
-            const dayElement = document.querySelector('.calendar-day.dragover') || 
-                              document.querySelector(`.calendar-day[data-day="${dialog.getAttribute('data-day')}]`);
+            const dayNumber = dialog.getAttribute('data-day');
+            const dayElement = document.querySelector(`.calendar-day[data-day="${dayNumber}"]`);
             
             if (!dayElement) {
                 dialog.remove();
@@ -291,7 +301,6 @@
         function toggleUnitDetails(unitCard) {
             const detailsElement = unitCard.querySelector('.unit-details');
             detailsElement.classList.toggle('collapsed');
-            
             const button = unitCard.querySelector('.unit-actions button:first-child');
             button.textContent = detailsElement.classList.contains('collapsed') ? 'Details' : 'Hide';
         }
@@ -300,6 +309,11 @@
             const unitData = JSON.parse(unitCard.getAttribute('data-unit'));
             const currentQuantity = parseInt(unitCard.getAttribute('data-quantity'));
             const currentLevel = parseInt(unitCard.getAttribute('data-level'));
+            
+            // Generate a unique ID for the unit card if it doesn't have one
+            if (!unitCard.id) {
+                unitCard.id = 'unit-' + Math.random().toString(36).substr(2, 9);
+            }
             
             // Create dialog container
             const dialog = document.createElement('div');
@@ -317,12 +331,12 @@
                     </div>
                     <div class="edit-controls">
                         <div class="quantity-selector">
-                            <label for="quantity">Quantity:</label>
-                            <input type="number" id="quantity" value="${currentQuantity}" min="1" max="100">
+                            <label for="edit-quantity">Quantity:</label>
+                            <input type="number" id="edit-quantity" value="${currentQuantity}" min="1" max="100">
                         </div>
                         <div class="level-selector">
-                            <label for="level">Level:</label>
-                            <select id="level">
+                            <label for="edit-level">Level:</label>
+                            <select id="edit-level">
                                 <option value="1" ${currentLevel === 1 ? 'selected' : ''}>Level 1</option>
                                 <option value="2" ${currentLevel === 2 ? 'selected' : ''}>Level 2</option>
                                 <option value="3" ${currentLevel === 3 ? 'selected' : ''}>Level 3</option>
@@ -330,29 +344,35 @@
                         </div>
                     </div>
                     <div class="dialog-buttons">
-                        <button onclick="updateUnitQuantity(this.parentElement.parentElement.parentElement, ${JSON.stringify(unitData)}, '${unitCard.id}')">Update</button>
-                        <button onclick="this.parentElement.parentElement.parentElement.remove()">Cancel</button>
+                        <button class="update-btn">Update</button>
+                        <button class="cancel-btn">Cancel</button>
                     </div>
                 </div>
             `;
             
-            // Generate a unique ID for the unit card if it doesn't have one
-            if (!unitCard.id) {
-                unitCard.id = 'unit-' + Math.random().toString(36).substr(2, 9);
-            }
-            
             // Add dialog to the page
             document.body.appendChild(dialog);
             
+            // Add event listeners for buttons
+            const unitCardId = unitCard.id;
+            dialog.querySelector('.update-btn').addEventListener('click', function() {
+                updateUnitQuantity(dialog, unitData, unitCardId);
+            });
+            
+            dialog.querySelector('.cancel-btn').addEventListener('click', function() {
+                dialog.remove();
+            });
+            
             // Focus on the quantity input
             setTimeout(() => {
-                document.getElementById('quantity').focus();
+                document.getElementById('edit-quantity').focus();
             }, 100);
         }
 
         function updateUnitQuantity(dialog, unitData, unitCardId) {
-            const quantity = parseInt(document.getElementById('quantity').value);
-            const level = parseInt(document.getElementById('level').value);
+            const quantity = parseInt(document.getElementById('edit-quantity').value);
+            const level = parseInt(document.getElementById('edit-level').value);
+            
             const unitCard = document.getElementById(unitCardId);
             
             if (!unitCard) {
@@ -488,9 +508,11 @@
         function updateResourceSummary() {
             const productionPlan = getProductionPlan();
             const totalResources = calculateTotalResources(productionPlan);
+            
             document.getElementById('totalResources').innerHTML = formatResources(totalResources);
             
             const timeline = generateProductionTimeline(productionPlan);
+            
             document.getElementById('productionTimeline').innerHTML = formatTimeline(timeline);
         }
 
@@ -500,6 +522,7 @@
             
             days.forEach(day => {
                 const dayNumber = parseInt(day.getAttribute('data-day'));
+                
                 const units = Array.from(day.querySelectorAll('.unit-card')).map(card => {
                     const unitData = JSON.parse(card.getAttribute('data-unit'));
                     const quantity = parseInt(card.getAttribute('data-quantity')) || 1;
@@ -524,7 +547,7 @@
             if (timeline.length === 0) {
                 return '<p>No units in production</p>';
             }
-
+            
             return timeline.map(item => `
                 <div class="timeline-item">
                     <p>${item.unit} (${item.quantity}x) - Level ${item.level}</p>
