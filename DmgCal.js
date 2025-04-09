@@ -528,7 +528,8 @@ const doctrines = {
     constructor(id, name, type, attack, defense, hp, speed, baseRange) {
         this.id = id;
         this.name = name;
-        this.type = type || 'infantry'; // Default to infantry if no type provided
+        // Ensure type is a string and normalize it
+        this.type = String(type || 'infantry').toLowerCase();
         this.attack = attack;
         this.defense = defense;
         this.hp = hp;
@@ -605,11 +606,8 @@ const doctrines = {
             }
         }
         
-        // Ensure type is a string and convert to lowercase
-        const unitType = (this.type || '').toLowerCase();
-        
-        // Fallback to hardcoded terrain modifiers
-        switch (unitType) {
+        // No need to call toLowerCase() since we normalized it in constructor
+        switch (this.type) {
             case 'infantry':
                 switch (terrain) {
                     case 'forest':
@@ -1446,7 +1444,7 @@ const doctrines = {
 
   // Define the available unit types for each doctrine
   const doctrineUnitTypes = {
-      'Eastern': [
+      'western': [
           'Infantry',
           'Armored',
           'Support',
@@ -1456,7 +1454,7 @@ const doctrines = {
           'Naval',
           'Submarine'
       ],
-      'Western': [
+      'eastern': [
           'Infantry',
           'Armored',
           'Support',
@@ -1466,7 +1464,7 @@ const doctrines = {
           'Naval',
           'Submarine'
       ],
-      'European': [
+      'european': [
           'Infantry',
           'Armored',
           'Support',
@@ -1482,7 +1480,7 @@ const doctrines = {
   function populateUnitTypes(doctrineSelectId, unitTypeSelectId) {
       const doctrineSelect = document.getElementById(doctrineSelectId);
       const unitTypeSelect = document.getElementById(unitTypeSelectId);
-      const doctrine = doctrineSelect.value;
+      const doctrine = doctrineSelect.value.toLowerCase(); // Convert to lowercase to match our keys
 
       // Clear existing options
       unitTypeSelect.innerHTML = '<option value="">Select Unit Type</option>';
@@ -1491,8 +1489,8 @@ const doctrines = {
       if (doctrineUnitTypes[doctrine]) {
           doctrineUnitTypes[doctrine].forEach(unitType => {
               const option = document.createElement('option');
-              option.value = unitType;
-              option.textContent = unitType;
+              option.value = unitType.toLowerCase(); // Store lowercase value
+              option.textContent = unitType; // Display original case
               unitTypeSelect.appendChild(option);
           });
       }
