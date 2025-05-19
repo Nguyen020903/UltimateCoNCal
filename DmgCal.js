@@ -733,6 +733,249 @@ const doctrines = {
     // Add more units as needed
   ];
   
+  // --- Unified Infantry Level/Tier Logic for All Doctrines ---
+  // Map level to tier for infantry units
+  function getInfantryTier(level) {
+      if (level === 1) return 'basic';
+      if (level === 2) return 'basic(1)';
+      if (level === 3) return 'advanced';
+      if (level === 4) return 'advanced(1)';
+      if (level === 5) return 'advanced(2)';
+      if (level === 6) return 'modern';
+      return 'basic'; // fallback
+  }
+  
+  // --- Expanded unifiedUnitData for all doctrines and infantry types/levels ---
+  const unifiedUnitData = {
+      western: {
+          infantry: {
+              motorized: {
+                  1: { id: 'w_motorized_1', name: 'Motorized Infantry I', type: 'infantry', attack: 4, defense: 5, hp: 10, speed: 6, range: 1 },
+                  2: { id: 'w_motorized_2', name: 'Motorized Infantry II', type: 'infantry', attack: 5, defense: 6, hp: 12, speed: 6, range: 1 },
+                  3: { id: 'w_motorized_3', name: 'Motorized Infantry III', type: 'infantry', attack: 6, defense: 7, hp: 14, speed: 7, range: 1 },
+                  4: { id: 'w_motorized_4', name: 'Motorized Infantry IV', type: 'infantry', attack: 7, defense: 8, hp: 16, speed: 7, range: 1 },
+                  5: { id: 'w_motorized_5', name: 'Motorized Infantry V', type: 'infantry', attack: 8, defense: 9, hp: 18, speed: 8, range: 1 },
+                  6: { id: 'w_motorized_6', name: 'Motorized Infantry VI', type: 'infantry', attack: 9, defense: 10, hp: 20, speed: 8, range: 1 }
+              },
+              marines: {
+                  1: { id: 'w_marines_1', name: 'Marines I', type: 'infantry', attack: 5, defense: 4, hp: 10, speed: 3, range: 1 },
+                  2: { id: 'w_marines_2', name: 'Marines II', type: 'infantry', attack: 6, defense: 5, hp: 12, speed: 3, range: 1 },
+                  3: { id: 'w_marines_3', name: 'Marines III', type: 'infantry', attack: 7, defense: 6, hp: 14, speed: 4, range: 1 },
+                  4: { id: 'w_marines_4', name: 'Marines IV', type: 'infantry', attack: 8, defense: 7, hp: 16, speed: 4, range: 1 },
+                  5: { id: 'w_marines_5', name: 'Marines V', type: 'infantry', attack: 9, defense: 8, hp: 18, speed: 5, range: 1 },
+                  6: { id: 'w_marines_6', name: 'Marines VI', type: 'infantry', attack: 10, defense: 9, hp: 20, speed: 5, range: 1 }
+              },
+              specialforces: {
+                  1: { id: 'w_specialforces_1', name: 'Special Forces I', type: 'infantry', attack: 7, defense: 3, hp: 10, speed: 4, range: 1 },
+                  2: { id: 'w_specialforces_2', name: 'Special Forces II', type: 'infantry', attack: 8, defense: 4, hp: 12, speed: 4, range: 1 },
+                  3: { id: 'w_specialforces_3', name: 'Special Forces III', type: 'infantry', attack: 9, defense: 5, hp: 14, speed: 5, range: 1 },
+                  4: { id: 'w_specialforces_4', name: 'Special Forces IV', type: 'infantry', attack: 10, defense: 6, hp: 16, speed: 5, range: 1 },
+                  5: { id: 'w_specialforces_5', name: 'Special Forces V', type: 'infantry', attack: 11, defense: 7, hp: 18, speed: 6, range: 1 },
+                  6: { id: 'w_specialforces_6', name: 'Special Forces VI', type: 'infantry', attack: 12, defense: 8, hp: 20, speed: 6, range: 1 }
+              }
+          },
+          // ...other unit types (armored, support, etc.)
+      },
+      eastern: {
+          infantry: {
+              motorized: {
+                  1: { id: 'e_motorized_1', name: 'Motorized Infantry I', type: 'infantry', attack: 5, defense: 4, hp: 10, speed: 6, range: 1 },
+                  2: { id: 'e_motorized_2', name: 'Motorized Infantry II', type: 'infantry', attack: 6, defense: 5, hp: 12, speed: 6, range: 1 },
+                  3: { id: 'e_motorized_3', name: 'Motorized Infantry III', type: 'infantry', attack: 7, defense: 6, hp: 14, speed: 7, range: 1 },
+                  4: { id: 'e_motorized_4', name: 'Motorized Infantry IV', type: 'infantry', attack: 8, defense: 7, hp: 16, speed: 7, range: 1 },
+                  5: { id: 'e_motorized_5', name: 'Motorized Infantry V', type: 'infantry', attack: 9, defense: 8, hp: 18, speed: 8, range: 1 },
+                  6: { id: 'e_motorized_6', name: 'Motorized Infantry VI', type: 'infantry', attack: 10, defense: 9, hp: 20, speed: 8, range: 1 }
+              },
+              marines: {
+                  1: { id: 'e_marines_1', name: 'Naval Infantry I', type: 'infantry', attack: 6, defense: 3, hp: 10, speed: 3, range: 1 },
+                  2: { id: 'e_marines_2', name: 'Naval Infantry II', type: 'infantry', attack: 7, defense: 4, hp: 12, speed: 3, range: 1 },
+                  3: { id: 'e_marines_3', name: 'Naval Infantry III', type: 'infantry', attack: 8, defense: 5, hp: 14, speed: 4, range: 1 },
+                  4: { id: 'e_marines_4', name: 'Naval Infantry IV', type: 'infantry', attack: 9, defense: 6, hp: 16, speed: 4, range: 1 },
+                  5: { id: 'e_marines_5', name: 'Naval Infantry V', type: 'infantry', attack: 10, defense: 7, hp: 18, speed: 5, range: 1 },
+                  6: { id: 'e_marines_6', name: 'Naval Infantry VI', type: 'infantry', attack: 11, defense: 8, hp: 20, speed: 5, range: 1 }
+              },
+              specialforces: {
+                  1: { id: 'e_specialforces_1', name: 'Spetsnaz I', type: 'infantry', attack: 8, defense: 2, hp: 10, speed: 4, range: 1 },
+                  2: { id: 'e_specialforces_2', name: 'Spetsnaz II', type: 'infantry', attack: 9, defense: 3, hp: 12, speed: 4, range: 1 },
+                  3: { id: 'e_specialforces_3', name: 'Spetsnaz III', type: 'infantry', attack: 10, defense: 4, hp: 14, speed: 5, range: 1 },
+                  4: { id: 'e_specialforces_4', name: 'Spetsnaz IV', type: 'infantry', attack: 11, defense: 5, hp: 16, speed: 5, range: 1 },
+                  5: { id: 'e_specialforces_5', name: 'Spetsnaz V', type: 'infantry', attack: 12, defense: 6, hp: 18, speed: 6, range: 1 },
+                  6: { id: 'e_specialforces_6', name: 'Spetsnaz VI', type: 'infantry', attack: 13, defense: 7, hp: 20, speed: 6, range: 1 }
+              }
+          },
+          // ...other unit types (armored, support, etc.)
+      },
+      european: {
+          infantry: {
+              motorized: {
+                  1: { id: 'eu_motorized_1', name: 'Motorized Infantry I', type: 'infantry', attack: 4, defense: 6, hp: 10, speed: 6, range: 1 },
+                  2: { id: 'eu_motorized_2', name: 'Motorized Infantry II', type: 'infantry', attack: 5, defense: 7, hp: 12, speed: 6, range: 1 },
+                  3: { id: 'eu_motorized_3', name: 'Motorized Infantry III', type: 'infantry', attack: 6, defense: 8, hp: 14, speed: 7, range: 1 },
+                  4: { id: 'eu_motorized_4', name: 'Motorized Infantry IV', type: 'infantry', attack: 7, defense: 9, hp: 16, speed: 7, range: 1 },
+                  5: { id: 'eu_motorized_5', name: 'Motorized Infantry V', type: 'infantry', attack: 8, defense: 10, hp: 18, speed: 8, range: 1 },
+                  6: { id: 'eu_motorized_6', name: 'Motorized Infantry VI', type: 'infantry', attack: 9, defense: 11, hp: 20, speed: 8, range: 1 }
+              },
+              marines: {
+                  1: { id: 'eu_marines_1', name: 'Marines I', type: 'infantry', attack: 5, defense: 5, hp: 10, speed: 3, range: 1 },
+                  2: { id: 'eu_marines_2', name: 'Marines II', type: 'infantry', attack: 6, defense: 6, hp: 12, speed: 3, range: 1 },
+                  3: { id: 'eu_marines_3', name: 'Marines III', type: 'infantry', attack: 7, defense: 7, hp: 14, speed: 4, range: 1 },
+                  4: { id: 'eu_marines_4', name: 'Marines IV', type: 'infantry', attack: 8, defense: 8, hp: 16, speed: 4, range: 1 },
+                  5: { id: 'eu_marines_5', name: 'Marines V', type: 'infantry', attack: 9, defense: 9, hp: 18, speed: 5, range: 1 },
+                  6: { id: 'eu_marines_6', name: 'Marines VI', type: 'infantry', attack: 10, defense: 10, hp: 20, speed: 5, range: 1 }
+              },
+              specialforces: {
+                  1: { id: 'eu_specialforces_1', name: 'Special Forces I', type: 'infantry', attack: 7, defense: 4, hp: 10, speed: 4, range: 1 },
+                  2: { id: 'eu_specialforces_2', name: 'Special Forces II', type: 'infantry', attack: 8, defense: 5, hp: 12, speed: 4, range: 1 },
+                  3: { id: 'eu_specialforces_3', name: 'Special Forces III', type: 'infantry', attack: 9, defense: 6, hp: 14, speed: 5, range: 1 },
+                  4: { id: 'eu_specialforces_4', name: 'Special Forces IV', type: 'infantry', attack: 10, defense: 7, hp: 16, speed: 5, range: 1 },
+                  5: { id: 'eu_specialforces_5', name: 'Special Forces V', type: 'infantry', attack: 11, defense: 8, hp: 18, speed: 6, range: 1 },
+                  6: { id: 'eu_specialforces_6', name: 'Special Forces VI', type: 'infantry', attack: 12, defense: 9, hp: 20, speed: 6, range: 1 }
+              }
+          },
+          // ...other unit types (armored, support, etc.)
+      }
+  };
+  
+  // --- Wire up the new dropdown logic for attacker and defender ---
+  document.addEventListener('DOMContentLoaded', function() {
+      // ...existing event listeners...
+      // Attacker
+      document.getElementById('attackerUnitType').addEventListener('change', function() {
+          populateUnitsWithLevel('attackerDoctrine', 'attackerUnitType', 'attackerUnit', 'attackerLevel');
+      });
+      document.getElementById('attackerLevel').addEventListener('change', function() {
+          populateUnitsWithLevel('attackerDoctrine', 'attackerUnitType', 'attackerUnit', 'attackerLevel');
+      });
+      // Defender
+      document.getElementById('defenderUnitType').addEventListener('change', function() {
+          populateUnitsWithLevel('defenderDoctrine', 'defenderUnitType', 'defenderUnit', 'defenderLevel');
+      });
+      document.getElementById('defenderLevel').addEventListener('change', function() {
+          populateUnitsWithLevel('defenderDoctrine', 'defenderUnitType', 'defenderUnit', 'defenderLevel');
+      });
+      // Initial population
+      populateUnitsWithLevel('attackerDoctrine', 'attackerUnitType', 'attackerUnit', 'attackerLevel');
+      populateUnitsWithLevel('defenderDoctrine', 'defenderUnitType', 'defenderUnit', 'defenderLevel');
+  });
+  // --- End of expansion and wiring ---
+  
+  // --- Dropdown logic: add level selector for infantry ---
+  function populateUnitsWithLevel(doctrineSelectId, unitTypeSelectId, unitSelectId, levelSelectId) {
+      const doctrineSelect = document.getElementById(doctrineSelectId);
+      const unitTypeSelect = document.getElementById(unitTypeSelectId);
+      const unitSelect = document.getElementById(unitSelectId);
+      const levelSelect = document.getElementById(levelSelectId);
+      
+      // Clear existing options
+      unitSelect.innerHTML = '<option value="">Select Unit</option>';
+      if (levelSelect) levelSelect.innerHTML = '';
+      
+      const selectedDoctrine = doctrineSelect.value.toLowerCase();
+      const selectedUnitType = unitTypeSelect.value.toLowerCase();
+      
+      if (!selectedDoctrine || !selectedUnitType) return;
+      
+      // If infantry, show level selector
+      if (selectedUnitType === 'infantry' && levelSelect) {
+          // Show levels 1-6 (or as many as available)
+          for (let lvl = 1; lvl <= 6; lvl++) {
+              const option = document.createElement('option');
+              option.value = lvl;
+              option.textContent = `Level ${lvl}`;
+              levelSelect.appendChild(option);
+          }
+          levelSelect.style.display = '';
+          // Populate units for selected level
+          levelSelect.addEventListener('change', function() {
+              populateInfantryUnitsByLevel(selectedDoctrine, unitSelect, levelSelect.value);
+          });
+          // Initial population
+          populateInfantryUnitsByLevel(selectedDoctrine, unitSelect, 1);
+      } else {
+          // Hide level selector for non-infantry
+          if (levelSelect) levelSelect.style.display = 'none';
+          // Populate as before
+          const availableUnits = unifiedUnitData[selectedDoctrine]?.[selectedUnitType];
+          if (!availableUnits) return;
+          Object.values(availableUnits).forEach(unit => {
+              const option = document.createElement('option');
+              option.value = unit.id;
+              option.textContent = unit.name;
+              unitSelect.appendChild(option);
+          });
+      }
+  }
+  
+  function populateInfantryUnitsByLevel(doctrine, unitSelect, level) {
+      unitSelect.innerHTML = '<option value="">Select Unit</option>';
+      const infantryTypes = unifiedUnitData[doctrine]?.infantry;
+      if (!infantryTypes) return;
+      Object.keys(infantryTypes).forEach(type => {
+          const unit = infantryTypes[type][level];
+          if (unit) {
+              const option = document.createElement('option');
+              option.value = unit.id;
+              option.textContent = unit.name;
+              unitSelect.appendChild(option);
+          }
+      });
+  }
+  
+  // --- Adjust stat calculation: Level bonus, doctrine, terrain ---
+  // (Assume 10% per level is correct unless specified)
+  // Already handled in Unit.getEffectiveStats, but ensure it uses the new structure
+  // --- Stack logic: limit is 10 ---
+  class Composition {
+      constructor(doctrine) {
+          this.units = []; // { unit: Unit, count: number }
+          this.doctrine = doctrine;
+      }
+      addUnit(unit, count = 1) {
+          this.units.push({ unit, count });
+      }
+      calculateTotalStats(terrain) {
+          const totalStats = { atk: 0, def: 0, speed: 0, hp: 0, sight: 0 };
+          this.units.forEach(({ unit, count }) => {
+              const effectiveStats = unit.getEffectiveStats(terrain);
+              for (const stat in effectiveStats) {
+                  totalStats[stat] += effectiveStats[stat] * count;
+              }
+          });
+          return totalStats;
+      }
+      calculateTotalPower(terrain, isAttacker) {
+          let totalPower = 0;
+          this.units.forEach(({ unit, count }) => {
+              const stats = unit.getEffectiveStats(terrain);
+              if (unit.isRanged && isAttacker) {
+                  totalPower += stats.attack * count;
+              } else {
+                  if (isAttacker) {
+                      totalPower += stats.attack * count;
+                  } else {
+                      totalPower += stats.defense * count;
+                  }
+              }
+          });
+          // Apply overstacking penalty if applicable
+          if (this.isOverstacked()) {
+              totalPower *= 0.7; // 30% reduction
+          }
+          return totalPower;
+      }
+      // Stack limit is 10 for ground units
+      isOverstacked() {
+          const groundUnits = this.units.filter(item =>
+              ['infantry', 'armored', 'support'].includes(item.unit.type)
+          ).reduce((total, item) => total + item.count, 0);
+          const airNavalUnits = this.units.filter(item =>
+              ['fighter', 'heavy', 'naval', 'submarine', 'helicopter', 'air'].includes(item.unit.type)
+          ).reduce((total, item) => total + item.count, 0);
+          return (groundUnits > 10) || (airNavalUnits > 10);
+      }
+  }
+  // --- End of refactor ---
+  
   // Composition Class
   class Composition {
     constructor(doctrine) {

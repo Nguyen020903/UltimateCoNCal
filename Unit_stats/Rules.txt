@@ -54,7 +54,7 @@ European - balanced approach with territorial focus
 
 stack mechanics:
 - Units can be stacked in the same province
-- Stack limit of 5 units per stack
+- Stack limit of 10 units per stack
 - Overstacking penalty applies when units exceed stack limit
 - Stack composition should consider complementary units (anti-air with ground forces)
 
